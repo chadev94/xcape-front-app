@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/webstorm,react,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=webstorm,react,visualstudiocode
 
+build
+.firebase
+
 ### react ###
 .DS_*
 *.log
