@@ -78,7 +78,7 @@ interface ITheme {
     isCrimeScene: Boolean;
     useYN: string;
     reservationDtos: string;
-    ablity: IAbility[];
+    abilityList: IAbility[];
 }
 
 interface IAbility {
@@ -86,6 +86,7 @@ interface IAbility {
     key: string;
     name: string;
     type: string;
+    value: number;
 }
 
 interface IReservationFormData {
@@ -97,33 +98,18 @@ interface IReservationFormData {
 
 // xcape 상단 지점 리스트 가져오기
 export function fetchMerchantList() {
-    return fetch(`${BASE_URL + "/merchants"}`).then((response) =>
-        response.json()
-    );
+    return fetch(`${BASE_URL + "/merchants"}`).then((response) => response.json());
 }
 
 export function fetchMerchantThemeList(merchantId: number) {
-    return fetch(`${BASE_URL + "/merchants/" + merchantId}`).then((response) =>
-        response.json()
-    );
+    return fetch(`${BASE_URL + "/merchants/" + merchantId}`).then((response) => response.json());
 }
 
 export function fetchReservation(merchantId: number, date: string) {
-    return fetch(
-        `${
-            BASE_URL +
-            "/merchants/" +
-            merchantId +
-            "/reservations?date=" +
-            "2023-02-08"
-        }`
-    ).then((response) => response.json());
+    return fetch(`${BASE_URL + "/merchants/" + merchantId + "/reservations?date=" + "2023-02-08"}`).then((response) => response.json());
 }
 
-export function fetchReservationPut(
-    id: number,
-    formData: IReservationFormData
-) {
+export function fetchReservationPut(id: number, formData: IReservationFormData) {
     const url = `${BASE_URL}/reservations/${id}?reservedBy=${formData.reservedBy}&phoneNumber=${formData.phoneNumber}&participantCount=${formData.participantCount}&roomType=general`;
 
     return fetch(url, {

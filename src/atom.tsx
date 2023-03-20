@@ -8,7 +8,7 @@ export const isMainAtom = atom({
 
 export const merchantsIndex = atom({
     key: "merchants",
-    default: 1,
+    default: 2,
 });
 
 export const reservationDetail = atom({
