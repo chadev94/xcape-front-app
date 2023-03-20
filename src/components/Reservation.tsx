@@ -76,15 +76,9 @@ interface ColourOption {
 function Reservation() {
     const navigate = useNavigate();
     const [date, setDate] = useState<Date>(new Date());
-    const [curDate, setCurDate] = useState<string>(
-        new Date().toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-")
-    );
+    const [curDate, setCurDate] = useState<string>(new Date().toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-"));
     const merchantIndex = useRecoilValue(merchantsIndex);
-    const { data, isLoading } = useQuery<IReservation>(
-        ["allData", "reservation"],
-        () => fetchReservation(merchantIndex, curDate),
-        { refetchOnWindowFocus: false }
-    );
+    const { data, isLoading } = useQuery<IReservation>(["allData", "reservation"], () => fetchReservation(merchantIndex, curDate), { refetchOnWindowFocus: false });
     const [isReserveMenu, setisReserveMenu] = useState(true);
     const [reservationFormData, setReservationFormData] = useState<IFormData>();
     const [selectTime, setSelectTime] = useState<String>("");
@@ -101,15 +95,7 @@ function Reservation() {
         // TODO: 날짜 검증 기능 추가
     };
 
-    const onTimeClicked = (
-        themeId: number,
-        themeNameKo: string,
-        isPossible: Boolean,
-        time: number,
-        realTime: string,
-        minParticipant: number,
-        maxParticipant: number
-    ) => {
+    const onTimeClicked = (themeId: number, themeNameKo: string, isPossible: Boolean, time: number, realTime: string, minParticipant: number, maxParticipant: number) => {
         const formData = {
             themeId,
             themeNameKo,
@@ -129,23 +115,13 @@ function Reservation() {
             {!onDetailMatch ? (
                 <>
                     <ReservationMenuBar>
-                        <ReservationMenu
-                            onClick={() => toggleReserve(true)}
-                            fontColor={isReserveMenu ? "#FFFFFF" : "#6A6A6A"}
-                        >
+                        <ReservationMenu onClick={() => toggleReserve(true)} fontColor={isReserveMenu ? "#FFFFFF" : "#6A6A6A"}>
                             예약하기
-                            {isReserveMenu ? (
-                                <Underline layoutId="underline" />
-                            ) : null}
+                            {isReserveMenu ? <Underline layoutId="underline" /> : null}
                         </ReservationMenu>
-                        <ReservationMenu
-                            onClick={() => toggleReserve(false)}
-                            fontColor={isReserveMenu ? "#6A6A6A" : "#FFFFFF"}
-                        >
+                        <ReservationMenu onClick={() => toggleReserve(false)} fontColor={isReserveMenu ? "#6A6A6A" : "#FFFFFF"}>
                             예약확인 및 취소
-                            {isReserveMenu ? null : (
-                                <Underline layoutId="underline" />
-                            )}
+                            {isReserveMenu ? null : <Underline layoutId="underline" />}
                         </ReservationMenu>
                     </ReservationMenuBar>
                     <BgImage>
@@ -161,10 +137,7 @@ function Reservation() {
                                         wrapperClassName="date_picker full-width"
                                         selected={date}
                                         onChange={(selectDate: Date) => {
-                                            const newDate = new Date(selectDate)
-                                                .toLocaleDateString()
-                                                .replace(/\./g, "")
-                                                .replace(/\s/g, "-");
+                                            const newDate = new Date(selectDate).toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-");
                                             setDate(selectDate);
                                             setCurDate(newDate);
                                         }}
@@ -174,13 +147,8 @@ function Reservation() {
                                 </DateForm>
                                 <Possible>
                                     {/* TODO: 앞에 동그라미 추가 */}
-                                    <Available color={"#6BE77D"}>
-                                        ⦁예약가능
-                                    </Available>
-                                    <Available
-                                        color={"#4D4D4D"}
-                                        marginRight={"8px"}
-                                    >
+                                    <Available color={"#6BE77D"}>⦁예약가능</Available>
+                                    <Available color={"#4D4D4D"} marginRight={"8px"}>
                                         ⦁예약완료
                                     </Available>
                                 </Possible>
@@ -190,79 +158,41 @@ function Reservation() {
                                         <>
                                             <Theme>
                                                 <ThemeTitle>
-                                                    <TitleKr>
-                                                        {theme.themeNameKo}
-                                                    </TitleKr>
-                                                    <TitleEn>
-                                                        {theme.themeNameEn}
-                                                    </TitleEn>
+                                                    <TitleKr>{theme.themeNameKo}</TitleKr>
+                                                    <TitleEn>{theme.themeNameEn}</TitleEn>
                                                 </ThemeTitle>
                                                 <Condition>
-                                                    <Difficulty>
-                                                        난이도
-                                                    </Difficulty>
-                                                    <Star>
-                                                        {drawFigure(
-                                                            theme.difficulty
-                                                        )}
-                                                    </Star>
+                                                    <Difficulty>난이도</Difficulty>
+                                                    <Star>{drawFigure(theme.difficulty)}</Star>
                                                     <Personnel>{`인원 ${theme.minParticipant}~${theme.maxParticipant}명`}</Personnel>
                                                 </Condition>
                                                 <ThemeImgWrapper>
-                                                    <ThemeImg
-                                                        src={
-                                                            theme.mainImagePath
-                                                        }
-                                                    />
+                                                    <ThemeImg src={theme.mainImagePath} />
                                                 </ThemeImgWrapper>
                                                 <Timetable>
-                                                    {theme.reservationInfos.map(
-                                                        (resv, idx) => (
-                                                            <div>
-                                                                <TimeWrapper
-                                                                    key={
-                                                                        resv.id
-                                                                    }
-                                                                    marginLeft={
-                                                                        idx %
-                                                                            3 ==
-                                                                        0
-                                                                            ? true
-                                                                            : false
-                                                                    }
-                                                                    isReserve={
-                                                                        resv.isReserved
-                                                                    }
-                                                                    onClick={() =>
-                                                                        onTimeClicked(
-                                                                            theme.themeId,
-                                                                            theme.themeNameKo,
-                                                                            resv.isReserved,
-                                                                            resv.id,
-                                                                            resv.time.slice(
-                                                                                0,
-                                                                                5
-                                                                            ),
-                                                                            theme.minParticipant,
-                                                                            theme.maxParticipant
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <Time>
-                                                                        {resv.time.slice(
-                                                                            0,
-                                                                            5
-                                                                        )}
-                                                                    </Time>
-                                                                    <ReservationCheck>
-                                                                        {resv.isReserved
-                                                                            ? "예약완료"
-                                                                            : "예약가능"}
-                                                                    </ReservationCheck>
-                                                                </TimeWrapper>
-                                                            </div>
-                                                        )
-                                                    )}
+                                                    {theme.reservationInfos.map((resv, idx) => (
+                                                        <div>
+                                                            <TimeWrapper
+                                                                key={resv.id}
+                                                                marginLeft={idx % 3 == 0 ? true : false}
+                                                                isReserve={resv.isReserved}
+                                                                onClick={() =>
+                                                                    onTimeClicked(
+                                                                        theme.themeId,
+                                                                        theme.themeNameKo,
+                                                                        resv.isReserved,
+                                                                        resv.id,
+                                                                        resv.time.slice(0, 5),
+                                                                        theme.minParticipant,
+                                                                        theme.maxParticipant
+                                                                    )
+                                                                }
+                                                            >
+                                                                <Time>{resv.time.slice(0, 5)}</Time>
+                                                                <ReservationCheck>{resv.isReserved ? "예약완료" : "예약가능"}</ReservationCheck>
+                                                            </TimeWrapper>
+                                                        </div>
+                                                    ))}
                                                 </Timetable>
                                             </Theme>
                                         </>
@@ -282,19 +212,11 @@ function Reservation() {
                                         <Input />
                                     </InputForm>
                                 </Confirm>
-                                <Button onClick={reservationConfirm}>
-                                    예약확인
-                                </Button>
+                                <Button onClick={reservationConfirm}>예약확인</Button>
                             </ReservationWrapper>
                         )}
                     </BgImage>
-                    <AnimatePresence>
-                        {onReserveMatch && (
-                            <ReservationModal
-                                reservationFormData={reservationFormData}
-                            />
-                        )}
-                    </AnimatePresence>
+                    <AnimatePresence>{onReserveMatch && <ReservationModal reservationFormData={reservationFormData} />}</AnimatePresence>
                 </>
             ) : (
                 <Detail reservationFormData={reservationFormData} />

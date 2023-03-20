@@ -1,8 +1,8 @@
 export const formatNumber = (number) => {
     return number < 10 ? `0${number}` : number;
-}
+};
 
-export function formatTimeString(time) {
+export const formatTimeString = (time) => {
     let msecs = time % 1000;
 
     if (msecs < 10) {
@@ -17,7 +17,19 @@ export function formatTimeString(time) {
     seconds = seconds - minutes * 60;
     // minutes = minutes - hours * 60;
 
+    return `${minutes < 10 ? 0 : ""}${minutes} : ${seconds < 10 ? 0 : ""}${seconds} : ${msecs}`;
+};
 
-    return `${minutes < 10 ? 0 : ''}${minutes} : ${
-        seconds < 10 ? 0 : ''}${seconds} : ${msecs}`;
-}
+export const displayStars = (starCount) => {
+    let stars = "";
+
+    for (let i = 0; i < starCount; i++) {
+        stars += "<BsStarFill />";
+    }
+
+    for (let i = 0; i < 5 - starCount; i++) {
+        stars += "<BeStar />";
+    }
+
+    return stars;
+};
