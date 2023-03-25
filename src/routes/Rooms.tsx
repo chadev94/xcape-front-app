@@ -4,10 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { useRecoilValue } from "recoil";
 import { fetchMerchantThemeList, IMerchant } from "../api";
 import { merchantsIndex } from "../atom";
-import { Ability, Circle, Container, Content, Title, Cover, Genre, Image, Level, Participant, Room, Row } from "../components/styled/roomsStyled";
-import { ReactComponent as starImg } from "../assets/icon/star.svg";
 import Icon from "../assets/icon/index";
-// import { BsStar, BsStarFill } from "react-icons/all";
 
 function Rooms() {
     const merchantIndex = useRecoilValue(merchantsIndex);
@@ -35,42 +32,44 @@ function Rooms() {
             {data?.result?.themeList.map((cur, index) => (
                 <div key={index} className="border border-[#686868] rounded-sm p-2 md:p-3 my-3 xl:w-2/3 m-auto">
                     <div className="flex">
-                        <img src={cur.mainImagePath} alt="mainImage" className="w-44 h-44 lg:w-52 lg:h-52 aspect-[3/4]" />
-                        <div className="ml-2 sm:ml-3 w-full">
-                            <div className="mb-1 md:mb-3 text-md md:text-3xl text-white">{cur.nameKo}</div>
-                            <div className="mb-1 py-1 sm:mb-2 sm:py-2">
-                                <span style={{ backgroundColor: cur.colorCode }} className="p-1 text-sm md:p-2 text-white">
+                        <div className="h-full w-32">
+                            <img src={cur.mainImagePath} alt="mainImage" className="w-full h-full" />
+                        </div>
+                        <div className="ml-2 sm:ml-3 w-full flex flex-col justify-between">
+                            <div className="text-md xs:text-xl md:text-3xl text-white">{cur.nameKo}</div>
+                            <div className="py-1 sm:py-2">
+                                <span style={{ backgroundColor: cur.colorCode }} className="p-1 text-sm xs:text-lg md:p-2 text-white">
                                     {cur.genre}
                                 </span>
                             </div>
-                            <div className="flex justify-between text-white mb-1 md:mb-2 items-center">
+                            <div className="flex justify-between text-white items-center">
                                 <div className="flex">
                                     {starArray(cur.difficulty).map((star) => {
                                         if (star) {
-                                            return <Icon.Star style={{ color: cur.colorCode }} className="h-4 w-4 md:h-8 md:w-8" />;
+                                            return <Icon.Star style={{ color: cur.colorCode }} className="h-6 w-6 xs:h-10 xs:w-10" />;
                                         }
-                                        return <Icon.Star className="text-zinc-600 h-4 w-4 md:h-8 md:w-8" />;
+                                        return <Icon.Star className="text-zinc-600 h-6 w-6 xs:h-10 xs:w-10" />;
                                     })}
                                 </div>
                                 <div>
-                                    <span className="text-sm md:text-md text-zinc-300/80">인원 </span>
-                                    <span>
+                                    <span className="text-sm xs:text-2xl md:text-lg text-zinc-300/80">인원 </span>
+                                    <span className="text-sm xs:text-2xl md:text-lg">
                                         {cur.minParticipantCount} - {cur.maxParticipantCount}
                                     </span>
-                                    <span className="text-sm md:text-md text-zinc-300/80">명</span>
+                                    <span className="text-lg xs:text-2xl md:text-lg text-zinc-300/80">명</span>
                                 </div>
                             </div>
-                            <div style={{ backgroundColor: cur.colorCode }} className="grid grid-cols-1 sm:grid-cols-2 text-white p-1 lg:p-2 whitespace-nowrap m-0">
+                            <div style={{ backgroundColor: cur.colorCode }} className="grid grid-cols-1 xs:grid-cols-2 text-white p-1 lg:p-2 m-0">
                                 {cur.abilityList.map((ability) => {
                                     return (
-                                        <div className="text-xs sm:text-md lg:text-lg lg:text-xl flex" key={ability.codeId}>
+                                        <div className="text-md xs:text-md lg:text-lg lg:text-xl flex" key={ability.codeId}>
                                             <div>{ability.name}</div>
-                                            <div className="flex items-center justify-between">
+                                            <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-2">
                                                 {starArray(ability.value).map((item) => {
                                                     if (item) {
-                                                        return <div className="h-3 w-3 ml-2 md:ml-2 bg-white rounded-full"></div>;
+                                                        return <div className="h-4 w-4 sm:h-3 sm:w-3  bg-white rounded-full"></div>;
                                                     }
-                                                    return <div className="h-3 w-3 ml-2 md:ml-2 bg-black rounded-full"></div>;
+                                                    return <div className="h-4 w-4 sm:h-3 sm:w-3 bg-black rounded-full"></div>;
                                                 })}
                                             </div>
                                         </div>

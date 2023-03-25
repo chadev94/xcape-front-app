@@ -106,7 +106,7 @@ export function fetchMerchantThemeList(merchantId: number) {
 }
 
 export function fetchReservation(merchantId: number, date: string) {
-    return fetch(`${BASE_URL + "/merchants/" + merchantId + "/reservations?date=" + "2023-02-08"}`).then((response) => response.json());
+    return fetch(`${BASE_URL}/reservations?merchantId=${merchantId}&date=2023-03-19`).then((response) => response.json());
 }
 
 export function fetchReservationPut(id: number, formData: IReservationFormData) {
