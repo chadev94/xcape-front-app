@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const navArr = [
     { merchantName: "건대점", merchantLink: "/ku" },
     { merchantName: "건대2호점", merchantLink: "/ku2" },
-    { merchantName: "강남점", merchantLink: "/gangnam" },
-    { merchantName: "수원점", merchantLink: "/suwon" },
-    { merchantName: "홍대점", merchantLink: "/hongdae" },
+    { merchantName: "강남점", merchantLink: "/gn" },
+    { merchantName: "수원점", merchantLink: "/sw" },
+    { merchantName: "홍대점", merchantLink: "/hd" },
 ];
 
 function Nav() {

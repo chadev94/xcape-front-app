@@ -10,6 +10,7 @@ import Rooms from "./routes/Rooms";
 import Reserve from "./components/Reserve";
 import Detail from "./components/Detail";
 import Information from "./components/Information";
+import ThemeDetail from "./components/ThemeDetail";
 
 //router
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "rooms",
                 element: <Rooms />,
+            },
+            {
+                path: "theme-detail",
+                element: <ThemeDetail />,
             },
             {
                 path: "reservation",

@@ -1,6 +1,10 @@
 import { Outlet, useMatch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Header from "../components/Header";
+import { useSetRecoilState } from "recoil";
+import { allData } from "../atom";
+import { fetchMerchantListWithThemeList } from "../api";
+import { useEffect } from "react";
 
 const GlobalStyle = createGlobalStyle<{ isPortrait: boolean }>`
   html, body, div, span, applet, object, iframe,
@@ -71,18 +75,25 @@ const GlobalStyle = createGlobalStyle<{ isPortrait: boolean }>`
 `;
 
 function Merchant() {
-	const isMainUrl = useMatch("/:merchant");
+    const isMainUrl = useMatch("/:merchant");
 
-	return (
-		<>
-			{/* <GlobalStyle isPortrait /> */}
-			<div className="sm:w-3/5 mx-auto">
-				<Header />
-				{/* {isMainUrl ? <div style={{ color: "red" }}>test</div> : null} */}
-				<Outlet />
-			</div>
-		</>
-	);
+    const setData = useSetRecoilState(allData);
+    useEffect(() => {
+        fetchMerchantListWithThemeList().then((res) => {
+            setData(res);
+        });
+    }, []);
+
+    return (
+        <>
+            {/* <GlobalStyle isPortrait /> */}
+            <div className="sm:w-3/5 mx-auto">
+                <Header />
+                {/* {isMainUrl ? <div style={{ color: "red" }}>test</div> : null} */}
+                <Outlet />
+            </div>
+        </>
+    );
 }
 
 export default Merchant;

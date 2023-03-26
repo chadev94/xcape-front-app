@@ -56,7 +56,8 @@ interface ITimeTable {
     merchantId: number;
 }
 
-interface ITheme {
+export interface ITheme {
+    id: number;
     merchantId: number;
     nameKo: string;
     nameEn: string;
@@ -78,7 +79,7 @@ interface ITheme {
     hasXKit: Boolean;
     isCrimeScene: Boolean;
     useYN: string;
-    reservationDtos: string;
+    reservationList: string;
     abilityList: IAbility[];
 }
 
@@ -98,7 +99,7 @@ interface IReservationFormData {
 }
 
 // xcape 상단 지점 리스트 가져오기
-export function fetchMerchantList() {
+export function fetchMerchantListWithThemeList() {
     return fetch(`${BASE_URL + "/merchants"}`).then((response) => response.json());
 }
 

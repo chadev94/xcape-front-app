@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import { useRecoilValue } from "recoil";
-import { fetchMerchantThemeList, IMerchant } from "../api";
-import { merchantsIndex } from "../atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { IMerchant, IMerchants, ITheme } from "../api";
+import { allData, merchant, merchantsIndex, theme } from "../atom";
 import Icon from "../assets/icon/index";
+import { useNavigate } from "react-router-dom";
 
 function Rooms() {
     const merchantIndex = useRecoilValue(merchantsIndex);
@@ -12,9 +13,22 @@ function Rooms() {
     const merchants = useRecoilValue(merchantsIndex);
     const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
 
+    const navigate = useNavigate();
+    const data = useRecoilValue(allData);
+    const merchantList: IMerchants[] = data.result;
+    const merchantsId = useRecoilValue(merchantsIndex);
+    const currentMerchant = merchantList.find((merchant) => merchant.id === merchantsId);
+    // @ts-ignore
+    // TODO 사용법 알아놓기
+    const setTheme = useSetRecoilState<any>(theme);
+    
     useEffect(() => {}, [isPortrait]);
 
-    const starArray = (number: number): boolean[] => {
+    const findThemeById = (id: number) => {
+        return currentMerchant?.themeList.find((theme) => theme.id === id);
+    };
+
+    const makeBooleanArray = (number: number): boolean[] => {
         const array: boolean[] = [];
         for (let i = 0; i < number; i++) {
             array[i] = true;
@@ -24,10 +38,19 @@ function Rooms() {
         }
         return array;
     };
+
     return (
         <div>
-            {data?.result?.themeList.map((cur, index) => (
-                <div key={index} className="border border-[#686868] rounded-sm p-2 md:p-3 my-3 xl:w-2/3 m-auto">
+            {currentMerchant?.themeList.map((cur, index) => (
+                <div
+                    key={index}
+                    className="border border-[#686868] rounded-sm p-2 md:p-3 my-3 xl:w-2/3 m-auto cursor-pointer"
+                    onClick={() => {
+                        const theme = findThemeById(cur.id);
+                        setTheme(theme);
+                        navigate("/ku/theme-detail");
+                    }}
+                >
                     <div className="flex">
                         <div className="h-[190px] w-[190px]">
                             <img src={cur.mainImagePath} alt="mainImage" className="h-[190px] w-[190px]" />
@@ -41,7 +64,7 @@ function Rooms() {
                             </div>
                             <div className="flex justify-between text-white items-center">
                                 <div className="flex">
-                                    {starArray(cur.difficulty).map((star) => {
+                                    {makeBooleanArray(cur.difficulty).map((star) => {
                                         if (star) {
                                             return <Icon.Star style={{ color: cur.colorCode }} className="h-6 w-6 xs:h-10 xs:w-10" />;
                                         }
@@ -62,7 +85,7 @@ function Rooms() {
                                         <div className="text-md xs:text-md lg:text-lg lg:text-xl flex" key={ability.codeId}>
                                             <div>{ability.name}</div>
                                             <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-2">
-                                                {starArray(ability.value).map((item) => {
+                                                {makeBooleanArray(ability.value).map((item) => {
                                                     if (item) {
                                                         return <div className="h-4 w-4 sm:h-3 sm:w-3  bg-white rounded-full"></div>;
                                                     }
