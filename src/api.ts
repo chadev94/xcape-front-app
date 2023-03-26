@@ -1,6 +1,6 @@
 //백엔드 주소
-// const BASE_URL = "http://xcape-api.ap-northeast-1.elasticbeanstalk.com";
-const BASE_URL = "http://localhost:8900";
+const BASE_URL = "http://xcape-api.ap-northeast-1.elasticbeanstalk.com";
+// const BASE_URL = "http://localhost:8900";
 //http://xcape-api.ap-northeast-1.elasticbeanstalk.com/merchants/1/reservations?date=2023-02-13
 
 //http://xcape-api.ap-northeast-1.elasticbeanstalk.com/merchants/1/reservations?date=2023-02-08
@@ -65,10 +65,6 @@ export interface ITheme {
     bgImagePath: string;
     timetable: string;
     description: string;
-    reasoning: number;
-    observation: number;
-    activity: number;
-    teamwork: number;
     minParticipantCount: number;
     maxParticipantCount: number;
     difficulty: number;
@@ -76,8 +72,8 @@ export interface ITheme {
     point: string;
     youtubeLink: string;
     colorCode: string;
-    hasXKit: Boolean;
-    isCrimeScene: Boolean;
+    hasXKit: boolean;
+    isCrimeScene: boolean;
     useYN: string;
     reservationList: string;
     abilityList: IAbility[];

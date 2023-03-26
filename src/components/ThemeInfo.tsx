@@ -1,5 +1,5 @@
 import { ThemeType } from "./Information";
-import { formatNumber } from "../util/util.js";
+import { formatNumber } from "../util/util";
 
 type ThemeProps = {
     theme: ThemeType;

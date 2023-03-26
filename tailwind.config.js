@@ -11,9 +11,6 @@ module.exports = {
                 400: "430px",
                 "190px": "190px",
             },
-            backgroundImage: {
-                logo: "url('http://www.xcape.co.kr/m/img/logo.png')",
-            },
             colors: {
                 primary: "#4c3d35",
                 sub: "#9C8871",

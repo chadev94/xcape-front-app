@@ -5,7 +5,7 @@ import { isMainAtom, merchantsIndex } from "../atom";
 import MainMenu from "./MainMenu";
 import Nav from "./Nav";
 import BusinessIcon from "./BusinessIcon";
-import { formatTimeString } from "../util/util.js";
+import { formatTimeString } from "../util/util";
 import timerImage from "../assets/images/timer_bg.jpeg";
 
 function Header() {

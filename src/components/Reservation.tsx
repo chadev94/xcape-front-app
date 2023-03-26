@@ -2,51 +2,35 @@ import { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { drawFigure } from "../util";
-import reservation_themeImg from "../assets/images/reservation_themeImg.jpeg";
 import {
     Available,
     BgImage,
     Button,
-    Condition,
     Confirm,
     DateEn,
     DateForm,
     DateKr,
-    Difficulty,
     EngPhone,
     Input,
     InputForm,
     KrPhone,
-    Personnel,
     Phone,
     Possible,
-    ReservationCheck,
     ReservationMenu,
     ReservationMenuBar,
     ReservationWrapper,
-    Star,
     SubTitle,
-    Theme,
-    ThemeImg,
-    ThemeImgWrapper,
     ThemeList,
-    ThemeTitle,
-    Time,
-    Timetable,
-    TimeWrapper,
     Title,
-    TitleEn,
-    TitleKr,
     Underline,
 } from "./styled/reservationStyled";
 import { useMatch, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
-import { fetchReservation, IReservation } from "../api";
+import { IMerchants } from "../api";
 import { useRecoilValue } from "recoil";
-import { merchantsIndex } from "../atom";
+import { allData, merchantsIndex } from "../atom";
 import ReservationModal from "./ReservationModal";
+import { makeBooleanArray } from "../util/util";
 import Detail from "./Detail";
 
 const DatePickerWrapperStyles = createGlobalStyle` 
@@ -65,27 +49,22 @@ export interface IFormData {
     maxParticipant: number;
 }
 
-interface ColourOption {
-    readonly value: string;
-    readonly label: string;
-    readonly color: string;
-    readonly isFixed?: boolean;
-    readonly isDisabled?: boolean;
-}
-
 function Reservation() {
     const navigate = useNavigate();
     const [date, setDate] = useState<Date>(new Date());
     const [curDate, setCurDate] = useState<string>(new Date().toLocaleDateString().replace(/\./g, "").replace(/\s/g, "-"));
     const merchantIndex = useRecoilValue(merchantsIndex);
-    const { data, isLoading } = useQuery<IReservation>(["allData", "reservation"], () => fetchReservation(merchantIndex, curDate), { refetchOnWindowFocus: false });
+    // const { data, isLoading } = useQuery<IReservation>(["allData", "reservation"], () => fetchReservation(merchantIndex, curDate), { refetchOnWindowFocus: false });
     const [isReserveMenu, setisReserveMenu] = useState(true);
     const [reservationFormData, setReservationFormData] = useState<IFormData>();
     const [selectTime, setSelectTime] = useState<String>("");
     const onReserveMatch = useMatch("/:merchant/reservation/:time");
     const onDetailMatch = useMatch("/:merchant/reservation/detail/:time");
 
-    console.log(data?.result);
+    const data = useRecoilValue(allData);
+    const merchantList: IMerchants[] = data.result;
+    const merchantsId = useRecoilValue(merchantsIndex);
+    const currentMerchant = merchantList.find((merchant) => merchant.id === merchantsId);
 
     const toggleReserve = (action: boolean) => {
         setisReserveMenu(action);
@@ -153,50 +132,66 @@ function Reservation() {
                                     </Available>
                                 </Possible>
                                 <ThemeList>
+                                    {currentMerchant?.themeList.map((theme) => {
+                                        return (
+                                            <div className="flex">
+                                                <div>
+                                                    <span>{theme.nameKo}</span>
+                                                    <span>{theme.nameEn}</span>
+                                                </div>
+                                                <div>
+                                                    <span>난이도 {theme.difficulty}</span>
+                                                    <span>
+                                                        인원 {theme.minParticipantCount}-${theme.maxParticipantCount}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
                                     {/* TODO: 테마 예약 리스트 렌더 */}
-                                    {data?.result.map((theme) => (
-                                        <>
-                                            <Theme>
-                                                <ThemeTitle>
-                                                    <TitleKr>{theme.themeNameKo}</TitleKr>
-                                                    <TitleEn>{theme.themeNameEn}</TitleEn>
-                                                </ThemeTitle>
-                                                <Condition>
-                                                    <Difficulty>난이도</Difficulty>
-                                                    <Star>{drawFigure(theme.difficulty)}</Star>
-                                                    <Personnel>{`인원 ${theme.minParticipant}~${theme.maxParticipant}명`}</Personnel>
-                                                </Condition>
-                                                <ThemeImgWrapper>
-                                                    <ThemeImg src={theme.mainImagePath} />
-                                                </ThemeImgWrapper>
-                                                <Timetable>
-                                                    {theme.reservationInfos.map((resv, idx) => (
-                                                        <div>
-                                                            <TimeWrapper
-                                                                key={resv.id}
-                                                                marginLeft={idx % 3 == 0 ? true : false}
-                                                                isReserve={resv.isReserved}
-                                                                onClick={() =>
-                                                                    onTimeClicked(
-                                                                        theme.themeId,
-                                                                        theme.themeNameKo,
-                                                                        resv.isReserved,
-                                                                        resv.id,
-                                                                        resv.time.slice(0, 5),
-                                                                        theme.minParticipant,
-                                                                        theme.maxParticipant
-                                                                    )
-                                                                }
-                                                            >
-                                                                <Time>{resv.time.slice(0, 5)}</Time>
-                                                                <ReservationCheck>{resv.isReserved ? "예약완료" : "예약가능"}</ReservationCheck>
-                                                            </TimeWrapper>
-                                                        </div>
-                                                    ))}
-                                                </Timetable>
-                                            </Theme>
-                                        </>
-                                    ))}
+                                    {/*{data?.result.map((theme) => (*/}
+                                    {/*    <>*/}
+                                    {/*        <Theme>*/}
+                                    {/*            <ThemeTitle>*/}
+                                    {/*                <TitleKr>{theme.themeNameKo}</TitleKr>*/}
+                                    {/*                <TitleEn>{theme.themeNameEn}</TitleEn>*/}
+                                    {/*            </ThemeTitle>*/}
+                                    {/*            <Condition>*/}
+                                    {/*                <Difficulty>난이도</Difficulty>*/}
+                                    {/*                <Star>{drawFigure(theme.difficulty)}</Star>*/}
+                                    {/*                <Personnel>{`인원 ${theme.minParticipant}~${theme.maxParticipant}명`}</Personnel>*/}
+                                    {/*            </Condition>*/}
+                                    {/*            <ThemeImgWrapper>*/}
+                                    {/*                <ThemeImg src={theme.mainImagePath} />*/}
+                                    {/*            </ThemeImgWrapper>*/}
+                                    {/*            <Timetable>*/}
+                                    {/*                {theme.reservationInfos.map((resv, idx) => (*/}
+                                    {/*                    <div>*/}
+                                    {/*                        <TimeWrapper*/}
+                                    {/*                            key={resv.id}*/}
+                                    {/*                            marginLeft={idx % 3 == 0 ? true : false}*/}
+                                    {/*                            isReserve={resv.isReserved}*/}
+                                    {/*                            onClick={() =>*/}
+                                    {/*                                onTimeClicked(*/}
+                                    {/*                                    theme.themeId,*/}
+                                    {/*                                    theme.themeNameKo,*/}
+                                    {/*                                    resv.isReserved,*/}
+                                    {/*                                    resv.id,*/}
+                                    {/*                                    resv.time.slice(0, 5),*/}
+                                    {/*                                    theme.minParticipant,*/}
+                                    {/*                                    theme.maxParticipant*/}
+                                    {/*                                )*/}
+                                    {/*                            }*/}
+                                    {/*                        >*/}
+                                    {/*                            <Time>{resv.time.slice(0, 5)}</Time>*/}
+                                    {/*                            <ReservationCheck>{resv.isReserved ? "예약완료" : "예약가능"}</ReservationCheck>*/}
+                                    {/*                        </TimeWrapper>*/}
+                                    {/*                    </div>*/}
+                                    {/*                ))}*/}
+                                    {/*            </Timetable>*/}
+                                    {/*        </Theme>*/}
+                                    {/*    </>*/}
+                                    {/*))}*/}
                                 </ThemeList>
                             </ReservationWrapper>
                         ) : (
