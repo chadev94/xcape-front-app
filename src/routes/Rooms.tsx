@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 function Rooms() {
     const merchantIndex = useRecoilValue(merchantsIndex);
-    const { data, isLoading } = useQuery<IMerchant>(["allData", "themes"], () => fetchMerchantThemeList(merchantIndex), { staleTime: 5000, cacheTime: Infinity, refetchOnWindowFocus: false });
     const merchants = useRecoilValue(merchantsIndex);
     const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
 
@@ -21,7 +20,7 @@ function Rooms() {
     // @ts-ignore
     // TODO 사용법 알아놓기
     const setTheme = useSetRecoilState<any>(theme);
-    
+
     useEffect(() => {}, [isPortrait]);
 
     const findThemeById = (id: number) => {
