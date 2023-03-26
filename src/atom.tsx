@@ -34,7 +34,7 @@ export const merchant = atom({
     default: {},
 });
 
-export const theme = atom({
+export const theme: any = atom({
     key: "theme",
     default: {
         id: 0,
@@ -43,14 +43,10 @@ export const theme = atom({
         nameEn: "",
         mainImagePath: "",
         bgImagePath: "",
-        timetable: [],
-        description: 0,
-        reasoning: 0,
-        observation: 0,
-        activity: 0,
-        teamwork: 0,
-        minParticipantCount: "",
-        maxParticipantCount: "",
+        timetable: "",
+        description: "",
+        minParticipantCount: 0,
+        maxParticipantCount: 0,
         difficulty: 0,
         genre: "",
         point: "",

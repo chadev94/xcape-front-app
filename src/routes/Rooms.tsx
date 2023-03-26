@@ -1,15 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { IMerchant, IMerchants, ITheme } from "../api";
-import { allData, merchant, merchantsIndex, theme } from "../atom";
+import { IMerchants } from "../api";
+import { allData, merchantsIndex, theme } from "../atom";
 import Icon from "../assets/icon/index";
 import { useNavigate } from "react-router-dom";
+import { makeBooleanArray } from "../util/util";
 
 function Rooms() {
-    const merchantIndex = useRecoilValue(merchantsIndex);
-    const merchants = useRecoilValue(merchantsIndex);
     const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
 
     const navigate = useNavigate();
@@ -25,17 +23,6 @@ function Rooms() {
 
     const findThemeById = (id: number) => {
         return currentMerchant?.themeList.find((theme) => theme.id === id);
-    };
-
-    const makeBooleanArray = (number: number): boolean[] => {
-        const array: boolean[] = [];
-        for (let i = 0; i < number; i++) {
-            array[i] = true;
-        }
-        for (let i = number; i < 5; i++) {
-            array[i] = false;
-        }
-        return array;
     };
 
     return (
@@ -78,11 +65,11 @@ function Rooms() {
                                     <span className="text-sm xs:text-2xl md:text-lg text-zinc-300/80">명</span>
                                 </div>
                             </div>
-                            <div style={{ backgroundColor: cur.colorCode }} className="grid grid-cols-1 xs:grid-cols-2 text-white p-1 lg:p-2 m-0">
+                            <div style={{ backgroundColor: cur.colorCode }} className="grid grid-cols-1 xs:grid-cols-2 p-1 lg:p-2 m-0">
                                 {cur.abilityList.map((ability) => {
                                     return (
                                         <div className="text-md xs:text-md lg:text-lg lg:text-xl flex" key={ability.codeId}>
-                                            <div>{ability.name}</div>
+                                            <div className="text-white">{ability.name}</div>
                                             <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-2">
                                                 {makeBooleanArray(ability.value).map((item) => {
                                                     if (item) {
