@@ -3,8 +3,13 @@ module.exports = {
     content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
         extend: {
+            width: {
+                "150px": "150px",
+                "190px": "190px",
+            },
             height: {
                 400: "430px",
+                "190px": "190px",
             },
             backgroundImage: {
                 logo: "url('http://www.xcape.co.kr/m/img/logo.png')",

@@ -8,17 +8,11 @@ import Icon from "../assets/icon/index";
 import { useNavigate } from "react-router-dom";
 
 function Rooms() {
-<<<<<<< Updated upstream
     const merchantIndex = useRecoilValue(merchantsIndex);
     const { data, isLoading } = useQuery<IMerchant>(["allData", "themes"], () => fetchMerchantThemeList(merchantIndex), { staleTime: 5000, cacheTime: Infinity, refetchOnWindowFocus: false });
-    console.log(data);
     const merchants = useRecoilValue(merchantsIndex);
     const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
 
-    useEffect(() => {
-        console.log(isPortrait);
-    }, [isPortrait]);
-=======
     const navigate = useNavigate();
     const data = useRecoilValue(allData);
     const merchantList: IMerchants[] = data.result;
@@ -27,11 +21,12 @@ function Rooms() {
     // @ts-ignore
     // TODO 사용법 알아놓기
     const setTheme = useSetRecoilState<any>(theme);
+    
+    useEffect(() => {}, [isPortrait]);
 
     const findThemeById = (id: number) => {
         return currentMerchant?.themeList.find((theme) => theme.id === id);
     };
->>>>>>> Stashed changes
 
     const makeBooleanArray = (number: number): boolean[] => {
         const array: boolean[] = [];
@@ -57,8 +52,8 @@ function Rooms() {
                     }}
                 >
                     <div className="flex">
-                        <div className="h-full w-32">
-                            <img src={cur.mainImagePath} alt="mainImage" className="w-full h-full" />
+                        <div className="h-[190px] w-[190px]">
+                            <img src={cur.mainImagePath} alt="mainImage" className="h-[190px] w-[190px]" />
                         </div>
                         <div className="ml-2 sm:ml-3 w-full flex flex-col justify-between">
                             <div className="text-md xs:text-xl md:text-3xl text-white">{cur.nameKo}</div>
@@ -81,7 +76,7 @@ function Rooms() {
                                     <span className="text-sm xs:text-2xl md:text-lg">
                                         {cur.minParticipantCount} - {cur.maxParticipantCount}
                                     </span>
-                                    <span className="text-lg xs:text-2xl md:text-lg text-zinc-300/80">명</span>
+                                    <span className="text-sm xs:text-2xl md:text-lg text-zinc-300/80">명</span>
                                 </div>
                             </div>
                             <div style={{ backgroundColor: cur.colorCode }} className="grid grid-cols-1 xs:grid-cols-2 text-white p-1 lg:p-2 m-0">
