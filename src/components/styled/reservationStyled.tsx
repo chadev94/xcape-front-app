@@ -200,8 +200,9 @@ export const Overlay = styled(motion.div)`
 `;
 export const FormWrapper = styled(motion.div)<{ isPortrait: Boolean }>`
     position: fixed;
-    width: ${(props) => (props.isPortrait ? "85%" : "30%")};
-    height: ${(props) => (props.isPortrait ? "60%" : "70%")};
+    width: ${(props) => (props.isPortrait ? "95%" : "30%")};
+    height: ${(props) => (props.isPortrait ? "80%" : "70%")};
+    overflow: scroll;
     top: 0;
     bottom: 0;
     left: 0;
@@ -209,7 +210,6 @@ export const FormWrapper = styled(motion.div)<{ isPortrait: Boolean }>`
     margin: auto;
     padding: ${(props) => (props.isPortrait ? "10% 3%" : "2% 3%")};
     border-radius: 15px;
-    overflow: hidden;
     background-color: #4a4a4a;
 `;
 export const Form = styled(motion.form)``;
@@ -229,52 +229,74 @@ export const TitleWrapper = styled.div<{
     margin: ${(props) => (props.center ? "auto" : null)};
 `;
 export const FormEnTitle = styled.div`
-    font-size: 0.7em;
+    font-size: 1em;
     text-align: center;
     color: #ffffff;
 `;
 export const FormKrTitle = styled.div`
-    font-size: 0.5em;
+    font-size: 0.8em;
     text-align: center;
     color: #ffffff;
 `;
 export const SelectDate = styled.input`
+    font-size: 1em;
     margin: auto 0;
     width: 50%;
     height: 30%;
     color: #ffffff;
+    background: none;
 `;
 export const SelectTime = styled.input`
+    font-size: 1em;
     margin: auto 0;
     width: 50%;
     height: 30%;
     color: #ffffff;
+    background: none;
 `;
 export const SelectTheme = styled.input`
+    font-size: 1em;
+    margin: auto 0;
     width: 50%;
     height: 30%;
-    background-color: beige;
+    color: #ffffff;
+    background: none;
 `;
 export const UserName = styled.input`
+    font-size: 1em;
+    margin: auto 0;
     width: 50%;
     height: 50%;
-    background-color: aquamarine;
 `;
 export const UserPhone = styled.input`
+    font-size: 1em;
+    margin: auto 0;
     width: 50%;
     height: 30%;
-    background-color: aqua;
+`;
+
+export const Price = styled.input`
+    font-size: 1em;
+    margin: auto 0;
+    width: 50%;
+    height: 30%;
+    color: #ffffff;
+    background: none;
 `;
 export const Person = styled.div`
+    font-size: 1em;
     width: 50%;
     height: 30%;
     background-color: antiquewhite;
 `;
 export const Select = styled.select`
+    font-size: 1em;
+    margin: auto 0;
     width: 30%;
     height: 30%;
 `;
 export const CheckBoxRow = styled.div`
+    font-size: 1em;
     display: flex;
     justify-content: center;
     align-items: center;

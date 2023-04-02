@@ -42,15 +42,19 @@ const router = createBrowserRouter([
                 path: "reservation",
                 element: <Reservation />,
                 children: [
-                    // {
-                    //     path: ":time",
-                    //     element: <Reservation />,
-                    // },
+                    {
+                        path: ":time",
+                        element: <Reservation />,
+                    },
                     // {
                     //     path: "detail/:time",
                     //     element: <Reservation />,
                     // },
                 ],
+            },
+            {
+                path: "reservation-detail/:reservationId",
+                element: <Detail />,
             },
             {
                 path: "review",
