@@ -1,9 +1,5 @@
 //백엔드 주소
-// const BASE_URL = "http://xcape-api.ap-northeast-1.elasticbeanstalk.com";
 const BASE_URL = "https://api.xcape-apps.com";
-//http://xcape-api.ap-northeast-1.elasticbeanstalk.com/merchants/1/reservations?date=2023-02-13
-
-//http://xcape-api.ap-northeast-1.elasticbeanstalk.com/merchants/1/reservations?date=2023-02-08
 
 interface test {
     resultMessage: string;
