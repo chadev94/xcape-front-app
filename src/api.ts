@@ -1,4 +1,10 @@
 //백엔드 주소
+<<<<<<< Updated upstream
+=======
+// const BASE_URL = "http://xcape-api.ap-northeast-1.elasticbeanstalk.com";
+import { response } from "express";
+
+>>>>>>> Stashed changes
 const BASE_URL = "https://api.xcape-apps.com";
 
 interface test {
@@ -93,11 +99,15 @@ interface IReservationFormData {
 
 // xcape 상단 지점 리스트 가져오기
 export function fetchMerchantListWithThemeList() {
-    return fetch(`${BASE_URL + "/merchants"}`).then((response) => response.json());
+    return fetch(`${BASE_URL}/merchants`).then((response) => response.json());
 }
 
 export function fetchMerchantThemeList(merchantId: number) {
-    return fetch(`${BASE_URL + "/merchants/" + merchantId}`).then((response) => response.json());
+    return fetch(`${BASE_URL}/merchants/${merchantId}`).then((response) => response.json());
+}
+
+export function fetchThemeDetail(themeId: number) {
+    return fetch(`${BASE_URL}/themes/${themeId}`).then((response) => response.json());
 }
 
 export function fetchReservation(merchantId: number, date: string) {

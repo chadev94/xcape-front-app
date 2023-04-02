@@ -34,7 +34,7 @@ function Rooms() {
                     onClick={() => {
                         const theme = findThemeById(cur.id);
                         setTheme(theme);
-                        navigate("/ku/theme-detail");
+                        navigate(`/ku/theme-detail/${cur.id}`);
                     }}
                 >
                     <div className="flex">
