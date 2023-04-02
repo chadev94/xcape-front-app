@@ -35,7 +35,7 @@ const router = createBrowserRouter([
                 element: <Rooms />,
             },
             {
-                path: "theme-detail",
+                path: "theme-detail/:themeId",
                 element: <ThemeDetail />,
             },
             {
