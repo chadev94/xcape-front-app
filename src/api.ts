@@ -1,10 +1,5 @@
 //백엔드 주소
-<<<<<<< Updated upstream
-=======
-// const BASE_URL = "http://xcape-api.ap-northeast-1.elasticbeanstalk.com";
 import { response } from "express";
-
->>>>>>> Stashed changes
 const BASE_URL = "https://api.xcape-apps.com";
 
 interface test {
@@ -48,6 +43,16 @@ export interface IReservationTheme {
     difficulty: number;
     reservationList: ITimeTable[];
     // colorCode
+    priceList: IPrice[];
+}
+
+export interface IPrice {
+    id: number;
+    person: number;
+    price: number;
+    themeId: number;
+    type: string;
+    useYn: boolean;
 }
 
 interface ITimeTable {
@@ -97,6 +102,22 @@ interface IReservationFormData {
     roomType: string;
 }
 
+export interface IReservationResponseData {
+    date: string;
+    id: number;
+    isReserved: boolean;
+    merchantId: number;
+    merchantName: string;
+    participantCount: number;
+    phoneNumber: string;
+    price: number;
+    reservedBy: string;
+    roomType: string;
+    themeId: number;
+    themeName: string;
+    time: string;
+}
+
 // xcape 상단 지점 리스트 가져오기
 export function fetchMerchantListWithThemeList() {
     return fetch(`${BASE_URL}/merchants`).then((response) => response.json());
@@ -114,6 +135,10 @@ export function fetchReservation(merchantId: number, date: string) {
     return fetch(`${BASE_URL}/reservations?merchantId=${merchantId}&date=${date}`).then((response) => response.json());
 }
 
+export function fetchReservationDetail(reservationId: number) {
+    return fetch(`${BASE_URL}/reservations/${reservationId}`).then((response) => response.json());
+}
+
 export function fetchReservationPut(id: number, formData: IReservationFormData) {
     const url = `${BASE_URL}/reservations/${id}?reservedBy=${formData.reservedBy}&phoneNumber=${formData.phoneNumber}&participantCount=${formData.participantCount}&roomType=general`;
 
@@ -123,7 +148,5 @@ export function fetchReservationPut(id: number, formData: IReservationFormData) 
         headers: {
             "Content-Type": "application/json",
         },
-    }).then((response) => {
-        response.json();
-    });
+    }).then((response) => response.json());
 }
