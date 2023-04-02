@@ -30,7 +30,7 @@ function Rooms() {
             {currentMerchant?.themeList.map((cur, index) => (
                 <div
                     key={index}
-                    className="border border-[#686868] rounded-sm p-2 md:p-3 my-3 xl:w-2/3 m-auto cursor-pointer"
+                    className="border border-zinc-500 rounded-sm p-2 md:p-3 my-3 xl:w-2/3 m-auto cursor-pointer"
                     onClick={() => {
                         const theme = findThemeById(cur.id);
                         setTheme(theme);
@@ -68,7 +68,7 @@ function Rooms() {
                             <div style={{ backgroundColor: cur.colorCode }} className="grid grid-cols-1 xs:grid-cols-2 p-1 lg:p-2 m-0">
                                 {cur.abilityList.map((ability) => {
                                     return (
-                                        <div className="text-md xs:text-md lg:text-lg lg:text-xl flex" key={ability.codeId}>
+                                        <div key={ability.id} className="text-md xs:text-md lg:text-lg lg:text-xl flex">
                                             <div className="text-white">{ability.name}</div>
                                             <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-2">
                                                 {makeBooleanArray(ability.value).map((item) => {

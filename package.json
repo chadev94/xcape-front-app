@@ -14,6 +14,7 @@
     "@types/react-responsive": "^8.0.5",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
+    "date-fns": "^2.29.3",
     "express": "^4.18.2",
     "framer-motion": "^8.3.4",
     "react": "^18.2.0",

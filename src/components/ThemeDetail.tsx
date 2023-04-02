@@ -54,7 +54,7 @@ function ThemeDetail() {
                 <div className="grid grid-cols-2 p-3 w-full" style={{ backgroundColor: currentTheme.colorCode }}>
                     {currentTheme.abilityList.map((ability) => {
                         return (
-                            <div className="text-md xs:text-md lg:text-lg lg:text-xl flex" key={ability.codeId}>
+                            <div key={ability.id} className="text-md xs:text-md lg:text-lg lg:text-xl flex">
                                 <div className="text-white">{ability.name}</div>
                                 <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-2">
                                     {makeBooleanArray(ability.value).map((item) => {
