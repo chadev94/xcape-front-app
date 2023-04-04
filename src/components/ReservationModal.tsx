@@ -67,7 +67,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     } = useForm<IForm>({ defaultValues: {} });
 
     const onVaild = (inputData: IForm) => {
-        console.log(inputData);
         const formData = {
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
@@ -77,7 +76,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         setDetail(formData);
         if (reservationFormData?.time)
             fetchReservationPut(reservationFormData?.time, formData).then((res) => {
-                console.log(res.result);
                 setReservationResponseData(res.result);
                 navigate(`/ku/reservation-detail/${res.result.id}`);
             });

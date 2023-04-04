@@ -22,7 +22,7 @@ function MainMenu() {
     return (
         <div className="grid grid-cols-3">
             {mainMenuList.map((menu, index) => (
-                <Link to={`./${menu.toLowerCase()}`}>
+                <Link key={index} to={`./${menu.toLowerCase()}`}>
                     <div className="border items-center border-[#4c3d35] text-center h-10 justify-center flex font-semibold text-sm md:text-lg text-[#9C8871]" key={index}>
                         {menu}
                     </div>
