@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { createGlobalStyle } from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
-import { Available, BgImage, Button, Confirm, EngPhone, Input, InputForm, KrPhone, Phone, ReservationWrapper, SubTitle, ThemeList, Title, Underline } from "./styled/reservationStyled";
-import { useMatch, useNavigate } from "react-router-dom";
+import { Button, Confirm, EngPhone, Input, InputForm, KrPhone, Phone, ReservationWrapper, SubTitle, Title } from "./styled/reservationStyled";
 import { AnimatePresence } from "framer-motion";
-import { fetchReservation, IPrice, IReservationTheme } from "../api";
+import { getReservationList, IPrice, IReservationTheme } from "../api";
 import { useRecoilValue } from "recoil";
-import { allData, merchantsIndex } from "../atom";
 import ReservationModal from "./ReservationModal";
 import { makeBooleanArray } from "../util/util";
-import Detail from "./Detail";
 import Icon from "../assets/icon";
 import Loading from "./Loading";
-
-const DatePickerWrapperStyles = createGlobalStyle` 
-    .date_picker.full-width {
-        width: 150px;
-    }
-`;
+import { merchant } from "../atom";
 
 export interface IFormData {
     themeId: number;
@@ -33,18 +24,15 @@ export interface IFormData {
 }
 
 function Reservation() {
-    const navigate = useNavigate();
+    const currentMerchant = useRecoilValue(merchant);
     const [date, setDate] = useState<Date>(new Date());
     const [targetDate, setTargetDate] = useState<Date>(new Date());
-    const merchantIndex = useRecoilValue(merchantsIndex);
     const [loading, setLoading] = useState<boolean>(false);
     const [data, setData] = useState<IReservationTheme[]>([]);
 
     useEffect(() => {
-        console.log(">>> merchantIndex: " + merchantIndex);
         setLoading(false);
-        fetchReservation(merchantIndex, toStringByFormatting(targetDate)).then((res) => {
-            console.log(">>> fetchReservation: " + targetDate);
+        getReservationList(currentMerchant.id, toStringByFormatting(targetDate)).then((res) => {
             setData(res.result);
             setLoading(true);
         });
@@ -84,7 +72,6 @@ function Reservation() {
             maxParticipantCount,
             priceList,
         };
-        console.log(formData);
         setReservationFormData(formData);
         setSelectTime(realTime);
         if (!isPossible) setOpenModal(true);

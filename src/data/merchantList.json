@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "name": "강남-엑스케이프",
+    "address": "서울시 강남구 봉은사로2길 16(역삼동) 지하1층\n서울 강남구 역삼동 809-6  신논현역 5번 출구 10분 거리",
+    "telNumber": "02-555-9366",
+    "businessHour": "10:00,01:00",
+    "parkingYn": false,
+    "ceoName": "조민후",
+    "businessRegistrationNumber": "829-43-00621",
+    "email": "xcapegn@naver.com",
+    "code": "gn",
+    "order": 3
+  },
+  {
+    "id": 2,
+    "name": "건대-엑스케이프",
+    "address": "서울특별시 광진구 화양동 50-2 B1 (동일로 112)\n건대입구역 1번출구/성수역 2번 출구",
+    "telNumber": "02-463-9366",
+    "businessHour": "10:00,24:00",
+    "parkingYn": false,
+    "ceoName": "조민후",
+    "businessRegistrationNumber": "851-70-00056",
+    "email": "xcaperoom@naver.com",
+    "code": "ku",
+    "order": 1
+  },
+  {
+    "id": 3,
+    "name": "건대-엑스크라임",
+    "address": "서울특별시 광진구 아차산로 29길 38(화양동 9-48)\n건대입구 1번 출구 3분 거리",
+    "telNumber": "02-464-8788",
+    "businessHour": "10:00,24:00",
+    "parkingYn": false,
+    "ceoName": "조나연",
+    "businessRegistrationNumber": "350-34-00424",
+    "email": "xcrimeroom@naver.com",
+    "code": "ku2",
+    "order": 2
+  },
+  {
+    "id": 4,
+    "name": "수원-엑스케이프",
+    "address": "경기도 수원시 팔달구 효원로 265번길 40, 4F",
+    "telNumber": "031-234-3350",
+    "businessHour": "10:00,24:00",
+    "parkingYn": false,
+    "ceoName": "류예림",
+    "businessRegistrationNumber": "422-11-00263",
+    "email": "xcaperoom@naver.com",
+    "code": "sw",
+    "order": 4
+  }
+]

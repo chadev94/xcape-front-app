@@ -1,15 +1,49 @@
-import { useMediaQuery } from "react-responsive";
-import { atom, RecoilState, selector } from "recoil";
-import { ITheme } from "./api";
+import { atom, selector } from "recoil";
+import { IMerchant, ITheme } from "./api";
 
-export const isMainAtom = atom({
-    key: "isMain",
-    default: true,
+export const merchant = atom<IMerchant>({
+    key: "merchant",
+    default: {
+        id: 0,
+        name: "",
+        address: "",
+        code: "",
+        email: "",
+        order: 0,
+        parkingYn: false,
+        telNumber: "",
+        businessHour: "",
+        businessRegistrationNumber: "",
+        ceoName: "",
+    },
 });
 
-export const merchantsIndex = atom({
-    key: "merchants",
-    default: 2,
+export const themeList = atom<ITheme[]>({
+    key: "themeList",
+    default: [
+        {
+            id: 0,
+            merchantId: 0,
+            nameKo: "",
+            nameEn: "",
+            mainImagePath: "",
+            bgImagePath: "",
+            timetable: "",
+            description: "",
+            minParticipantCount: 0,
+            maxParticipantCount: 0,
+            difficulty: 0,
+            genre: "",
+            point: "",
+            youtubeLink: "",
+            colorCode: "",
+            hasXKit: false,
+            isCrimeScene: false,
+            useYN: "N",
+            priceList: [],
+            abilityList: [],
+        },
+    ],
 });
 
 export const reservationDetail = atom({
@@ -22,19 +56,7 @@ export const reservationDetail = atom({
     },
 });
 
-export const allData = atom({
-    key: "allData",
-    default: {
-        result: [],
-    },
-});
-
-export const merchant = atom({
-    key: "merchant",
-    default: {},
-});
-
-export const theme: any = atom({
+export const theme = atom<ITheme>({
     key: "theme",
     default: {
         id: 0,
@@ -52,10 +74,10 @@ export const theme: any = atom({
         point: "",
         youtubeLink: "",
         colorCode: "",
-        hasXKit: "N",
-        isCrimeScene: "N",
+        hasXKit: false,
+        isCrimeScene: false,
         useYN: "N",
-        reservationDtoList: [],
+        priceList: [],
         abilityList: [],
     },
 });

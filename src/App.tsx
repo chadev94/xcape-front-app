@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import Nav from "./components/Nav";
 
 function App() {
-    const navigate = useNavigate();
-    useEffect(() => {
-        navigate("/ku");
-    });
-    return <></>;
+    return (
+        <div>
+            <Nav />
+            <div className="text-white text-3xl">Main Page입니다.</div>
+        </div>
+    );
 }
 
 export default App;

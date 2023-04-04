@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { makeBooleanArray } from "../util/util";
 import Icon from "../assets/icon";
-import { fetchThemeDetail, ITheme } from "../api";
+import { getThemeDetail, ITheme } from "../api";
 import { useParams } from "react-router-dom";
 
 function ThemeDetail() {
     const [currentTheme, setCurrentTheme] = useState<ITheme>();
     const book = require("../assets/images/book.png");
-    const { themeId } = useParams() as { themeId: number | undefined };
+    const { themeId } = useParams<{ themeId: string }>();
 
     useEffect(() => {
-        themeId &&
-            fetchThemeDetail(themeId).then((res) => {
-                setCurrentTheme(res.result);
-            });
+        getThemeDetail(Number(themeId)).then((res) => {
+            setCurrentTheme(res.result);
+        });
     }, [themeId]);
 
     return (
