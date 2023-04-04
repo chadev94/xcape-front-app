@@ -1,30 +1,20 @@
 //백엔드 주소
-import { response } from "express";
+import axios from "axios";
+
 const BASE_URL = "https://api.xcape-apps.com";
-
-interface test {
-    resultMessage: string;
-    resultCode: string;
-}
-
-export interface IGetMerchants {
-    result: IMerchants[];
-    resultCode: string;
-    resultMessage: string;
-}
-
-export interface IMerchants {
-    address: string;
-    id: number;
-    name: string;
-    themeList: ITheme[];
-}
 
 export interface IMerchant {
     id: number;
     name: string;
     address: string;
-    result: IMerchants;
+    code: string;
+    email: string;
+    order: number;
+    parkingYn: boolean;
+    telNumber: string;
+    businessHour: string;
+    businessRegistrationNumber: string;
+    ceoName: string;
 }
 
 export interface IReservation {
@@ -83,7 +73,7 @@ export interface ITheme {
     hasXKit: boolean;
     isCrimeScene: boolean;
     useYN: string;
-    reservationList: string;
+    priceList: IPrice[];
     abilityList: IAbility[];
 }
 
@@ -119,20 +109,16 @@ export interface IReservationResponseData {
 }
 
 // xcape 상단 지점 리스트 가져오기
-export function fetchMerchantListWithThemeList() {
-    return fetch(`${BASE_URL}/merchants`).then((response) => response.json());
+export function getMerchantDetail(merchantId: number) {
+    return axios.get(`${BASE_URL}/merchants/${merchantId}`).then((res) => res.data);
 }
 
-export function fetchMerchantThemeList(merchantId: number) {
-    return fetch(`${BASE_URL}/merchants/${merchantId}`).then((response) => response.json());
+export function getThemeDetail(themeId: number) {
+    return axios.get(`${BASE_URL}/themes/${themeId}`).then((res) => res.data);
 }
 
-export function fetchThemeDetail(themeId: number) {
-    return fetch(`${BASE_URL}/themes/${themeId}`).then((response) => response.json());
-}
-
-export function fetchReservation(merchantId: number, date: string) {
-    return fetch(`${BASE_URL}/reservations?merchantId=${merchantId}&date=${date}`).then((response) => response.json());
+export function getReservationList(merchantId: number, date: string) {
+    return axios.get(`${BASE_URL}/reservations?merchantId=${merchantId}&date=${date}`).then((res) => res.data);
 }
 
 export function fetchReservationDetail(reservationId: number) {
