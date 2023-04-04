@@ -1,30 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useMediaQuery } from "react-responsive";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { fetchReservationPut, IPrice, IReservationResponseData } from "../api";
 import { reservationDetail } from "../atom";
 import { IFormData } from "./Reservation";
-import {
-    Accept,
-    CheckBox,
-    CheckBoxRow,
-    FormEnTitle,
-    FormKrTitle,
-    FormWrapper,
-    Overlay,
-    Privacy,
-    Row,
-    Select,
-    SelectDate,
-    SelectTheme,
-    SelectTime,
-    TitleWrapper,
-    UserName,
-    UserPhone,
-    Price,
-} from "./styled/reservationStyled";
 
 interface IModalProps {
     reservationFormData?: IFormData;
@@ -51,7 +31,6 @@ interface IDetail {
 function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProps): React.ReactElement {
     const navigate = useNavigate();
     const setDetail = useSetRecoilState(reservationDetail) as any;
-    const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
     const [reservationResponseData, setReservationResponseData] = useState<IReservationResponseData>();
     const [price, setPrice] = useState("000 원");
 
@@ -110,109 +89,121 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
 
     return (
         <>
-            <Overlay onClick={onOverlayClick} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
-            <FormWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} isPortrait={isPortrait}>
-                <Form onSubmit={handleSubmit(onVaild)}>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait}>
-                            <FormEnTitle>DATE</FormEnTitle>
-                            <FormKrTitle>날짜</FormKrTitle>
-                        </TitleWrapper>
-                        <SelectDate value={reservationFormData?.curDate} disabled />
-                    </Row>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait}>
-                            <FormEnTitle>TIME</FormEnTitle>
-                            <FormKrTitle>시간</FormKrTitle>
-                        </TitleWrapper>
-                        <SelectTime
-                            value={reservationFormData?.realTime}
+            <div className="bg-black fixed top-0 w-full h-full transition-all delay-100 duration-700 ease-in opacity-50" onClick={onOverlayClick} />
+            <div className="bg-[#4a4a4a] rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 w-11/12 lg:w-1/2 h-4/5 lg:h-fit overflow-auto text-white text-center">
+                <form onSubmit={handleSubmit(onVaild)}>
+                    <div className="flex mb-3">
+                        <div className="w-1/3">
+                            <div className="text-lg">DATE</div>
+                            <div className="text-sm">날짜</div>
+                        </div>
+                        <input className="bg-inherit" defaultValue={reservationFormData?.curDate} disabled />
+                    </div>
+                    <div className="flex mb-3">
+                        <div className="w-1/3">
+                            <div className="text-lg">TIME</div>
+                            <div className="text-sm">시간</div>
+                        </div>
+                        <input
+                            className="bg-inherit"
+                            defaultValue={reservationFormData?.realTime}
                             {...register("time", {
                                 required: "테마는 필수 입력 항목입니다.",
                                 disabled: true,
                             })}
                         />
-                    </Row>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait}>
-                            <FormEnTitle>ROOM</FormEnTitle>
-                            <FormKrTitle>테마</FormKrTitle>
-                        </TitleWrapper>
-                        <SelectTheme
-                            value={reservationFormData?.themeNameKo}
+                    </div>
+                    <div className="flex mb-3">
+                        <div className="w-1/3">
+                            <div className="text-lg">ROOM</div>
+                            <div className="text-sm">테마</div>
+                        </div>
+                        <input
+                            className="bg-inherit"
+                            defaultValue={reservationFormData?.themeNameKo}
                             {...register("themeName", {
                                 required: "테마는 필수 입력 항목입니다.",
                                 disabled: true,
                             })}
                         />
-                    </Row>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait}>
-                            <FormEnTitle>NAME</FormEnTitle>
-                            <FormKrTitle>예약자</FormKrTitle>
-                        </TitleWrapper>
-                        <UserName
+                    </div>
+                    <div className="flex mb-3 text-md">
+                        <div className="w-1/3">
+                            <div className="text-lg">NAME</div>
+                            <div className="text-sm">예약자</div>
+                        </div>
+                        <input
+                            className="bg-[#7C7C7C] p-2"
                             {...register("reservedBy", {
                                 required: "이름은 필수 입력 항목입니다.",
                             })}
                         />
-                    </Row>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait}>
-                            <FormEnTitle>PHONE</FormEnTitle>
-                            <FormKrTitle>연락처</FormKrTitle>
-                        </TitleWrapper>
-                        <UserPhone
+                    </div>
+                    <div className="flex mb-3">
+                        <div className="w-1/3">
+                            <div className="text-lg">PHONE</div>
+                            <div className="text-sm">연락처</div>
+                        </div>
+                        <input
+                            className="bg-[#7C7C7C] p-2"
+                            // onChange={(e) => {handleOnChange(e)}
                             {...register("phoneNumber", {
                                 required: "전화번호는 필수 입력 항목입니다.",
+                                // onChange: handleOnChange,
+                                validate: {
+                                    positive: (v) => parseInt(v) > 0,
+                                    lessThanTen: (v) => parseInt(v) < 10,
+                                    validateNumber: (_, values) => !!values.phoneNumber,
+                                },
                                 pattern: {
-                                    value: /^[0-9]{3}[0-9]{4}[-\s\.]?[0-9]{4}$/,
+                                    value: /^[0-9]{3}[0-9]{4}[-\s]?[0-9]{4}$/,
                                     message: "숫자만 입력 가능합니다.",
                                 },
                             })}
                             placeholder="숫자만 입력 해주세요."
                         />
-                    </Row>
-                    <Row notice={true}>* 입력하신 연락처로 예약취소&변경이 가능하니 신중히 입력 부탁드립니다.</Row>
-                    <Row notice={true}>* 체험 당일 예약 확인을 위하여 입력하신 번호로 전화 또는 문자를 드립니다. 답변이 없을시 예약이 자동 취소됩니다.</Row>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait}>
-                            <FormEnTitle>PLAYERS</FormEnTitle>
-                            <FormKrTitle>인원선택</FormKrTitle>
-                        </TitleWrapper>
-                        <Select
+                    </div>
+                    <div className="text-[#86e57f] text-xs mb-2">* 입력하신 연락처로 예약취소&변경이 가능하니 신중히 입력 부탁드립니다.</div>
+                    <div className="text-[#86e57f] text-xs mb-2">* 체험 당일 예약 확인을 위하여 입력하신 번호로 전화 또는 문자를 드립니다. 답변이 없을시 예약이 자동 취소됩니다.</div>
+                    <div className="flex mb-3">
+                        <div className="w-1/3">
+                            <div className="text-lg">PLAYERS</div>
+                            <div className="text-sm">인원선택</div>
+                        </div>
+                        <select
+                            className="bg-[#7C7C7C] p-2"
                             {...register("participantCount", {
                                 onChange: (event) => changePrice(event.target.value),
                             })}
                         >
                             {participantDraw()}
-                        </Select>
-                    </Row>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait}>
-                            <FormEnTitle>PRICE</FormEnTitle>
-                            <FormKrTitle>가격</FormKrTitle>
-                        </TitleWrapper>
-                        <Price value={price} />
-                    </Row>
-                    <Row>
-                        <TitleWrapper isPortrait={isPortrait} center={true}>
-                            <FormEnTitle>NOTICE</FormEnTitle>
-                            <FormKrTitle>유의사항</FormKrTitle>
-                        </TitleWrapper>
-                    </Row>
-                    <Row notice={true}>휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기 바랍니다.</Row>
-                    <Row notice={true}>임산부, 노약자, 유아 어린이(13세미만)나 페소공포증, 심장질환 등의 질병이 있으신 분들은 예약전 전화문의 바랍니다.</Row>
-                    <Row notice={true}>예약취소는 예약시간 24시간 전까지만 가능합니다. 원활한 진행을 위해 게임 시작 10분 전까지 도착 부탁드립니다.</Row>
-                </Form>
-                <CheckBoxRow>
-                    <CheckBox id={"privacy"} type="checkbox" {...register("privacy", { required: true })} />
-                    <label htmlFor={"privacy"}>
-                        <Privacy>개인정보 취급 방침에 동의함</Privacy>
+                        </select>
+                    </div>
+                    <div className="flex mb-3">
+                        <div className="w-1/3">
+                            <div className="text-lg">PRICE</div>
+                            <div className="text-sm">가격</div>
+                        </div>
+                        <input className="bg-inherit p-2" defaultValue={price} disabled />
+                    </div>
+                    <div className="mb-3 text-2xl text-center font-bold">
+                        <div>NOTICE</div>
+                        <div>유의사항</div>
+                    </div>
+                    <div className="text-[#86e57f] text-xs mb-2">휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기 바랍니다.</div>
+                    <div className="text-[#86e57f] text-xs mb-2">임산부, 노약자, 유아 어린이(13세미만)나 페소공포증, 심장질환 등의 질병이 있으신 분들은 예약전 전화문의 바랍니다.</div>
+                    <div className="text-[#86e57f] text-xs mb-2">예약취소는 예약시간 24시간 전까지만 가능합니다. 원활한 진행을 위해 게임 시작 10분 전까지 도착 부탁드립니다.</div>
+                </form>
+                <div className="flex justify-center mb-2">
+                    <input id={"privacy"} type="checkbox" {...register("privacy", { required: true })} />
+                    <label className="ml-1" htmlFor={"privacy"}>
+                        개인정보 취급 방침에 동의함
                     </label>
-                </CheckBoxRow>
-                <Accept onClick={handleSubmit(onVaild)}>예약하기</Accept>
-            </FormWrapper>
+                </div>
+                <button className="p-4 bg-[#92c78c] w-2/5" onClick={handleSubmit(onVaild)}>
+                    예약하기
+                </button>
+            </div>
         </>
     );
 }

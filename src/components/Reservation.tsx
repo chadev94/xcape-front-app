@@ -9,6 +9,8 @@ import Icon from "../assets/icon";
 import Loading from "./Loading";
 import { merchant } from "../atom";
 import Underline from "./Underline";
+import { AnimatePresence } from "framer-motion";
+import ReservationModal from "./ReservationModal";
 
 export interface IFormData {
     themeId: number;
@@ -145,20 +147,19 @@ function Reservation() {
                                 <div key={theme.themeId} className="border border-zinc-500 p-2 my-3 w-full">
                                     <div className="flex justify-between py-2 text-zinc-100">
                                         <div>
-                                            <div className="text-2xl font-bold">{theme.themeNameKo}</div>
-                                            <div>{theme.themeNameEn}</div>
+                                            <div className="text-lg lg:text-2xl font-bold">{theme.themeNameKo}</div>
+                                            <div className="text-sm lg:text-lg">{theme.themeNameEn}</div>
                                         </div>
                                         <div className="flex items-end">
                                             <div className="flex items-end">
-                                                <div className="text-2xl">난이도</div>
+                                                <div className="text-sm lg:text-2xl">난이도</div>
                                                 {makeBooleanArray(theme.difficulty).map((star, index) => {
                                                     if (star) {
                                                         return (
                                                             <Icon.Star
                                                                 key={index}
                                                                 style={{
-                                                                    color: "#fff",
-                                                                    //theme.colorCode,
+                                                                    color: theme.colorCode,
                                                                 }}
                                                                 className="h-4 w-4 xs:h-8 xs:w-8"
                                                             />
@@ -231,6 +232,7 @@ function Reservation() {
                     </div>
                 </div>
             ) : null}
+            {reservationFormData && <AnimatePresence>{openModal && <ReservationModal reservationFormData={reservationFormData} onOverlayFunction={setOpenModal} />}</AnimatePresence>}
         </div>
     );
 }

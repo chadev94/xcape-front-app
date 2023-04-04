@@ -32,7 +32,7 @@ export interface IReservationTheme {
     maxParticipantCount: number;
     difficulty: number;
     reservationList: ITimeTable[];
-    // colorCode
+    colorCode: "";
     priceList: IPrice[];
 }
 
