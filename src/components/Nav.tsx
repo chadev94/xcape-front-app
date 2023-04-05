@@ -3,6 +3,7 @@ import merchantList from "../data/merchantList.json";
 import { useSetRecoilState } from "recoil";
 import { getMerchantDetail, IMerchant, ITheme } from "../api";
 import { merchant, themeList } from "../atom";
+import { useEffect } from "react";
 
 function Nav() {
     const { merchantCode } = useParams<{ merchantCode: string }>();
@@ -24,6 +25,16 @@ function Nav() {
             setThemeList(res.result.themeList);
         });
     };
+
+    useEffect(() => {
+        if (merchantCode) {
+            const currentMerchant = findMerchantIdByCode(merchantCode);
+            setMerchant(currentMerchant);
+            getMerchantDetail(currentMerchant.id).then((res) => {
+                setThemeList(res.result.themeList);
+            });
+        }
+    }, []);
 
     return (
         <div className="inline-block text-center whitespace-nowrap py-6 border-b border-zinc-500 w-full overflow-x-auto">
