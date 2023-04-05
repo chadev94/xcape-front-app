@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { fetchReservationPut, IPrice, IReservationResponseData } from "../api";
+import { fetchReservationPut, IReservationResponseData } from "../api";
 import { reservationDetail } from "../atom";
 import { IFormData } from "./Reservation";
 
 interface IModalProps {
-    reservationFormData?: IFormData;
+    reservationFormData: IFormData;
     onOverlayFunction: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -69,7 +69,11 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         const participantSelect = [];
         if (maxParticipant && minParticipant) {
             for (let num: number = minParticipant; num <= maxParticipant; num++) {
-                participantSelect.push(<option value={num}>{num}</option>);
+                participantSelect.push(
+                    <option key={num} value={num}>
+                        {num}
+                    </option>
+                );
             }
         }
 
@@ -77,13 +81,9 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     };
 
     const changePrice = (value: number) => {
-        const findPrice = reservationFormData?.priceList.find((element) => {
-            if (element.type == "general" && element.person == value) {
-                return true;
-            }
-        }) as IPrice;
+        const findPrice = reservationFormData?.priceList.find((element) => element.type === "general" && element.person === value);
 
-        let price = findPrice.price;
+        const price = findPrice!.price;
         setPrice(price.toLocaleString(navigator.language) + "원");
     };
 
@@ -146,15 +146,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <input
                             className="bg-[#7C7C7C] p-2"
-                            // onChange={(e) => {handleOnChange(e)}
                             {...register("phoneNumber", {
                                 required: "전화번호는 필수 입력 항목입니다.",
-                                // onChange: handleOnChange,
-                                validate: {
-                                    positive: (v) => parseInt(v) > 0,
-                                    lessThanTen: (v) => parseInt(v) < 10,
-                                    validateNumber: (_, values) => !!values.phoneNumber,
-                                },
                                 pattern: {
                                     value: /^[0-9]{3}[0-9]{4}[-\s]?[0-9]{4}$/,
                                     message: "숫자만 입력 가능합니다.",
@@ -173,7 +166,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         <select
                             className="bg-[#7C7C7C] p-2"
                             {...register("participantCount", {
-                                onChange: (event) => changePrice(event.target.value),
+                                onChange: (event) => changePrice(Number(event.target.value)),
                             })}
                         >
                             {participantDraw()}
@@ -184,7 +177,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <div className="text-lg">PRICE</div>
                             <div className="text-sm">가격</div>
                         </div>
-                        <input className="bg-inherit p-2" defaultValue={price} disabled />
+                        <input className="bg-inherit p-2" value={price} disabled />
                     </div>
                     <div className="mb-3 text-2xl text-center font-bold">
                         <div>NOTICE</div>
@@ -195,7 +188,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     <div className="text-[#86e57f] text-xs mb-2">예약취소는 예약시간 24시간 전까지만 가능합니다. 원활한 진행을 위해 게임 시작 10분 전까지 도착 부탁드립니다.</div>
                 </form>
                 <div className="flex justify-center mb-2">
-                    <input id={"privacy"} type="checkbox" {...register("privacy", { required: true })} />
+                    <input id="privacy" type="checkbox" {...register("privacy", { required: true })} />
                     <label className="ml-1" htmlFor={"privacy"}>
                         개인정보 취급 방침에 동의함
                     </label>

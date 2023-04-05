@@ -50,20 +50,17 @@ function Reservation() {
 
     useEffect(() => {
         setLoading(false);
-        getReservationList(currentMerchant.id, toStringByFormatting(targetDate)).then((res) => {
-            setData(res.result);
-            setLoading(true);
-        });
-    }, [targetDate]);
+        if (currentMerchant.id !== 0) {
+            getReservationList(currentMerchant.id, toStringByFormatting(targetDate)).then((res) => {
+                setData(res.result);
+                setLoading(true);
+            });
+        }
+    }, [currentMerchant, targetDate]);
 
-    const [isReserveMenu, setIsReserveMenu] = useState(true);
     const [reservationFormData, setReservationFormData] = useState<IFormData>();
     const [selectTime, setSelectTime] = useState<String>("");
     const [openModal, setOpenModal] = useState<boolean>(false);
-
-    const toggleReserve = (action: boolean) => {
-        setIsReserveMenu(action);
-    };
 
     const reservationConfirm = () => {};
     const handleOnBlur = () => {
