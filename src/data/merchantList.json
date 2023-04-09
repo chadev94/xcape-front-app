@@ -10,7 +10,8 @@
     "businessRegistrationNumber": "829-43-00621",
     "email": "xcapegn@naver.com",
     "code": "gn",
-    "order": 3
+    "order": 3,
+    "businessIcon": "https://xcape-business-sdk-uploads.s3.ap-northeast-2.amazonaws.com/businessIcon/logo_gn.png"
   },
   {
     "id": 2,
@@ -23,7 +24,8 @@
     "businessRegistrationNumber": "851-70-00056",
     "email": "xcaperoom@naver.com",
     "code": "ku",
-    "order": 1
+    "order": 1,
+    "businessIcon": "https://xcape-business-sdk-uploads.s3.ap-northeast-2.amazonaws.com/businessIcon/logo_ku.png"
   },
   {
     "id": 3,
@@ -36,7 +38,8 @@
     "businessRegistrationNumber": "350-34-00424",
     "email": "xcrimeroom@naver.com",
     "code": "ku2",
-    "order": 2
+    "order": 2,
+    "businessIcon": "https://xcape-business-sdk-uploads.s3.ap-northeast-2.amazonaws.com/businessIcon/logo_ku2.png"
   },
   {
     "id": 4,
@@ -49,6 +52,7 @@
     "businessRegistrationNumber": "422-11-00263",
     "email": "xcaperoom@naver.com",
     "code": "sw",
-    "order": 4
+    "order": 4,
+    "businessIcon": "https://xcape-business-sdk-uploads.s3.ap-northeast-2.amazonaws.com/businessIcon/logo_sw.png"
   }
 ]
