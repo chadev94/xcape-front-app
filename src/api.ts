@@ -15,6 +15,7 @@ export interface IMerchant {
     businessHour: string;
     businessRegistrationNumber: string;
     ceoName: string;
+    businessIcon: string;
 }
 
 export interface IReservation {
