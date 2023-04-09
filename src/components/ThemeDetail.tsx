@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { makeBooleanArray } from "../util/util";
 import Icon from "../assets/icon";
 import { getThemeDetail, ITheme } from "../api";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 function ThemeDetail() {
+    const navigate = useNavigate();
+    const { merchantCode } = useParams<{ merchantCode: string }>();
     const [currentTheme, setCurrentTheme] = useState<ITheme>();
     const book = require("../assets/images/book.png");
     const { themeId } = useParams<{ themeId: string }>();
@@ -76,6 +78,17 @@ function ThemeDetail() {
                             })}
                         </div>
                         <div>point</div>
+                        <div
+                            onClick={() => {
+                            navigate(`/${merchantCode}/reservation`);
+                        }}>
+                            <button
+                                type="button"
+                                className="w-full px-10 py-5 border border-zinc-600 rounded-md text-zinc-200 bg-yellow-900
+                                font-xl hover:text-zinc-100 hover:border-zinc-100 hover:bg-yellow-800">
+                                실시간 예약하기
+                            </button>
+                        </div>
                     </div>
                 </>
             )}
