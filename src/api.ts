@@ -2,6 +2,7 @@
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_API_HOST;
+const BASE_NODE_SERVER_URL = process.env.REACT_APP_NODE_SERVER_HOST;
 
 export interface IMerchant {
     id: number;
@@ -107,6 +108,18 @@ export interface IReservationResponseData {
     themeId: number;
     themeName: string;
     time: string;
+}
+
+export function getMerchantsInfo() {
+    return axios.get(`${BASE_URL}/merchants`).then((res) => res.data);
+}
+
+export function saveFile(data: JSON) {
+    return axios.post(`${BASE_NODE_SERVER_URL}/save-file`, data, {
+        headers: {
+            "Content-Type": `application/json`,
+        },
+    }).then((res) => res.data);
 }
 
 // xcape 상단 지점 리스트 가져오기
