@@ -1,7 +1,7 @@
 //백엔드 주소
 import axios from "axios";
 
-const BASE_URL = "https://api.xcape-apps.com";
+const BASE_URL = process.env.REACT_APP_API_HOST;
 
 export interface IMerchant {
     id: number;
