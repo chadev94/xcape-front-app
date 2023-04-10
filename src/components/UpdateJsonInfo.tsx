@@ -5,7 +5,7 @@ function UpdateJsonInfo() {
 
     const getFileList = () => {
         getMerchantsInfo().then(res => {
-            saveFile(res).then(res => {
+            saveFile("src/data/merchantList.json", res.result).then(res => {
                 console.log(res);
             });
         });

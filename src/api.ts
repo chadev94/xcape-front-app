@@ -114,8 +114,9 @@ export function getMerchantsInfo() {
     return axios.get(`${BASE_URL}/merchants`).then((res) => res.data);
 }
 
-export function saveFile(data: JSON) {
-    return axios.post(`${BASE_NODE_SERVER_URL}/save-file`, data, {
+export function saveFile(path: String, data: JSON) {
+    let req = {path, data};
+    return axios.post(`${BASE_NODE_SERVER_URL}/save-file`, req, {
         headers: {
             "Content-Type": `application/json`,
         },

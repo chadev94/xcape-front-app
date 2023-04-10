@@ -8,18 +8,23 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-app.use(bodyParser.json());
-
-app.get("/", (req, res) => {
-    res.send(`Okay let's go`);
-});
+app.use(express.json());
 
 app.post("/save-file", (req, res) => {
-    let body = JSON.stringify(req.body.result);
-    console.log(">>> saveFile body: " + body);
-    fs.writeFile("src/data/merchantList.json", body, (err) => {
-        if (err) return console.error(err)
-        console.log("Wrote data success ");
+    console.log(">>> save-file body: " + JSON.stringify(req.body));
+    const { path, data } = req.body;
+    let responseBody = { result: String, info: String };
+    fs.writeFile(path, JSON.stringify(data), (err) => {
+        if (err) {
+            console.error(err);
+            responseBody.result("fail");
+            responseBody.info(err);
+            res.status(500).json(responseBody);
+        } else {
+            console.log("Wrote data success");
+            responseBody.result("success");
+            res.status(200).json(responseBody);
+        }
     });
 });
 app.listen(PORT, () => {
