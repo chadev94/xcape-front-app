@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import merchantList from "../data/merchantList.json";
 import { useSetRecoilState } from "recoil";
 import { getMerchantDetail, IMerchant, ITheme } from "../api";
 import { merchant, themeList } from "../atom";
@@ -7,6 +6,7 @@ import { useEffect } from "react";
 
 function Nav() {
     const { merchantCode } = useParams<{ merchantCode: string }>();
+    const merchantList: IMerchant[] = require("../data/merchantList.json");
     const setThemeList = useSetRecoilState<ITheme[]>(themeList);
     const setMerchant = useSetRecoilState<IMerchant>(merchant);
 

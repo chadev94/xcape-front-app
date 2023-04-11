@@ -16,6 +16,7 @@ export const merchant = atom<IMerchant>({
         businessRegistrationNumber: "",
         ceoName: "",
         businessIcon: "",
+        themeList: [],
     },
 });
 
