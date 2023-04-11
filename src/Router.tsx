@@ -10,6 +10,7 @@ import Rooms from "./routes/Rooms";
 import Detail from "./components/Detail";
 import Information from "./components/Information";
 import ThemeDetail from "./components/ThemeDetail";
+import UpdateJsonInfo from "./components/UpdateJsonInfo";
 
 //router
 const router = createBrowserRouter([
@@ -72,9 +73,13 @@ const router = createBrowserRouter([
             {
                 path: "contact",
                 element: <Contact />,
-            },
+            }
         ],
     },
+    {
+        path: "update/:contents",
+        element: <UpdateJsonInfo />
+    }
 ]);
 
 export default router;
