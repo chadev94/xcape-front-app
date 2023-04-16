@@ -171,7 +171,7 @@ function Reservation() {
                                         </div>
                                     </div>
                                     <div className="w-full h-[500px]">
-                                        <img className="w-full h-full object-cover" src={theme.mainImagePath} alt="mainImagePath" />
+                                        <img className="w-full h-full object-contain" src={theme.mainImagePath} alt="mainImagePath" />
                                     </div>
                                     <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 py-2">
                                         {theme.reservationList.map((reservation) => {
