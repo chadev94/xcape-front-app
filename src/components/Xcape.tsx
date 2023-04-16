@@ -46,16 +46,16 @@ function Xcape() {
             {activeTabIndex === 0 ? (
                 <div className="relative">
                     <img className="w-full" src={xcape} alt="xcapeDescription" />
-                    <div className="absolute top-[32.6%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">
-                        <iframe
-                            className="w-full aspect-video"
-                            src="https://www.youtube.com/embed/JlTa9cVywmA"
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                        ></iframe>
-                    </div>
+                    {/*<div className="absolute top-[32.6%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">*/}
+                    {/*    <iframe*/}
+                    {/*        className="w-full aspect-video"*/}
+                    {/*        src="https://www.youtube.com/embed/JlTa9cVywmA"*/}
+                    {/*        title="YouTube video player"*/}
+                    {/*        frameBorder="0"*/}
+                    {/*        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"*/}
+                    {/*        allowFullScreen*/}
+                    {/*    ></iframe>*/}
+                    {/*</div>*/}
                 </div>
             ) : activeTabIndex === 1 ? (
                 <div>

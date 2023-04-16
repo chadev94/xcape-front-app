@@ -131,6 +131,14 @@ export function getMerchantsInfo() {
     return axios.get(`${BASE_URL}/merchants`).then((res) => res.data);
 }
 
+export function getThemesInfo() {
+    return axios.get(`${BASE_URL}/themes`).then((res) => res.data);
+}
+
+export function getBannersInfo() {
+    return axios.get(`${BASE_URL}/banners`).then((res) => res.data);
+}
+
 export function saveFile(path: String, data: JSON) {
     let req = { path, data };
     return axios
