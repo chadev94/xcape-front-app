@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { IMerchant, ITheme } from "./api";
+import { IAbility, IMerchant, ITheme } from "./api";
 
 export const merchant = atom<IMerchant>({
     key: "merchant",
@@ -16,7 +16,6 @@ export const merchant = atom<IMerchant>({
         businessRegistrationNumber: "",
         ceoName: "",
         businessIcon: "",
-        themeList: [],
     },
 });
 
@@ -84,7 +83,17 @@ export const theme = atom<ITheme>({
     },
 });
 
-export const currentTheme = selector({
-    key: "currentTheme",
-    get: ({ get }) => get(theme),
+export const abilityList = atom<IAbility[]>({
+    key: "abilityList",
+    default: [
+        {
+            id: 0,
+            key: "",
+            name: "",
+            type: "",
+            value: 0,
+            merchantId: 0,
+            themeId: 0,
+        },
+    ],
 });

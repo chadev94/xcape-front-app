@@ -33,7 +33,6 @@ export interface IMerchant {
     businessRegistrationNumber: string;
     ceoName: string;
     businessIcon: string;
-    themeList: ITheme[];
 }
 
 export interface IReservation {
@@ -96,12 +95,14 @@ export interface ITheme {
     abilityList: IAbility[];
 }
 
-interface IAbility {
+export interface IAbility {
     id: number;
     key: string;
     name: string;
     type: string;
     value: number;
+    merchantId: number;
+    themeId: number;
 }
 
 interface IReservationFormData {
@@ -137,6 +138,10 @@ export function getThemesInfo() {
 
 export function getBannersInfo() {
     return axios.get(`${BASE_URL}/banners`).then((res) => res.data);
+}
+
+export function getAbilitiesInfo() {
+    return axios.get(`${BASE_URL}/abilities`).then((res) => res.data);
 }
 
 export function saveFile(path: String, data: JSON) {

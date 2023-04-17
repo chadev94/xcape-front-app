@@ -11,7 +11,7 @@ function ThemeInfo({ theme, index }: ThemeProps) {
         <div className="w-50">
             <div>
                 <span className="text-amber-500 text-2xl font-semibold mr-2">{formatNumber(index + 1)}</span>
-                <span className="text-3xl font-semibold text-white">{theme.nameKo}</span>
+                <span className="text-2xl font-semibold text-white">{theme.nameKo}</span>
             </div>
             <div className="h-60">
                 {/* @ts-ignore*/}
