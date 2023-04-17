@@ -1,7 +1,10 @@
-import { STORE_INFORMATION } from "../data/information.js";
 import ThemeInfo from "./ThemeInfo";
 import xfiler from "../assets/images/xfiler.jpeg";
 import banner from "../assets/images/banner.jpeg";
+import { STORE_INFORMATION } from "../data/information";
+import { ITheme } from "../api";
+import { useRecoilValue } from "recoil";
+import { theme, themeList } from "../atom";
 
 export type ThemeType = {
     id: number;
@@ -15,12 +18,13 @@ export type ThemeType = {
 };
 
 function Information() {
+    const currentTheme = useRecoilValue<ITheme[]>(themeList);
     return (
         <div>
             <img src={xfiler} alt="description" className="w-full" />
             <img src={banner} alt="banner" className="w-full" />
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3">
-                {STORE_INFORMATION.themeList.map((theme: ThemeType, index) => {
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-3">
+                {currentTheme.map((theme: ITheme, index) => {
                     return <ThemeInfo theme={theme} key={theme.id} index={index} />;
                 })}
             </div>

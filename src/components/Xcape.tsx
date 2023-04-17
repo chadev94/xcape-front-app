@@ -5,11 +5,16 @@ import guide3 from "../assets/images/guide_3.png";
 import { useEffect, useRef, useState } from "react";
 import kuImage from "../assets/images/merchant/gundae.jpeg";
 import Underline from "./Underline";
+import { useRecoilValue } from "recoil";
+import { themeList } from "../atom";
+import { IMerchant, ITheme } from "../api";
 
 function Xcape() {
     const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
     const [tabUnderlineWidth, setTabUnderlineWidth] = useState<number>(0);
     const [tabUnderlineLeft, setTabUnderlineLeft] = useState<number>(0);
+
+    const merchantListJson: IMerchant[] = require("../data/merchantList.json");
 
     const tabsRef = useRef<any>([]);
 
@@ -46,16 +51,6 @@ function Xcape() {
             {activeTabIndex === 0 ? (
                 <div className="relative">
                     <img className="w-full" src={xcape} alt="xcapeDescription" />
-                    {/*<div className="absolute top-[32.6%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full">*/}
-                    {/*    <iframe*/}
-                    {/*        className="w-full aspect-video"*/}
-                    {/*        src="https://www.youtube.com/embed/JlTa9cVywmA"*/}
-                    {/*        title="YouTube video player"*/}
-                    {/*        frameBorder="0"*/}
-                    {/*        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"*/}
-                    {/*        allowFullScreen*/}
-                    {/*    ></iframe>*/}
-                    {/*</div>*/}
                 </div>
             ) : activeTabIndex === 1 ? (
                 <div>
@@ -65,38 +60,21 @@ function Xcape() {
                 </div>
             ) : activeTabIndex === 2 ? (
                 <div className="bg-[#282828] px-8 pb-8">
-                    <div className="pt-8">
-                        <img className="w-full aspect-auto" src={kuImage} alt="kuImage" />
-                        <span className="text-white text-2xl">| 건대점</span>
-                        <div className="text-white text-sm">
-                            서울특별시 광진구 화양동
-                            <br />
-                            50-2 지하1F (동일로 112) 유료주차 가능
-                            <br />
-                            건대입구역 1번 출구, 성수역 2번출구
-                            <br />
-                            02.463.9366
-                            <br />
-                            <strong>MON-SUN</strong> 10:00 - 24:00
-                            <br />
-                        </div>
-                    </div>
-                    <div className="pt-8">
-                        <img className="w-full aspect-auto" src={kuImage} alt="kuImage" />
-                        <span className="text-white text-2xl">| 건대점</span>
-                        <div className="text-white text-sm">
-                            서울특별시 광진구 화양동
-                            <br />
-                            50-2 지하1F (동일로 112) 유료주차 가능
-                            <br />
-                            건대입구역 1번 출구, 성수역 2번출구
-                            <br />
-                            02.463.9366
-                            <br />
-                            <strong>MON-SUN</strong> 10:00 - 24:00
-                            <br />
-                        </div>
-                    </div>
+                    {merchantListJson.map((merchant) => {
+                        return (
+                            <div className="pt-8" key={merchant.id}>
+                                <img className="w-full aspect-auto" src={kuImage} alt="kuImage" />
+                                <span className="text-white text-2xl">| {merchant.name}</span>
+                                <div className="text-white text-sm">
+                                    <div className="whitespace-pre-wrap">{merchant.address}</div>
+                                    <div>{merchant.telNumber}</div>
+                                    <strong>MON-SUN</strong>
+                                    &nbsp;
+                                    <span>{merchant.businessHour}</span>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             ) : null}
         </div>

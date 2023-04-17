@@ -1,5 +1,5 @@
 import React from "react";
-import { getBannersInfo, getMerchantsInfo, getThemesInfo, saveFile } from "../api";
+import { getAbilitiesInfo, getBannersInfo, getMerchantsInfo, getThemesInfo, saveFile } from "../api";
 import { useParams } from "react-router-dom";
 
 function UpdateJsonInfo() {
@@ -21,6 +21,12 @@ function UpdateJsonInfo() {
         } else if (contents === "banners") {
             getBannersInfo().then((res) => {
                 saveFile(`src/data/bannerList.json`, res.result).then((res) => {
+                    console.log(res);
+                });
+            });
+        } else if (contents === "abilities") {
+            getAbilitiesInfo().then((res) => {
+                saveFile(`src/data/abilityList.json`, res.result).then((res) => {
                     console.log(res);
                 });
             });
