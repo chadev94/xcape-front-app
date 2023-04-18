@@ -4,7 +4,9 @@ import banner from "../assets/images/banner.jpeg";
 import { STORE_INFORMATION } from "../data/information";
 import { ITheme } from "../api";
 import { useRecoilValue } from "recoil";
-import { theme, themeList } from "../atom";
+import { themeList } from "../atom";
+import SliderBanners from "./SliderBanners";
+import BlockBanners from "./BlockBanners";
 
 export type ThemeType = {
     id: number;
@@ -21,8 +23,10 @@ function Information() {
     const currentTheme = useRecoilValue<ITheme[]>(themeList);
     return (
         <div>
-            <img src={xfiler} alt="description" className="w-full" />
-            <img src={banner} alt="banner" className="w-full" />
+            <SliderBanners />
+            <BlockBanners />
+            {/*<img src={xfiler} alt="description" className="w-full" />*/}
+            {/*<img src={banner} alt="banner" className="w-full" />*/}
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-3">
                 {currentTheme.map((theme: ITheme, index) => {
                     return <ThemeInfo theme={theme} key={theme.id} index={index} />;

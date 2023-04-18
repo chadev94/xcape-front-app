@@ -10,9 +10,12 @@ function Header() {
 
     useEffect(() => {
         let interval;
-        const afterOneHour: Date = new Date(Date.parse(String(new Date())) + 60 * 60 * 1000);
+        let afterOneHour: Date = new Date(Date.parse(String(new Date())) + 60 * 60 * 1000);
         interval = setInterval(() => {
             const time = afterOneHour.getTime() - new Date().getTime();
+            if (time <= 0) {
+                afterOneHour = new Date(Date.parse(String(new Date())) + 60 * 60 * 1000);
+            }
             if (timeRef.current) timeRef.current.textContent = formatTimeString(time);
         }, 10);
         return () => {

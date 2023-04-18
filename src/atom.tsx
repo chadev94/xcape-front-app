@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { IAbility, IMerchant, ITheme } from "./api";
+import { IAbility, IBanner, IMerchant, ITheme } from "./api";
 
 export const merchant = atom<IMerchant>({
     key: "merchant",
@@ -94,6 +94,17 @@ export const abilityList = atom<IAbility[]>({
             value: 0,
             merchantId: 0,
             themeId: 0,
+        },
+    ],
+});
+
+export const bannerList = atom<IBanner[]>({
+    key: "bannerList",
+    default: [
+        {
+            id: 0,
+            imagePath: "",
+            useYn: false,
         },
     ],
 });
