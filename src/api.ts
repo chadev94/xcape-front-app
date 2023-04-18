@@ -4,22 +4,6 @@ import axios from "axios";
 const BASE_URL = process.env.REACT_APP_API_HOST;
 const BASE_NODE_SERVER_URL = process.env.REACT_APP_NODE_SERVER_HOST;
 
-export interface IMerchantWithThemeList {
-    id: number;
-    name: string;
-    address: string;
-    code: string;
-    email: string;
-    order: number;
-    parkingYn: boolean;
-    telNumber: string;
-    businessHour: string;
-    businessRegistrationNumber: string;
-    ceoName: string;
-    businessIcon: string;
-    themeList: ITheme[];
-}
-
 export interface IMerchant {
     id: number;
     name: string;
@@ -126,6 +110,17 @@ export interface IReservationResponseData {
     themeId: number;
     themeName: string;
     time: string;
+}
+
+export interface IBanner {
+    id: number;
+    imagePath: string;
+    link?: string;
+    description?: string;
+    type?: string;
+    sequence?: number;
+    useYn: boolean;
+    merchantId?: number;
 }
 
 export function getMerchantsInfo() {
