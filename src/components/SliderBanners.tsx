@@ -36,7 +36,7 @@ function SliderBanners() {
             {sliderBannerList &&
                 sliderBannerList.map((banner) => {
                     return (
-                        <div key={banner.id} className="h-[300px] lg:h-[400px] slider-wrapper">
+                        <div key={banner.id} className="w-full slider-wrapper">
                             <img src={banner.imagePath} alt="bannerImage" className="w-full h-full object-contain" />
                         </div>
                     );
