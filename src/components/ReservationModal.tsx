@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { fetchReservationPut, IReservationResponseData } from "../api";
+import {fetchReservationAuthenticatePhoneNumber, fetchReservationPut, IReservationResponseData} from "../api";
 import { reservationDetail } from "../atom";
 import { IFormData } from "./Reservation";
 
@@ -45,7 +45,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         setError,
     } = useForm<IForm>({ defaultValues: {} });
 
-    const onVaild = (inputData: IForm) => {
+    const onValid = (inputData: IForm) => {
         const formData = {
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
@@ -60,6 +60,18 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
             });
         onOverlayClick();
     };
+
+    const authenticatePhoneNumber = (inputData: IForm) => {
+        const formData = {
+            recipientNo: inputData.phoneNumber,
+            reservationId: reservationFormData?.time,
+        };
+        console.log(formData);
+
+        fetchReservationAuthenticatePhoneNumber(formData).then((res) => {
+            console.log(res);
+        })
+    }
 
     const onOverlayClick = () => onOverlayFunction(false);
 
@@ -91,7 +103,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         <>
             <div className="bg-black fixed top-0 w-full h-full transition-all delay-100 duration-700 ease-in opacity-50" onClick={onOverlayClick} />
             <div className="bg-[#4a4a4a] rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 w-11/12 lg:w-1/2 h-4/5 lg:h-fit overflow-auto text-white text-center">
-                <form onSubmit={handleSubmit(onVaild)}>
+                <form onSubmit={handleSubmit(onValid)}>
                     <div className="flex mb-3">
                         <div className="w-1/3">
                             <div className="text-lg">DATE</div>
@@ -155,7 +167,11 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             })}
                             placeholder="숫자만 입력 해주세요."
                         />
+                        <button className="bg-[#92c78c] w-1/5 text-sm" onClick={handleSubmit(authenticatePhoneNumber)}>
+                            인증번호 전송
+                        </button>
                     </div>
+
                     <div className="text-[#86e57f] text-xs mb-2">* 입력하신 연락처로 예약취소&변경이 가능하니 신중히 입력 부탁드립니다.</div>
                     <div className="text-[#86e57f] text-xs mb-2">* 체험 당일 예약 확인을 위하여 입력하신 번호로 전화 또는 문자를 드립니다. 답변이 없을시 예약이 자동 취소됩니다.</div>
                     <div className="flex mb-3">
@@ -193,7 +209,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         개인정보 취급 방침에 동의함
                     </label>
                 </div>
-                <button className="p-4 bg-[#92c78c] w-2/5" onClick={handleSubmit(onVaild)}>
+                <button className="p-4 bg-[#92c78c] w-2/5" onClick={handleSubmit(onValid)}>
                     예약하기
                 </button>
             </div>

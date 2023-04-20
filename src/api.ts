@@ -96,6 +96,11 @@ interface IReservationFormData {
     roomType: string;
 }
 
+interface IReservationAuthenticatePhoneNumber {
+    recipientNo: string;
+    reservationId: string;
+}
+
 export interface IReservationResponseData {
     date: string;
     id: number;
@@ -177,4 +182,14 @@ export function fetchReservationPut(id: number, formData: IReservationFormData) 
             "Content-Type": "application/json",
         },
     }).then((response) => response.json());
+}
+
+export function fetchReservationAuthenticatePhoneNumber(formData: { reservationId: number; recipientNo: string }) {
+    const url = `${BASE_URL}/reservations/authentication`;
+
+    return axios.post(url, formData, {
+        headers: {
+            "Content-Type": `application/json`,
+        },
+    }).then((res) => res.data);
 }
