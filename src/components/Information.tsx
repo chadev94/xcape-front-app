@@ -24,7 +24,6 @@ function Information() {
     return (
         <div>
             <SliderBanners />
-            {/*<BlockBanners />*/}
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-3">
                 {currentTheme.map((theme: ITheme, index) => {
                     return <ThemeInfo theme={theme} key={theme.id} index={index} />;

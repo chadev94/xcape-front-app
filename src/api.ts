@@ -172,6 +172,14 @@ export function fetchReservationDetail(reservationId: number) {
     return fetch(`${BASE_URL}/reservations/${reservationId}`).then((response) => response.json());
 }
 
+export async function modifyReservation(id: number, params: IReservationFormData) {
+    return axios.put(`${BASE_URL}/reservations/${id}`, params).then((res) => res.data);
+}
+
+export async function deleteReservation(id: number, phoneNumber: string) {
+    return axios.delete(`${BASE_URL}/reservations/${id}`, { params: phoneNumber }).then((res) => res.data);
+}
+
 export function fetchReservationPut(id: number, formData: IReservationFormData) {
     const url = `${BASE_URL}/reservations/${id}?reservedBy=${formData.reservedBy}&phoneNumber=${formData.phoneNumber}&participantCount=${formData.participantCount}&roomType=general`;
 
@@ -187,9 +195,11 @@ export function fetchReservationPut(id: number, formData: IReservationFormData) 
 export function fetchReservationAuthenticatePhoneNumber(formData: { reservationId: number; recipientNo: string }) {
     const url = `${BASE_URL}/reservations/authentication`;
 
-    return axios.post(url, formData, {
-        headers: {
-            "Content-Type": `application/json`,
-        },
-    }).then((res) => res.data);
+    return axios
+        .post(url, formData, {
+            headers: {
+                "Content-Type": `application/json`,
+            },
+        })
+        .then((res) => res.data);
 }

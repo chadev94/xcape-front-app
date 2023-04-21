@@ -5,7 +5,7 @@ import { ko } from "date-fns/locale";
 import { getReservationList, IPrice, IReservationTheme } from "../api";
 import { useRecoilValue } from "recoil";
 import { makeBooleanArray } from "../util/util";
-import Icon from "../assets/icon";
+import Icon from "../assets/icons";
 import Loading from "./Loading";
 import { merchant } from "../atom";
 import Underline from "./Underline";
@@ -16,7 +16,7 @@ export interface IFormData {
     themeId: number;
     themeNameKo: string;
     curDate: string;
-    time: number;
+    reservationId: number;
     realTime: string;
     minParticipantCount: number;
     maxParticipantCount: number;
@@ -71,7 +71,7 @@ function Reservation() {
         themeId: number,
         themeNameKo: string,
         isPossible: Boolean,
-        time: number,
+        reservationId: number,
         realTime: string,
         minParticipantCount: number,
         maxParticipantCount: number,
@@ -82,7 +82,7 @@ function Reservation() {
             themeId,
             themeNameKo,
             curDate,
-            time,
+            reservationId,
             realTime,
             minParticipantCount,
             maxParticipantCount,

@@ -30,3 +30,10 @@ export const makeBooleanArray = (number: number): boolean[] => {
     }
     return array;
 };
+
+export const onlyNumber = (e: HTMLInputElement) => {
+    e.value = e.value.replace(/\D/g, "");
+    if (e.value.charAt(0) === "0") {
+        e.value = e.value.substring(1, e.value.length);
+    }
+};

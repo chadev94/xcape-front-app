@@ -11,13 +11,13 @@ function SliderBanners() {
     const currentBannerList = useRecoilValue(bannerList);
     const [sliderBannerList, setSliderBannerList] = useState<IBanner[]>();
     const carouselSettings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 4000,
+        autoplaySpeed: 3000,
     };
 
     useEffect(() => {
