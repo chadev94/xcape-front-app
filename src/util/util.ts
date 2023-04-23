@@ -1,3 +1,7 @@
+import { CANCEL, MODIFY, REGISTER } from "./constant";
+
+const phoneNumberRegExp = new RegExp(/^01(\d)(\d{3,4})(\d{4})$/);
+
 export const formatNumber = (number: number) => {
     return number < 10 ? `0${number}` : number;
 };
@@ -33,7 +37,18 @@ export const makeBooleanArray = (number: number): boolean[] => {
 
 export const onlyNumber = (e: HTMLInputElement) => {
     e.value = e.value.replace(/\D/g, "");
-    if (e.value.charAt(0) === "0") {
-        e.value = e.value.substring(1, e.value.length);
+};
+
+export const validatePhoneNumber = (phoneNumber: string) => {
+    return phoneNumberRegExp.test(phoneNumber);
+};
+
+export const convertReservationType = (type: string) => {
+    if (type === REGISTER) {
+        return "예약";
+    } else if (type === MODIFY) {
+        return "수정";
+    } else if (type === CANCEL) {
+        return "취소";
     }
 };

@@ -24,15 +24,7 @@ interface IForm {
     requestId: string;
 }
 
-// interface IDetail {
-//     phoneNumber: String;
-//     reservedBy: String;
-//     participantCount: Number;
-//     roomType: String;
-// }
-
 function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProps): React.ReactElement {
-    const navigate = useNavigate();
     const setDetail = useSetRecoilState(reservationDetail) as any;
     const [reservationResponseData, setReservationResponseData] = useState<IReservationResponseData>();
     const [price, setPrice] = useState("000 원");
@@ -106,15 +98,17 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         setPrice(price.toLocaleString(navigator.language) + "원");
     };
 
+    const handleInputPhoneNumber = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        onlyNumber(e.currentTarget);
+    };
+
     const handleInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
         onlyNumber(e.currentTarget);
         if (e.currentTarget.value.length === 6) {
-            reservationButton.current!.disabled = false;
             reservationButton.current!.classList.remove("cursor-not-allowed");
             reservationButton.current!.classList.remove("opacity-50");
             setIsDisabled(false);
         } else {
-            reservationButton.current!.disabled = true;
             reservationButton.current!.classList.add("cursor-not-allowed");
             reservationButton.current!.classList.add("opacity-50");
             setIsDisabled(true);
@@ -213,6 +207,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <input
                             className="bg-[#7C7C7C] p-2"
+                            onInput={handleInputPhoneNumber}
                             {...register("phoneNumber", {
                                 required: "전화번호는 필수 입력 항목입니다.",
                                 pattern: {
@@ -220,6 +215,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                     message: "숫자만 입력 가능합니다.",
                                 },
                             })}
+                            maxLength={11}
                             placeholder="숫자만 입력 해주세요."
                         />
                         <button
@@ -262,7 +258,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                     maxLength={6}
                                 />
                             </div>
-                            <div className="text-red-500 text-xs mb-2"> * 인증번호 확인 후 예약하기를 눌러주세요.</div>
+                            <div className="text-red-500 text-xs mb-2">* 인증번호 확인 후 예약하기를 눌러주세요.</div>
                         </>
                     )}
                 </form>

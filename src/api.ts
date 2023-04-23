@@ -1,5 +1,6 @@
 //백엔드 주소
 import axios from "axios";
+import reservation from "./components/Reservation";
 
 const BASE_URL = process.env.REACT_APP_API_HOST;
 const BASE_NODE_SERVER_URL = process.env.REACT_APP_NODE_SERVER_HOST;
@@ -19,11 +20,11 @@ export interface IMerchant {
     businessIcon: string;
 }
 
-export interface IReservation {
-    resultCode: string;
-    resultMessage: string;
-    result: IReservationTheme[];
-}
+// export interface IReservation {
+//     resultCode: string;
+//     resultMessage: string;
+//     result: IReservationTheme[];
+// }
 
 export interface IReservationTheme {
     themeId: number;
@@ -48,7 +49,7 @@ export interface IPrice {
 }
 
 interface ITimeTable {
-    id: number;
+    id: string;
     time: string;
     date: string;
     isReserved: boolean;
@@ -103,7 +104,8 @@ interface IReservationAuthenticatePhoneNumber {
 
 export interface IReservationResponseData {
     date: string;
-    id: number;
+    seq: number;
+    id: string;
     isReserved: boolean;
     merchantId: number;
     merchantName: string;
@@ -126,6 +128,34 @@ export interface IBanner {
     sequence?: number;
     useYn: boolean;
     merchantId?: number;
+}
+
+export interface IReservationHistoryTable {
+    themeName: string;
+    date: string;
+    time: string;
+    participantCount: number;
+    reservationId: string;
+    reservedBy: string;
+    roomType: string;
+    type: string;
+}
+
+export interface IReservation {
+    id: string;
+    date: string;
+    isReserved: boolean;
+    merchantId: number;
+    merchantName: string;
+    participantCount: number;
+    phoneNumber: string;
+    price: number;
+    reservedBy: string;
+    roomType: string;
+    seq: number;
+    themeId: number;
+    themeName: string;
+    time: string;
 }
 
 export function getMerchantsInfo() {
@@ -168,16 +198,20 @@ export function getReservationList(merchantId: number, date: string) {
     return axios.get(`${BASE_URL}/reservations?merchantId=${merchantId}&date=${date}`).then((res) => res.data);
 }
 
-export function fetchReservationDetail(reservationId: number) {
+export function fetchReservationDetail(reservationId: string) {
     return fetch(`${BASE_URL}/reservations/${reservationId}`).then((response) => response.json());
 }
 
-export async function modifyReservation(id: number, params: IReservationFormData) {
+export async function modifyReservation(id: string, params: IReservationFormData) {
     return axios.put(`${BASE_URL}/reservations/${id}`, params).then((res) => res.data);
 }
 
 export async function deleteReservation(id: number, phoneNumber: string) {
     return axios.delete(`${BASE_URL}/reservations/${id}`, { params: phoneNumber }).then((res) => res.data);
+}
+
+export async function getReservationListByPhoneNumber(phoneNumber: string) {
+    return axios.get(`${BASE_URL}/reservations`, { params: { phoneNumber } }).then((res) => res.data);
 }
 
 export function fetchReservationPut(id: number, formData: IReservationFormData) {
@@ -192,7 +226,7 @@ export function fetchReservationPut(id: number, formData: IReservationFormData) 
     }).then((response) => response.json());
 }
 
-export function fetchReservationAuthenticatePhoneNumber(formData: { reservationId: number; recipientNo: string }) {
+export function fetchReservationAuthenticatePhoneNumber(formData: { reservationId: string; recipientNo: string }) {
     const url = `${BASE_URL}/reservations/authentication`;
 
     return axios
