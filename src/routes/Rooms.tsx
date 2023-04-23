@@ -1,7 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { IAbility, IMerchant, ITheme } from "../api";
 import { abilityList, merchant, themeList } from "../atom";
-import Icon from "../assets/icon/index";
+import Icon from "../assets/icons/index";
 import { useNavigate, useParams } from "react-router-dom";
 import { makeBooleanArray } from "../util/util";
 

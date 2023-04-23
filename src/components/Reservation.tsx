@@ -4,19 +4,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
 import { getReservationList, IPrice, IReservationTheme } from "../api";
 import { useRecoilValue } from "recoil";
-import { makeBooleanArray } from "../util/util";
-import Icon from "../assets/icon";
+import { makeBooleanArray, onlyNumber, validatePhoneNumber } from "../util/util";
+import Icon from "../assets/icons";
 import Loading from "./Loading";
 import { merchant } from "../atom";
 import Underline from "./Underline";
 import { AnimatePresence } from "framer-motion";
 import ReservationModal from "./ReservationModal";
+import { useNavigate } from "react-router-dom";
 
 export interface IFormData {
     themeId: number;
     themeNameKo: string;
     curDate: string;
-    time: number;
+    reservationId: string;
     realTime: string;
     minParticipantCount: number;
     maxParticipantCount: number;
@@ -24,6 +25,7 @@ export interface IFormData {
 }
 
 function Reservation() {
+    const navigate = useNavigate();
     const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
     const [tabUnderlineWidth, setTabUnderlineWidth] = useState<number>(0);
     const [tabUnderlineLeft, setTabUnderlineLeft] = useState<number>(0);
@@ -47,6 +49,11 @@ function Reservation() {
     const [targetDate, setTargetDate] = useState<Date>(new Date());
     const [loading, setLoading] = useState<boolean>(false);
     const [data, setData] = useState<IReservationTheme[]>([]);
+    const phoneNumberRef = useRef<HTMLInputElement>(null);
+
+    const handleInputPhoneNumber = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        onlyNumber(e.currentTarget);
+    };
 
     useEffect(() => {
         setLoading(false);
@@ -62,7 +69,14 @@ function Reservation() {
     const [selectTime, setSelectTime] = useState<String>("");
     const [openModal, setOpenModal] = useState<boolean>(false);
 
-    const reservationConfirm = () => {};
+    const reservationConfirm = () => {
+        const phoneNumber = phoneNumberRef.current!.value;
+        if (validatePhoneNumber(phoneNumber)) {
+            navigate(`/reservation-list?phoneNumber=${phoneNumber}`);
+        } else {
+            alert("핸드폰 번호를 확인해 주세요.");
+        }
+    };
     const handleOnBlur = () => {
         // TODO: 날짜 검증 기능 추가
     };
@@ -71,7 +85,7 @@ function Reservation() {
         themeId: number,
         themeNameKo: string,
         isPossible: Boolean,
-        time: number,
+        reservationId: string,
         realTime: string,
         minParticipantCount: number,
         maxParticipantCount: number,
@@ -82,7 +96,7 @@ function Reservation() {
             themeId,
             themeNameKo,
             curDate,
-            time,
+            reservationId,
             realTime,
             minParticipantCount,
             maxParticipantCount,
@@ -221,7 +235,7 @@ function Reservation() {
                                 <div>PHONE</div>
                                 <div className="text-xs">연락처</div>
                             </div>
-                            <input className="h-8 p-2 w-2/3 bg-[#383838]" />
+                            <input ref={phoneNumberRef} onInput={handleInputPhoneNumber} className="h-8 p-2 w-2/3 bg-[#383838]" maxLength={11} />
                         </div>
                     </div>
                     <div className="bg-[#92c78c] font-bold text-center w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4" onClick={reservationConfirm}>

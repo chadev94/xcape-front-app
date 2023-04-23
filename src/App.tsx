@@ -1,10 +1,11 @@
 import Nav from "./components/Nav";
+import { Outlet } from "react-router-dom";
 
 function App() {
     return (
-        <div>
+        <div className="sm:w-3/5 mx-auto">
             <Nav />
-            <div className="text-white text-3xl">Main Page입니다.</div>
+            <Outlet />
         </div>
     );
 }

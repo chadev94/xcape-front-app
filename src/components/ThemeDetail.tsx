@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeBooleanArray } from "../util/util";
-import Icon from "../assets/icon";
+import Icon from "../assets/icons";
 import { getThemeDetail, ITheme } from "../api";
 import { useNavigate, useParams } from "react-router-dom";
 

@@ -1,20 +1,4 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-
-const Wrapper = styled.div`
-    //display: grid;
-    //grid-template-columns: repeat(3, 1fr);
-    //width: 100%;
-`;
-const Menu = styled.div`
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // border: 1px solid #4c3d35;
-    // height: 5vh;
-    // font-size: 1.2em;
-    // color: ${(props) => props.theme.ku.color};
-`;
 
 const mainMenuList = ["XCAPE", "ROOMS", "RESERVATION", "REVIEW", "EVENT", "CONTACT"];
 

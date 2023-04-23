@@ -7,10 +7,11 @@ import Review from "./components/Review";
 import Xcape from "./components/Xcape";
 import Merchant from "./routes/Merchant";
 import Rooms from "./routes/Rooms";
-import Detail from "./components/Detail";
+import ReservationDetail from "./components/ReservationDetail";
 import Information from "./components/Information";
 import ThemeDetail from "./components/ThemeDetail";
 import UpdateJsonInfo from "./components/UpdateJsonInfo";
+import ReservationList from "./components/ReservationList";
 
 //router
 const router = createBrowserRouter([
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
             {
                 path: "xcape",
                 element: <Xcape />,
+            },
+            {
+                path: "reservation-list",
+                element: <ReservationList />,
+            },
+            {
+                path: "reservation-detail/:reservationId",
+                element: <ReservationDetail />,
             },
         ],
     },
@@ -52,16 +61,9 @@ const router = createBrowserRouter([
                         path: ":time",
                         element: <Reservation />,
                     },
-                    // {
-                    //     path: "detail/:time",
-                    //     element: <Reservation />,
-                    // },
                 ],
             },
-            {
-                path: "reservation-detail/:reservationId",
-                element: <Detail />,
-            },
+
             {
                 path: "review",
                 element: <Review />,
@@ -73,13 +75,14 @@ const router = createBrowserRouter([
             {
                 path: "contact",
                 element: <Contact />,
-            }
+            },
         ],
     },
+
     {
         path: "update/:contents",
-        element: <UpdateJsonInfo />
-    }
+        element: <UpdateJsonInfo />,
+    },
 ]);
 
 export default router;
