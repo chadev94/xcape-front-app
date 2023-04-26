@@ -1,15 +1,17 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
-import { deleteReservation, fetchReservationAuthenticatePhoneNumber, fetchReservationDetail, IReservationResponseData } from "../api";
+import { deleteReservation, fetchReservationAuthenticatePhoneNumber, getReservationHistoryDetail, IReservationResponseData } from "../api";
 import { onlyNumber, validatePhoneNumber } from "../util/util";
+import { REGISTER } from "../util/constant";
 
 interface IParams {
     reservationId: string;
-    requestId: number;
     recipientNo: string;
+    canceled: boolean;
 }
 
 function ReservationDetail() {
+    const navigate = useNavigate();
     const [reservationDetail, setReservationDetail] = useState<IReservationResponseData>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isCancelButtonDisabled, setIsCancelButtonDisabled] = useState<boolean>(true);
@@ -21,18 +23,22 @@ function ReservationDetail() {
     const phoneNumberRef = useRef<HTMLInputElement>(null);
     const [isAuthenticateButtonDisabled, setIsAuthenticateButtonDisabled] = useState<boolean>(true);
 
+    const authenticationNumberRef = useRef<HTMLInputElement>(null);
+
     const authenticatePhoneNumber = (e: React.BaseSyntheticEvent | undefined) => {
         setIsLoading(true);
         e?.target.classList.add("cursor-now-allowed");
         e!.target.disabled = true;
 
+        console.log(requestId);
         const params: IParams = {
             reservationId: reservationId!,
             recipientNo: phoneNumberRef.current!.value,
-            requestId: Number(requestId),
+            canceled: true,
         };
 
         fetchReservationAuthenticatePhoneNumber(params).then((res) => {
+            console.log(res);
             setRequestId(res.result.requestId);
         });
     };
@@ -40,8 +46,16 @@ function ReservationDetail() {
     const cancelReservation = () => {
         const phoneNumber = phoneNumberRef.current!.value;
         if (validatePhoneNumber(phoneNumber)) {
-            deleteReservation(Number(reservationId), phoneNumber).then((res) => {
-                console.log(res);
+            const params = {
+                authenticationNumber: authenticationNumberRef.current!.value,
+                requestId: requestId,
+                recipientNo: phoneNumber,
+            };
+            deleteReservation(reservationId!, params).then((res) => {
+                if (res.resultCode === "SUCCESS") {
+                    alert("예약 취소되었습니다.");
+                    navigate("/");
+                }
             });
         }
     };
@@ -61,7 +75,7 @@ function ReservationDetail() {
 
     useEffect(() => {
         reservationId &&
-            fetchReservationDetail(reservationId).then((res) => {
+            getReservationHistoryDetail(reservationId).then((res) => {
                 setReservationDetail(res.result);
                 if (res.result) {
                     setIsAuthenticateButtonDisabled(false);
@@ -111,51 +125,59 @@ function ReservationDetail() {
                 <div className="text-[#86e57f] mb-3 text-sm">⏺ 예약취소는 예약시간 24시간 전까지만 가능합니다.</div>
                 <div className="text-[#86e57f] mb-3 text-sm">⏺ 원활한 진행을 위해 게임 시작 10분 전까지 도착 부탁드립니다.</div>
                 <div className="text-[#86e57f] mb-3 text-sm">⏺ 예약취소 및 환불은 게임시작 30분전까지 가능합니다.</div>
-                <div className="flex mb-3">
-                    <div className="w-1/5 text-right mr-8">
-                        <div className="text-lg">PHONE</div>
-                        <div className="text-sm">연락처</div>
-                    </div>
-                    <input ref={phoneNumberRef} className="bg-transparent p-2" value={reservationDetail?.phoneNumber || ""} disabled />
-                    <button
-                        className={`px-4 py-2 font-semibold text-white  bg-[#92c78c] w-1/5 text-sm  
+                {reservationDetail?.type === REGISTER ? (
+                    <div className="flex mb-3">
+                        <div className="w-1/5 text-right mr-8">
+                            <div className="text-lg">PHONE</div>
+                            <div className="text-sm">연락처</div>
+                        </div>
+                        <input ref={phoneNumberRef} className="bg-transparent p-2" value={reservationDetail?.phoneNumber || ""} disabled />
+                        <button
+                            className={`px-4 py-2 font-semibold text-white  bg-[#92c78c] w-1/5 text-sm  
                         ${isAuthenticateButtonDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} 
                         ${isLoading && "opacity-50"}
                         `}
-                        onClick={authenticatePhoneNumber}
-                        disabled={isAuthenticateButtonDisabled}
-                    >
-                        {isLoading ? (
-                            <div className="flex items-center justify-center">
-                                <svg className="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path
-                                        className="opacity-75"
-                                        fill="currentColor"
-                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                    ></path>
-                                </svg>
-                                전송 중...
-                            </div>
-                        ) : (
-                            <>인증번호 전송</>
-                        )}
-                    </button>
-                </div>
+                            onClick={authenticatePhoneNumber}
+                            disabled={isAuthenticateButtonDisabled}
+                        >
+                            {isLoading ? (
+                                <div className="flex items-center justify-center">
+                                    <svg className="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path
+                                            className="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                        ></path>
+                                    </svg>
+                                    전송 중...
+                                </div>
+                            ) : (
+                                <>인증번호 전송</>
+                            )}
+                        </button>
+                    </div>
+                ) : (
+                    <></>
+                )}
                 {isLoading && (
                     <>
                         <div className="flex mb-3 items-center">
                             <div className="w-1/5 text-right mr-8">인증번호</div>
-                            <input type="text" className="bg-[#7C7C7C] p-2" onInput={handleAuthenticationNumberInput} maxLength={6} />
+                            <input type="text" ref={authenticationNumberRef} className="bg-[#7C7C7C] p-2" onInput={handleAuthenticationNumberInput} maxLength={6} />
                         </div>
                         <div className="text-red-500 text-xs mb-2"> * 인증번호 확인 후 예약하기를 눌러주세요.</div>
                     </>
                 )}
-                <div className="text-center">
-                    <button ref={cancelButton} type="button" className="p-4 bg-red-600 w-2/5 opacity-50 cursor-not-allowed" onClick={cancelReservation} disabled={isCancelButtonDisabled}>
-                        예약취소
-                    </button>
-                </div>
+                {reservationDetail?.type === REGISTER ? (
+                    <div className="text-center">
+                        <button ref={cancelButton} type="button" className="p-4 bg-red-600 w-2/5 opacity-50 cursor-not-allowed" onClick={cancelReservation} disabled={isCancelButtonDisabled}>
+                            예약취소
+                        </button>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </div>
     );

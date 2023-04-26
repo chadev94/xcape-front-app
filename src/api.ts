@@ -117,6 +117,7 @@ export interface IReservationResponseData {
     themeId: number;
     themeName: string;
     time: string;
+    type: string;
 }
 
 export interface IBanner {
@@ -131,6 +132,7 @@ export interface IBanner {
 }
 
 export interface IReservationHistoryTable {
+    reservationHistoryId: string;
     themeName: string;
     date: string;
     time: string;
@@ -198,20 +200,20 @@ export function getReservationList(merchantId: number, date: string) {
     return axios.get(`${BASE_URL}/reservations?merchantId=${merchantId}&date=${date}`).then((res) => res.data);
 }
 
-export function fetchReservationDetail(reservationId: string) {
-    return fetch(`${BASE_URL}/reservations/${reservationId}`).then((response) => response.json());
+export function getReservationHistoryDetail(reservationHistoryId: string) {
+    return axios.get(`${BASE_URL}/reservation-histories/${reservationHistoryId}`).then((res) => res.data);
 }
 
 export async function modifyReservation(id: string, params: IReservationFormData) {
     return axios.put(`${BASE_URL}/reservations/${id}`, params).then((res) => res.data);
 }
 
-export async function deleteReservation(id: number, phoneNumber: string) {
-    return axios.delete(`${BASE_URL}/reservations/${id}`, { params: phoneNumber }).then((res) => res.data);
+export async function deleteReservation(id: string, params: object) {
+    return axios.delete(`${BASE_URL}/reservations/${id}`, { data: params }).then((res) => res.data);
 }
 
 export async function getReservationListByPhoneNumber(phoneNumber: string) {
-    return axios.get(`${BASE_URL}/reservations`, { params: { phoneNumber } }).then((res) => res.data);
+    return axios.get(`${BASE_URL}/reservation-histories`, { params: { phoneNumber } }).then((res) => res.data);
 }
 
 export function fetchReservationPut(id: number, formData: IReservationFormData) {

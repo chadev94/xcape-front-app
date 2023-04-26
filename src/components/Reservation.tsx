@@ -56,11 +56,11 @@ function Reservation() {
     };
 
     useEffect(() => {
-        setLoading(false);
+        setLoading(true);
         if (currentMerchant.id !== 0) {
             getReservationList(currentMerchant.id, toStringByFormatting(targetDate)).then((res) => {
                 setData(res.result);
-                setLoading(true);
+                setLoading(false);
             });
         }
     }, [currentMerchant, targetDate]);
@@ -123,6 +123,12 @@ function Reservation() {
         return `0${value}`;
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+            reservationConfirm();
+        }
+    };
+
     return (
         <div>
             <div className="relative flex text-md lg:text-2xl justify-around text-white py-2 items-center">
@@ -153,6 +159,8 @@ function Reservation() {
                         </div>
                     </div>
                     {loading ? (
+                        <Loading />
+                    ) : (
                         data.map((theme) => {
                             return (
                                 <div key={theme.themeId} className="border border-zinc-500 p-2 my-3 w-full">
@@ -221,8 +229,6 @@ function Reservation() {
                                 </div>
                             );
                         })
-                    ) : (
-                        <Loading />
                     )}
                 </div>
             ) : activeTabIndex === 1 ? (
@@ -235,7 +241,7 @@ function Reservation() {
                                 <div>PHONE</div>
                                 <div className="text-xs">연락처</div>
                             </div>
-                            <input ref={phoneNumberRef} onInput={handleInputPhoneNumber} className="h-8 p-2 w-2/3 bg-[#383838]" maxLength={11} />
+                            <input ref={phoneNumberRef} className="h-8 p-2 w-2/3 bg-[#383838]" onInput={handleInputPhoneNumber} onKeyDown={handleKeyDown} maxLength={11} />
                         </div>
                     </div>
                     <div className="bg-[#92c78c] font-bold text-center w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4" onClick={reservationConfirm}>

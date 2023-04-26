@@ -1,5 +1,6 @@
 import { ThemeType } from "./Information";
 import { formatNumber } from "../util/util";
+import { Link } from "react-router-dom";
 
 type ThemeProps = {
     theme: ThemeType;
@@ -14,18 +15,21 @@ function ThemeInfo({ theme, index }: ThemeProps) {
                 <span className="text-2xl font-semibold text-white">{theme.nameKo}</span>
             </div>
             <div className="h-60">
-                {/* @ts-ignore*/}
-                <img src={theme.mainImagePath} alt="없음" className="w-full h-full object-contain" />
+                <Link to={`theme-detail/${theme.id}`}>
+                    <img src={theme.mainImagePath!} alt="없음" className="w-full h-full object-contain" />
+                </Link>
             </div>
             <div>
-                <button
-                    type="button"
-                    className="w-full px-2 py-1 border border-zinc-600 bg-zinc-900
-            rounded-sm text-zinc-400 font-xl
-            hover:text-zinc-100 hover:border-zinc-100"
-                >
-                    실시간 예약하기
-                </button>
+                <Link to={"reservation"}>
+                    <button
+                        type="button"
+                        className="w-full px-2 py-1 border border-zinc-600 bg-zinc-900
+                rounded-sm text-zinc-400 font-xl
+                hover:text-zinc-100 hover:border-zinc-100"
+                    >
+                        실시간 예약하기
+                    </button>
+                </Link>
             </div>
         </div>
     );
