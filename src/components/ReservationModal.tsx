@@ -6,6 +6,7 @@ import { fetchReservationAuthenticatePhoneNumber, IReservationResponseData, modi
 import { reservationDetail } from "../atom";
 import { IFormData } from "./Reservation";
 import { onlyNumber } from "../util/util";
+import { SUCCESS } from "../util/constant";
 
 interface IModalProps {
     reservationFormData: IFormData;
@@ -25,9 +26,11 @@ interface IForm {
 }
 
 function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProps): React.ReactElement {
+    const navigate = useNavigate();
     const setDetail = useSetRecoilState(reservationDetail) as any;
     const [reservationResponseData, setReservationResponseData] = useState<IReservationResponseData>();
     const [price, setPrice] = useState("000 원");
+    const [reservationIsLoading, setReservationIsLoading] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [requestId, setRequestId] = useState<string>();
@@ -41,21 +44,26 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     const { register, handleSubmit } = useForm<IForm>({ defaultValues: {} });
 
     const onSubmit: SubmitHandler<IForm> = (inputData: IForm) => {
+        setReservationIsLoading(true);
         const formData = {
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
             participantCount: Number(inputData.participantCount),
             roomType: "general",
             authenticationNumber: inputData.authenticationNumber,
-            requestId: requestId,
+            requestId,
         };
         setDetail(formData);
-        modifyReservation(reservationFormData.reservationId, formData).then((res) => console.log(res));
-        // fetchReservationPut(reservationFormData?.reservationId, formData).then((res) => {
-        //     setReservationResponseData(res.result);
-        //     navigate(`/ku/reservation-detail/${res.result.id}`);
-        // });
-        onOverlayClick();
+        modifyReservation(reservationFormData.reservationId, formData).then((res) => {
+            if (res.resultCode === SUCCESS) {
+                setReservationIsLoading(false);
+                navigate(`/reservation-detail/${res.result.reservationHistoryId}`);
+                onOverlayClick();
+            } else {
+                setReservationIsLoading(false);
+                alert(res.resultMessage);
+            }
+        });
     };
 
     const authenticatePhoneNumber = (inputData: IForm, e: React.BaseSyntheticEvent | undefined) => {
@@ -114,6 +122,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
             setIsDisabled(true);
         }
     };
+
     return (
         <>
             <div className="bg-black fixed top-0 w-full h-full transition-all delay-100 duration-700 ease-in opacity-50" onClick={onOverlayClick} />
@@ -256,14 +265,34 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                     })}
                                     placeholder="숫자만 입력 해주세요."
                                     maxLength={6}
+                                    autoComplete="off"
                                 />
                             </div>
                             <div className="text-red-500 text-xs mb-2">* 인증번호 확인 후 예약하기를 눌러주세요.</div>
                         </>
                     )}
                 </form>
-                <button ref={reservationButton} onClick={handleSubmit(onSubmit)} className="p-4 bg-[#92c78c] w-2/5 opacity-50 cursor-not-allowed" disabled={isDisabled}>
-                    예약하기
+                <button
+                    ref={reservationButton}
+                    onClick={handleSubmit(onSubmit)}
+                    className={`p-4 bg-[#92c78c] w-2/5 opacity-50 cursor-not-allowed ${reservationIsLoading && "opacity-50"}`}
+                    disabled={isDisabled || reservationIsLoading}
+                >
+                    {reservationIsLoading ? (
+                        <div className="flex items-center justify-center">
+                            <svg className="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                            </svg>
+                            예약하기
+                        </div>
+                    ) : (
+                        <>예약하기</>
+                    )}
                 </button>
             </div>
         </>
