@@ -95,66 +95,70 @@ function ReservationDetail() {
             <div className="text-3xl text-center p-6">예약 상세보기</div>
             <div className="bg-[#4a4a4a] border border-[#363636] rounded p-4">
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">예약지점명</div>
+                    <div className="w-1/3 text-right mr-8">예약지점명</div>
                     <div>건대점</div>
                 </div>
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">예약번호</div>
+                    <div className="w-1/3 text-right mr-8">예약번호</div>
                     <div>{reservationDetail?.seq}</div>
                 </div>
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">날짜</div>
+                    <div className="w-1/3 text-right mr-8">날짜</div>
                     <div>{reservationDetail?.date}</div>
                 </div>
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">시간</div>
+                    <div className="w-1/3 text-right mr-8">시간</div>
                     <div>{reservationDetail?.time}</div>
                 </div>
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">테마</div>
+                    <div className="w-1/3 text-right mr-8">테마</div>
                     <div>{reservationDetail?.themeName}</div>
                 </div>
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">예약자</div>
+                    <div className="w-1/3 text-right mr-8">예약자</div>
                     <div>{reservationDetail?.reservedBy}</div>
                 </div>
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">인원선택</div>
+                    <div className="w-1/3 text-right mr-8">인원선택</div>
                     <div>{reservationDetail?.participantCount}</div>
                 </div>
                 <div className="flex mb-3 text-lg">
-                    <div className="w-1/5 text-right mr-8">가격</div>
+                    <div className="w-1/3 text-right mr-8">가격</div>
                     <div>44000</div>
                 </div>
                 <div className="mb-3 text-center">유의사항</div>
-                <div className="text-[#86e57f] mb-3 text-sm">
-                    ⏺ 휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기바랍니다.
+                <div className="text-start">
+                    <div className="text-[#86e57f] mb-3 text-sm">
+                        ⏺ 휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기바랍니다.
+                    </div>
+                    <div className="text-[#86e57f] mb-3 text-sm">
+                        ⏺ 임산부, 노약자, 유아 어린이(13세미만)나 폐소공포증, 심장질환 등의 질병이 있으신 분들은 예약전
+                        전화문의 바랍니다.
+                    </div>
+                    <div className="text-[#86e57f] mb-3 text-sm">⏺ 예약취소는 예약시간 24시간 전까지만 가능합니다.</div>
+                    <div className="text-[#86e57f] mb-3 text-sm">
+                        ⏺ 원활한 진행을 위해 게임 시작 10분 전까지 도착 부탁드립니다.
+                    </div>
+                    <div className="text-[#86e57f] mb-3 text-sm">
+                        ⏺ 예약취소 및 환불은 게임시작 30분전까지 가능합니다.
+                    </div>
                 </div>
-                <div className="text-[#86e57f] mb-3 text-sm">
-                    ⏺ 임산부, 노약자, 유아 어린이(13세미만)나 폐소공포증, 심장질환 등의 질병이 있으신 분들은 예약전
-                    전화문의 바랍니다.
-                </div>
-                <div className="text-[#86e57f] mb-3 text-sm">⏺ 예약취소는 예약시간 24시간 전까지만 가능합니다.</div>
-                <div className="text-[#86e57f] mb-3 text-sm">
-                    ⏺ 원활한 진행을 위해 게임 시작 10분 전까지 도착 부탁드립니다.
-                </div>
-                <div className="text-[#86e57f] mb-3 text-sm">⏺ 예약취소 및 환불은 게임시작 30분전까지 가능합니다.</div>
                 {reservationDetail?.type === REGISTER ? (
                     <div className="flex mb-3">
-                        <div className="w-1/5 text-right mr-8">
+                        <div className="w-1/3 text-right mr-8">
                             <div className="text-lg">PHONE</div>
                             <div className="text-sm">연락처</div>
                         </div>
                         <input
                             ref={phoneNumberRef}
-                            className="bg-transparent p-2"
+                            className="bg-transparent p-2 w-1/3"
                             value={reservationDetail?.phoneNumber || ""}
                             disabled
                         />
                         <button
-                            className={`px-4 py-2 font-semibold text-white  bg-[#92c78c] w-1/5 text-sm  
+                            className={`py-2 font-semibold text-white  bg-[#92c78c] w-1/3 text-xs  
                         ${isAuthenticateButtonDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} 
-                        ${isLoading && "opacity-50"}
+                        ${isLoading ? "opacity-50" : ""}
                         `}
                             onClick={authenticatePhoneNumber}
                             disabled={isAuthenticateButtonDisabled}
@@ -194,7 +198,7 @@ function ReservationDetail() {
                 {isLoading && (
                     <>
                         <div className="flex mb-3 items-center">
-                            <div className="w-1/5 text-right mr-8">인증번호</div>
+                            <div className="w-1/3 text-right mr-8">인증번호</div>
                             <input
                                 type="text"
                                 ref={authenticationNumberRef}
