@@ -18,6 +18,9 @@ export interface IMerchant {
     businessRegistrationNumber: string;
     ceoName: string;
     businessIcon: string;
+    brandInfoNotionId: string;
+    usingInfoNotionId: string;
+    addressNotionId: string;
 }
 
 // export interface IReservation {
