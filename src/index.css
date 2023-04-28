@@ -9,3 +9,9 @@
 body {
 	background-color: rgb(24 24 27);
 }
+
+@keyframes moveX {
+	to {
+		background-position:0 -125%;
+	}
+}
