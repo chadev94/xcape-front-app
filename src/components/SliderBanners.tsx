@@ -17,6 +17,7 @@ function SliderBanners() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
+        arrows: false,
         autoplaySpeed: 3000,
     };
 
