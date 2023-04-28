@@ -44,7 +44,7 @@
   },
   "prettier": {
     "tabWidth": 4,
-    "printWidth": 200
+    "printWidth": 120
   },
   "scripts": {
     "start": "cross-env react-app-rewired start | node server/server.js",
