@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "cross-env react-app-rewired start | node server/server.js",
-    "build": "cross-env react-app-rewired build | node server/server.js",
+    "build": "cross-env react-app-rewired build",
     "test": "cross-env react-app-rewired test | node server/server.js",
     "eject": "cross-env react-app-rewired eject"
   },
