@@ -53,7 +53,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
             authenticationNumber: inputData.authenticationNumber,
             requestId,
         };
-        console.log("asdfasdfasdfsfasdfasdfa");
         setDetail(formData);
         modifyReservation(reservationFormData.reservationId, formData).then((res) => {
             if (res.resultCode === SUCCESS) {

@@ -1,5 +1,5 @@
 function Contact() {
-    return <div style={{ color: "red " }}>Contact</div>;
+    return <div></div>;
 }
 
 export default Contact;

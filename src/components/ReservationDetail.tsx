@@ -6,7 +6,7 @@ import {
     getReservationHistoryDetail,
     IReservationResponseData,
 } from "../api";
-import { onlyNumber, validatePhoneNumber } from "../util/util";
+import { formatPrice, onlyNumber, validatePhoneNumber } from "../util/util";
 import { REGISTER } from "../util/constant";
 
 interface IParams {
@@ -83,6 +83,7 @@ function ReservationDetail() {
     useEffect(() => {
         reservationId &&
             getReservationHistoryDetail(reservationId).then((res) => {
+                console.log(res);
                 setReservationDetail(res.result);
                 if (res.result) {
                     setIsAuthenticateButtonDisabled(false);
@@ -93,7 +94,7 @@ function ReservationDetail() {
     return (
         <div className="text-white text-center">
             <div className="text-3xl text-center p-6">예약 상세보기</div>
-            <div className="bg-[#4a4a4a] border border-[#363636] rounded p-4">
+            <div className="bg-[#4a4a4a] border border-[#363636] rounded p-8">
                 <div className="flex mb-3 text-lg">
                     <div className="w-1/3 text-right mr-8">예약지점명</div>
                     <div>건대점</div>
@@ -124,7 +125,7 @@ function ReservationDetail() {
                 </div>
                 <div className="flex mb-3 text-lg">
                     <div className="w-1/3 text-right mr-8">가격</div>
-                    <div>44000</div>
+                    <div>{formatPrice(String(reservationDetail?.price))}원</div>
                 </div>
                 <div className="mb-3 text-center">유의사항</div>
                 <div className="text-start">
@@ -151,7 +152,7 @@ function ReservationDetail() {
                         </div>
                         <input
                             ref={phoneNumberRef}
-                            className="bg-transparent p-2 w-2/5 sm:w-1/3 text-xs md:text-base"
+                            className="bg-transparent p-2 w-2/5 sm:w-1/3 md:text-base"
                             value={reservationDetail?.phoneNumber || ""}
                             disabled
                         />

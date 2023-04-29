@@ -52,3 +52,7 @@ export const convertReservationType = (type: string) => {
         return "취소";
     }
 };
+
+export const formatPrice = (x: string) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};

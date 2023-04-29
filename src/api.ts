@@ -204,7 +204,9 @@ export function getReservationList(merchantId: number, date: string) {
 }
 
 export function getReservationHistoryDetail(reservationHistoryId: string) {
-    return axios.get(`${BASE_URL}/reservation-histories/${reservationHistoryId}`).then((res) => res.data);
+    return axios.get(`${BASE_URL}/reservation-histories/${reservationHistoryId}`).then((res) => {
+        return res.data;
+    });
 }
 
 export async function modifyReservation(id: string, params: IReservationFormData) {
