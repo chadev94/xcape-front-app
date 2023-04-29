@@ -40,10 +40,10 @@ function ThemeDetail() {
                             {currentTheme.nameKo}
                         </div>
                         <div className="text-xl text-zinc-500">{currentTheme.nameEn}</div>
-                        <div className="mt-8 py-5 text-center text-white whitespace-pre-wrap">
+                        <div className="w-full mt-8 py-5 text-center text-white whitespace-pre-wrap">
                             {currentTheme.description}
                         </div>
-                        <div className="w-full flex justify-between items-center">
+                        <div className="w-full lg:w-4/5 flex justify-between items-center">
                             <div className="flex">
                                 <div className="text-2xl" style={{ color: currentTheme.colorCode }}>
                                     난이도
@@ -69,12 +69,12 @@ function ThemeDetail() {
                             </div>
                         </div>
                         <div
-                            className="grid grid-cols-2 p-3 w-full mb-3"
+                            className="grid grid-cols-2 p-3 w-full lg:w-4/5 mb-3"
                             style={{ backgroundColor: currentTheme.colorCode }}
                         >
                             {currentTheme.abilityList.map((ability) => {
                                 return (
-                                    <div key={ability.id} className="text-md xs:text-md lg:text-lg lg:text-xl flex">
+                                    <div key={ability.id} className="text-xs md:text-base lg:text-lg lg:text-xl flex">
                                         <div className="text-white">{ability.name}</div>
                                         <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-2">
                                             {makeBooleanArray(ability.value).map((item, index) => {
@@ -82,14 +82,14 @@ function ThemeDetail() {
                                                     return (
                                                         <div
                                                             key={index}
-                                                            className="h-4 w-4 sm:h-3 sm:w-3  bg-white rounded-full"
+                                                            className="h-3 w-3 lg:h-4 lg:w-4 bg-black rounded-full"
                                                         ></div>
                                                     );
                                                 }
                                                 return (
                                                     <div
                                                         key={index}
-                                                        className="h-4 w-4 sm:h-3 sm:w-3 bg-black rounded-full"
+                                                        className="h-3 w-3 lg:h-4 lg:w-4 bg-white rounded-full"
                                                     ></div>
                                                 );
                                             })}
@@ -108,8 +108,8 @@ function ThemeDetail() {
                         >
                             <button
                                 type="button"
-                                className="w-full px-10 py-5 border border-zinc-600 rounded-md text-zinc-200 bg-yellow-900
-                                font-xl hover:text-zinc-100 hover:border-zinc-100 hover:bg-yellow-800"
+                                className="w-full px-10 py-5 border border-zinc-600 rounded-md text-zinc-200 font-xl hover:text-zinc-100 hover:border-zinc-100"
+                                style={{ backgroundColor: currentTheme.colorCode }}
                             >
                                 실시간 예약하기
                             </button>
