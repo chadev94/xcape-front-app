@@ -226,12 +226,12 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </label>
                     </div>
                     <div className="flex mb-3">
-                        <div className="w-1/3">
+                        <div className="w-1/5 text-right mr-2 sm:mr-8">
                             <div className="text-lg">PHONE</div>
                             <div className="text-sm">연락처</div>
                         </div>
                         <input
-                            className="bg-[#7C7C7C] p-2 w-1/5 text-xs md:text-base"
+                            className="bg-[#7C7C7C] p-2 w-2/5 sm:w-1/3 text-xs md:text-base"
                             onInput={handleInputPhoneNumber}
                             {...register("phoneNumber", {
                                 required: "전화번호는 필수 입력 항목입니다.",
@@ -244,8 +244,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             placeholder="숫자만 입력 해주세요."
                         />
                         <button
-                            className={`py-2 font-semibold text-white bg-[#92c78c] w-1/5 text-xs md:text-md ${
-                                isLoading && "opacity-50"
+                            className={`py-2 font-semibold text-white bg-[#92c78c] w-1/3 sm:w-1/5 text-xs md:text-md ${
+                                isLoading ? "opacity-50" : ""
                             }`} //
                             onClick={handleSubmit((data, e) => authenticatePhoneNumber(data, e))}
                         >
@@ -306,7 +306,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     ref={reservationButton}
                     onClick={handleSubmit(onSubmit)}
                     className={`p-4 bg-[#92c78c] w-2/5 opacity-50 cursor-not-allowed ${
-                        reservationIsLoading && "opacity-50"
+                        reservationIsLoading ? "opacity-50" : ""
                     }`}
                     disabled={isDisabled || reservationIsLoading}
                 >
