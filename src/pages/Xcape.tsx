@@ -53,14 +53,14 @@ function Xcape() {
             </div>
             {activeTabIndex === 0 ? (
                 <div className="relative">
-                    <img className="w-full" src={xcape} alt="xcapeDescription" />
+                    <NotionView pageId={currentMerchant.brandInfoNotionId} />
                 </div>
             ) : activeTabIndex === 1 ? (
                 <div>
                     <NotionView pageId={currentMerchant.usingInfoNotionId} />
                 </div>
             ) : activeTabIndex === 2 ? (
-                <div className="bg-[#282828] px-8 pb-8">
+                <div>
                     <NotionView pageId={currentMerchant.addressNotionId} />
                 </div>
             ) : null}
