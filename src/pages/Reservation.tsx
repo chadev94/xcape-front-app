@@ -6,11 +6,11 @@ import { getReservationList, IPrice, IReservationTheme } from "../api";
 import { useRecoilValue } from "recoil";
 import { makeBooleanArray, onlyNumber, validatePhoneNumber } from "../util/util";
 import Icon from "../assets/icons";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { merchant } from "../atom";
-import Underline from "./Underline";
+import Underline from "../components/Underline";
 import { AnimatePresence } from "framer-motion";
-import ReservationModal from "./ReservationModal";
+import ReservationModal from "../components/ReservationModal";
 import { useNavigate } from "react-router-dom";
 
 export interface IFormData {
@@ -132,10 +132,18 @@ function Reservation() {
     return (
         <div>
             <div className="relative flex text-md lg:text-2xl justify-around text-white py-2 items-center">
-                <div className="cursor-pointer" ref={(el) => (tabsRef.current[0] = el)} onClick={() => setActiveTabIndex(0)}>
+                <div
+                    className="cursor-pointer"
+                    ref={(el) => (tabsRef.current[0] = el)}
+                    onClick={() => setActiveTabIndex(0)}
+                >
                     예약하기
                 </div>
-                <div className="cursor-pointer" ref={(el) => (tabsRef.current[1] = el)} onClick={() => setActiveTabIndex(1)}>
+                <div
+                    className="cursor-pointer"
+                    ref={(el) => (tabsRef.current[1] = el)}
+                    onClick={() => setActiveTabIndex(1)}
+                >
                     예약확인
                 </div>
                 <Underline tabUnderlineLeft={tabUnderlineLeft} tabUnderlineWidth={tabUnderlineWidth} />
@@ -184,7 +192,12 @@ function Reservation() {
                                                             />
                                                         );
                                                     }
-                                                    return <Icon.Star key={index} className="text-zinc-600 h-4 w-4 xs:h-8 xs:w-8" />;
+                                                    return (
+                                                        <Icon.Star
+                                                            key={index}
+                                                            className="text-zinc-600 h-4 w-4 xs:h-8 xs:w-8"
+                                                        />
+                                                    );
                                                 })}
                                             </div>
                                             <div>
@@ -193,13 +206,23 @@ function Reservation() {
                                         </div>
                                     </div>
                                     <div className="w-full h-[500px]">
-                                        <img className="w-full h-full object-contain" src={theme.mainImagePath} alt="mainImagePath" />
+                                        <img
+                                            className="w-full h-full object-contain"
+                                            src={theme.mainImagePath}
+                                            alt="mainImagePath"
+                                        />
                                     </div>
                                     <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 py-2">
                                         {theme.reservationList.map((reservation) => {
                                             return reservation.isReserved ? (
-                                                <div key={reservation.id} style={{ backgroundColor: "#1B1B1B" }} className="text-center w-full p-2 text-zinc-700">
-                                                    <div className="text-2xl font-bold">{reservation.time.substring(0, 5)}</div>
+                                                <div
+                                                    key={reservation.id}
+                                                    style={{ backgroundColor: "#1B1B1B" }}
+                                                    className="text-center w-full p-2 text-zinc-700"
+                                                >
+                                                    <div className="text-2xl font-bold">
+                                                        {reservation.time.substring(0, 5)}
+                                                    </div>
                                                     <div className="text-lg">예약불가</div>
                                                 </div>
                                             ) : (
@@ -220,7 +243,9 @@ function Reservation() {
                                                         )
                                                     }
                                                 >
-                                                    <div className="text-2xl font-bold">{reservation.time.substring(0, 5)}</div>
+                                                    <div className="text-2xl font-bold">
+                                                        {reservation.time.substring(0, 5)}
+                                                    </div>
                                                     <div className="text-lg">예약가능</div>
                                                 </div>
                                             );
@@ -241,15 +266,30 @@ function Reservation() {
                                 <div>PHONE</div>
                                 <div className="text-xs">연락처</div>
                             </div>
-                            <input ref={phoneNumberRef} className="h-8 p-2 w-2/3 bg-[#383838]" onInput={handleInputPhoneNumber} onKeyDown={handleKeyDown} maxLength={11} />
+                            <input
+                                ref={phoneNumberRef}
+                                className="h-8 p-2 w-2/3 bg-[#383838]"
+                                onInput={handleInputPhoneNumber}
+                                onKeyDown={handleKeyDown}
+                                maxLength={11}
+                            />
                         </div>
                     </div>
-                    <div className="bg-[#92c78c] font-bold text-center w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4" onClick={reservationConfirm}>
+                    <div
+                        className="bg-[#92c78c] font-bold text-center w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4"
+                        onClick={reservationConfirm}
+                    >
                         예약확인
                     </div>
                 </div>
             ) : null}
-            {reservationFormData && <AnimatePresence>{openModal && <ReservationModal reservationFormData={reservationFormData} onOverlayFunction={setOpenModal} />}</AnimatePresence>}
+            {reservationFormData && (
+                <AnimatePresence>
+                    {openModal && (
+                        <ReservationModal reservationFormData={reservationFormData} onOverlayFunction={setOpenModal} />
+                    )}
+                </AnimatePresence>
+            )}
         </div>
     );
 }

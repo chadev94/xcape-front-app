@@ -1,5 +1,5 @@
 import "react-notion/src/styles.css";
-import NotionView from "./NotionView";
+import NotionView from "../components/NotionView";
 // import fs from "fs";
 
 function Review() {

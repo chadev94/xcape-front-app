@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { fetchReservationAuthenticatePhoneNumber, IReservationResponseData, modifyReservation } from "../api";
 import { reservationDetail } from "../atom";
-import { IFormData } from "./Reservation";
+import { IFormData } from "../pages/Reservation";
 import { onlyNumber } from "../util/util";
 import { SUCCESS } from "../util/constant";
 

@@ -1,9 +1,9 @@
 import xcape from "../assets/images/xcape.jpeg";
 import { useEffect, useRef, useState } from "react";
-import Underline from "./Underline";
+import Underline from "../components/Underline";
 import { useRecoilValue } from "recoil";
 import { merchant } from "../atom";
-import NotionView from "./NotionView";
+import NotionView from "../components/NotionView";
 
 function Xcape() {
     const [activeTabIndex, setActiveTabIndex] = useState<number>(0);

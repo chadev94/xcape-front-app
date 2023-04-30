@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
-import MainMenu from "./MainMenu";
+import MainMenu from "../pages/MainMenu";
 import Nav from "./Nav";
 import { formatTimeString } from "../util/util";
 import timerImage from "../assets/images/timer_bg.jpeg";
 
 function Header() {
-    const timeRef = useRef<HTMLDivElement | null>(null);
+    const timeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         let interval: NodeJS.Timer;
@@ -28,7 +28,10 @@ function Header() {
         <div>
             <Nav />
             <div className="relative">
-                <span ref={timeRef} className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-white text-4xl w-full text-center">
+                <span
+                    ref={timeRef}
+                    className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-white text-4xl w-full text-center"
+                >
                     00:00:00
                 </span>
                 <img src={timerImage} alt="timerImage" className="w-full mx-auto" />

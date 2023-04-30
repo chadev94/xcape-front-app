@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getReservationListByPhoneNumber, IReservationHistoryTable } from "../api";
-import Loading from "./Loading";
+import Loading from "../components/Loading";
 import { convertReservationType } from "../util/util";
 import { OPEN_ROOM } from "../util/constant";
 
@@ -45,14 +45,32 @@ function ReservationList() {
                             {reservationHistoryTable &&
                                 reservationHistoryTable.map((reservationHistory, index) => {
                                     return (
-                                        <tr key={index} className="cursor-pointer hover:bg-[#363636]" onClick={() => navigate(`/reservation-detail/${reservationHistory.reservationHistoryId}`)}>
-                                            <td className="border border-zinc-700 py-4">{reservationHistory.themeName}</td>
+                                        <tr
+                                            key={index}
+                                            className="cursor-pointer hover:bg-[#363636]"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/reservation-detail/${reservationHistory.reservationHistoryId}`
+                                                )
+                                            }
+                                        >
+                                            <td className="border border-zinc-700 py-4">
+                                                {reservationHistory.themeName}
+                                            </td>
                                             <td className="border border-zinc-700 py-4">{reservationHistory.date}</td>
                                             <td className="border border-zinc-700 py-4">{reservationHistory.time}</td>
-                                            <td className="border border-zinc-700 py-4">{reservationHistory.reservedBy}</td>
-                                            <td className="border border-zinc-700 py-4">{reservationHistory.participantCount}</td>
-                                            <td className="border border-zinc-700 py-4">{reservationHistory.roomType === OPEN_ROOM ? "✅" : ""}</td>
-                                            <td className="border border-zinc-700 py-4">{convertReservationType(reservationHistory.type)}</td>
+                                            <td className="border border-zinc-700 py-4">
+                                                {reservationHistory.reservedBy}
+                                            </td>
+                                            <td className="border border-zinc-700 py-4">
+                                                {reservationHistory.participantCount}
+                                            </td>
+                                            <td className="border border-zinc-700 py-4">
+                                                {reservationHistory.roomType === OPEN_ROOM ? "✅" : ""}
+                                            </td>
+                                            <td className="border border-zinc-700 py-4">
+                                                {convertReservationType(reservationHistory.type)}
+                                            </td>
                                         </tr>
                                     );
                                 })}
