@@ -1,17 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Contact from "./components/Contact";
+import Contact from "./pages/Contact";
 import Event from "./components/Event";
-import Reservation from "./components/Reservation";
-import Review from "./components/Review";
-import Xcape from "./components/Xcape";
+import Reservation from "./pages/Reservation";
+import Review from "./pages/Review";
+import Xcape from "./pages/Xcape";
 import Merchant from "./routes/Merchant";
 import Rooms from "./routes/Rooms";
-import ReservationDetail from "./components/ReservationDetail";
+import ReservationDetail from "./pages/ReservationDetail";
 import Information from "./components/Information";
-import ThemeDetail from "./components/ThemeDetail";
-import UpdateJsonInfo from "./components/UpdateJsonInfo";
-import ReservationList from "./components/ReservationList";
+import ThemeDetail from "./pages/ThemeDetail";
+import UpdateJsonInfo from "./pages/UpdateJsonInfo";
+import ReservationList from "./pages/ReservationList";
 
 //router
 const router = createBrowserRouter([
