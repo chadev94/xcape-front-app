@@ -7,6 +7,7 @@ import { reservationDetail } from "../atom";
 import { IFormData } from "../pages/Reservation";
 import { onlyNumber } from "../util/util";
 import { SUCCESS } from "../util/constant";
+import { be } from "date-fns/locale";
 
 interface IModalProps {
     reservationFormData: IFormData;
@@ -38,7 +39,11 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     const reservationButton = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
-        changePrice(2);
+        reservationFormData.priceList.sort((a, b) => {
+            return a.person - b.person;
+        });
+
+        changePrice(reservationFormData.priceList[0].person);
     }, [reservationResponseData]);
 
     const { register, handleSubmit } = useForm<IForm>({ defaultValues: {} });
