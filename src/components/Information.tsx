@@ -5,27 +5,15 @@ import { themeList } from "../atom";
 import SliderBanners from "./SliderBanners";
 import CautionLine from "./CautionLine";
 
-// export type ThemeType = {
-//     nameEn: string;
-//     id: number;
-//     nameKo: string;
-//     mainImagePath?: string | null;
-//     difficulty: number;
-//     minParticipantCount: number;
-//     maxParticipantCount: number;
-//     genre: string;
-//     abilityList: object[];
-// };
-
 function Information() {
     const currentThemeList = useRecoilValue<ITheme[]>(themeList);
+
     const xfilerThemeList = currentThemeList.filter((theme) => !theme.isCrimeScene);
     const crimeSceneThemeList = currentThemeList.filter((theme) => theme.isCrimeScene);
+
     const xfilerImage = require("../assets/images/xfiler.png");
     const crimeSceneImage = require("../assets/images/crime_scene.png");
 
-    console.log(xfilerThemeList);
-    console.log(crimeSceneThemeList);
     return (
         <div>
             <CautionLine />
