@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { IAbility, IMerchant, ITheme } from "../api";
 import { merchant, themeList } from "../atom";
 import Icon from "../assets/icons/index";
