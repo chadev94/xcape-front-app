@@ -163,6 +163,8 @@ function Reservation() {
                                     setTargetDate(new Date(selectDate));
                                 }}
                                 onBlur={handleOnBlur}
+                                minDate={new Date()}
+                                maxDate={new Date(new Date().setDate(new Date().getDate() + 15))}
                             />
                         </div>
                     </div>
@@ -205,7 +207,7 @@ function Reservation() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="w-full h-[500px]">
+                                    <div className="w-full h-[300px]">
                                         <img
                                             className="w-full h-full object-contain"
                                             src={theme.mainImagePath}
