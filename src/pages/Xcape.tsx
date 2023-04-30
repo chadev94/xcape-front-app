@@ -52,7 +52,7 @@ function Xcape() {
                 <Underline tabUnderlineLeft={tabUnderlineLeft} tabUnderlineWidth={tabUnderlineWidth} />
             </div>
             {activeTabIndex === 0 ? (
-                <div className="relative">
+                <div>
                     <NotionView pageId={currentMerchant.brandInfoNotionId} />
                 </div>
             ) : activeTabIndex === 1 ? (
