@@ -22,7 +22,7 @@ function Information() {
             <div className="bg-[url('./assets/images/bg_iron.png')]">
                 {xfilerThemeList.length > 0 && (
                     <div className="bg-black bg-opacity-50">
-                        <div className="flex justify-center">
+                        <div className="flex justify-center mt-5 mb-5">
                             <div className="h-28">
                                 <img src={xfilerImage} alt="xfilerImage" className="object-contain h-28" />
                             </div>
@@ -41,7 +41,7 @@ function Information() {
                 <CautionLine />
                 {crimeSceneThemeList.length > 0 && (
                     <>
-                        <div className="flex justify-center">
+                        <div className="flex justify-center mt-5 mb-5">
                             <div className="h-28">
                                 <img src={crimeSceneImage} alt="crimeSceneImage" className="object-contain h-28" />
                             </div>
