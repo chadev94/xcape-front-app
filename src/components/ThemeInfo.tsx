@@ -15,12 +15,12 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
         return abilityListJson.filter((ability: IAbility) => ability.themeId === themeId);
     };
     return (
-        <div className="w-50">
+        <div className="w-50 mb-5">
             <div>
-                <span className="text-amber-500 text-2xl font-semibold mr-2">{formatNumber(index + 1)}</span>
+                <span className="text-amber-500 text-2xl font-semibold mr-2 whitespace-nowrap">{formatNumber(index + 1)}</span>
                 <span style={{ color: color }} className="text-2xl font-semibold text-white">
                     {theme.nameKo}
-                    <div className="text-zinc-600 h-14">{theme.nameEn}</div>
+                    <div className="text-zinc-400 text-sm whitespace-nowrap">{theme.nameEn}</div>
                 </span>
             </div>
             <div className="h-60">
