@@ -32,19 +32,19 @@ function ThemeDetail() {
                         ></iframe>
                     </div>
                     {/*<div className="flex flex-col items-center justify-center bg-no-repeat bg-cover p-10 w-full" style={{ backgroundImage: `url(${book})` }}>*/}
-                    <div className="flex flex-col items-center justify-center p-10 w-full">
-                        <div className="px-10 text-white" style={{ backgroundColor: currentTheme.colorCode }}>
+                    <div className="flex flex-col items-center drop-shadow-lg justify-center p-10 w-full bg-[url('./assets/images/bg_iron.png')]">
+                        <div className="px-10 text-white drop-shadow-lg" style={{ backgroundColor: currentTheme.colorCode }}>
                             {currentTheme.genre}
                         </div>
-                        <div className="text-5xl mt-5" style={{ color: currentTheme.colorCode }}>
+                        <div className="text-5xl mt-5 drop-shadow-lg" style={{ color: currentTheme.colorCode }}>
                             {currentTheme.nameKo}
                         </div>
-                        <div className="text-xl text-zinc-500">{currentTheme.nameEn}</div>
-                        <div className="w-full mt-8 py-5 text-center text-white whitespace-pre-wrap">
+                        <div className="text-xl text-zinc-300 drop-shadow-lg">{currentTheme.nameEn}</div>
+                        <div className="w-full mt-8 py-5 text-center text-white whitespace-pre-wrap drop-shadow-md">
                             {currentTheme.description}
                         </div>
                         <div className="w-full lg:w-4/5 flex justify-between items-center">
-                            <div className="flex">
+                            <div className="flex justify-between items-center drop-shadow-md">
                                 <div className="text-2xl" style={{ color: currentTheme.colorCode }}>
                                     난이도
                                 </div>
@@ -58,7 +58,7 @@ function ThemeDetail() {
                                             />
                                         );
                                     }
-                                    return <Icon.Star key={index} className="text-zinc-600 h-8 w-8 xs:h-10 xs:w-10" />;
+                                    return <Icon.Star key={index} className="text-zinc-400 h-8 w-8 xs:h-10 xs:w-10" />;
                                 })}
                             </div>
                             <div className="text-md lg:text-2xl text-white">
@@ -69,7 +69,7 @@ function ThemeDetail() {
                             </div>
                         </div>
                         <div
-                            className="grid grid-cols-2 p-3 w-full lg:w-4/5 mb-3"
+                            className="grid grid-cols-2 p-3 w-full lg:w-4/5 mb-3 drop-shadow-lg"
                             style={{ backgroundColor: currentTheme.colorCode }}
                         >
                             {currentTheme.abilityList.map((ability) => {
@@ -98,17 +98,18 @@ function ThemeDetail() {
                                 );
                             })}
                         </div>
-                        <div className="text-white p-4 text-md lg:text-2xl border border-white mb-3">
+                        <div className="text-white p-4 text-md lg:text-2xl border border-white mb-3 drop-shadow-lg">
                             POINT <span className="text-lg lg:text-3xl">|</span> {currentTheme.point}
                         </div>
                         <div
                             onClick={() => {
                                 navigate(`/${merchantCode}/reservation`);
                             }}
+                            className="drop-shadow-lg"
                         >
                             <button
                                 type="button"
-                                className="w-full px-10 py-5 border border-zinc-600 rounded-md text-zinc-200 font-xl hover:text-zinc-100 hover:border-zinc-100"
+                                className="w-full px-10 py-5 border border-zinc-600 rounded-md text-xl text-white font-xl hover:text-zinc-200 hover:border-zinc-400"
                                 style={{ backgroundColor: currentTheme.colorCode }}
                             >
                                 실시간 예약하기
