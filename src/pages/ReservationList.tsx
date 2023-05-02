@@ -37,7 +37,6 @@ function ReservationList() {
                                 <th className="border border-zinc-600 py-2">예약시간</th>
                                 <th className="border border-zinc-600 py-2">예약자</th>
                                 <th className="border border-zinc-600 py-2">예약인원</th>
-                                <th className="border border-zinc-600 py-2">오픈룸</th>
                                 <th className="border border-zinc-600 py-2">예약분류</th>
                             </tr>
                         </thead>
@@ -64,9 +63,6 @@ function ReservationList() {
                                             </td>
                                             <td className="border border-zinc-700 py-4">
                                                 {reservationHistory.participantCount}
-                                            </td>
-                                            <td className="border border-zinc-700 py-4">
-                                                {reservationHistory.roomType === OPEN_ROOM ? "✅" : ""}
                                             </td>
                                             <td className="border border-zinc-700 py-4">
                                                 {convertReservationType(reservationHistory.type)}

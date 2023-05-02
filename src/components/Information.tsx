@@ -22,7 +22,7 @@ function Information() {
             <div className="bg-[url('./assets/images/bg_iron.png')]">
                 {xfilerThemeList.length > 0 && (
                     <div className="bg-black bg-opacity-50">
-                        <div className="flex justify-center mt-5 mb-5">
+                        <div className="flex justify-center p-4">
                             <div className="h-28">
                                 <img src={xfilerImage} alt="xfilerImage" className="object-contain h-28" />
                             </div>
@@ -31,7 +31,7 @@ function Information() {
                                 <div className="text-xl text-[#ff7119]">사건수사 프로파일링 게임</div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-2 gap-2 px-2">
                             {xfilerThemeList.map((theme, index) => {
                                 return <ThemeInfo key={theme.id} theme={theme} index={index} color="#ff7119" />;
                             })}
@@ -41,7 +41,7 @@ function Information() {
                 <CautionLine />
                 {crimeSceneThemeList.length > 0 && (
                     <>
-                        <div className="flex justify-center mt-5 mb-5">
+                        <div className="flex justify-center p-4">
                             <div className="h-28">
                                 <img src={crimeSceneImage} alt="crimeSceneImage" className="object-contain h-28" />
                             </div>
@@ -50,7 +50,7 @@ function Information() {
                                 <div className="text-xl text-[#fff200]">용의자 역할극 롤플레잉 게임</div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-2 gap-2 px-2">
                             {crimeSceneThemeList.map((theme, index) => {
                                 return <ThemeInfo key={theme.id} theme={theme} index={index} color="#fff200" />;
                             })}
@@ -58,11 +58,6 @@ function Information() {
                     </>
                 )}
             </div>
-            {/*<div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-3">*/}
-            {/*    {currentThemeList.map((theme: ITheme, index) => {*/}
-            {/*        return <ThemeInfo theme={theme} key={theme.id} index={index} />;*/}
-            {/*    })}*/}
-            {/*</div>*/}
         </div>
     );
 }

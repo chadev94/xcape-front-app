@@ -56,7 +56,6 @@ export const reservationDetail = atom({
         phoneNumber: "",
         reservedBy: "",
         participantCount: 0,
-        roomType: "",
     },
 });
 

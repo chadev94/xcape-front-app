@@ -7,7 +7,6 @@ import { reservationDetail } from "../atom";
 import { IFormData } from "../pages/Reservation";
 import { onlyNumber } from "../util/util";
 import { SUCCESS } from "../util/constant";
-import { be } from "date-fns/locale";
 
 interface IModalProps {
     reservationFormData: IFormData;
@@ -42,6 +41,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         reservationFormData.priceList.sort((a, b) => {
             return a.person - b.person;
         });
+        console.log(reservationFormData.priceList[0].person);
 
         changePrice(reservationFormData.priceList[0].person);
     }, [reservationResponseData]);
@@ -54,7 +54,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
             participantCount: Number(inputData.participantCount),
-            roomType: "general",
             authenticationNumber: inputData.authenticationNumber,
             requestId,
         };
@@ -105,9 +104,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     };
 
     const changePrice = (value: number) => {
-        const findPrice = reservationFormData?.priceList.find(
-            (element) => element.type === "general" && element.person === value
-        );
+        const findPrice = reservationFormData?.priceList.find((element) => element.person === value);
 
         const price = findPrice!.price;
         setPrice(price.toLocaleString(navigator.language) + "원");

@@ -97,7 +97,6 @@ interface IReservationFormData {
     reservedBy: string;
     phoneNumber: string;
     participantCount: number;
-    roomType: string;
 }
 
 interface IReservationAuthenticatePhoneNumber {
@@ -116,7 +115,6 @@ export interface IReservationResponseData {
     phoneNumber: string;
     price: number;
     reservedBy: string;
-    roomType: string;
     themeId: number;
     themeName: string;
     time: string;
@@ -142,7 +140,6 @@ export interface IReservationHistoryTable {
     participantCount: number;
     reservationId: string;
     reservedBy: string;
-    roomType: string;
     type: string;
 }
 
@@ -156,7 +153,6 @@ export interface IReservation {
     phoneNumber: string;
     price: number;
     reservedBy: string;
-    roomType: string;
     seq: number;
     themeId: number;
     themeName: string;
