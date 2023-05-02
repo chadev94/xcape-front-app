@@ -1,4 +1,3 @@
-import xcape from "../assets/images/xcape.jpeg";
 import { useEffect, useRef, useState } from "react";
 import Underline from "../components/Underline";
 import { useRecoilValue } from "recoil";

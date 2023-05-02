@@ -33,7 +33,10 @@ function ThemeDetail() {
                     </div>
                     {/*<div className="flex flex-col items-center justify-center bg-no-repeat bg-cover p-10 w-full" style={{ backgroundImage: `url(${book})` }}>*/}
                     <div className="flex flex-col items-center drop-shadow-lg justify-center p-10 w-full bg-[url('./assets/images/bg_iron.png')]">
-                        <div className="px-10 text-white drop-shadow-lg" style={{ backgroundColor: currentTheme.colorCode }}>
+                        <div
+                            className="px-10 text-white drop-shadow-lg"
+                            style={{ backgroundColor: currentTheme.colorCode }}
+                        >
                             {currentTheme.genre}
                         </div>
                         <div className="text-5xl mt-5 drop-shadow-lg" style={{ color: currentTheme.colorCode }}>
@@ -74,23 +77,20 @@ function ThemeDetail() {
                         >
                             {currentTheme.abilityList.map((ability) => {
                                 return (
-                                    <div key={ability.id} className="text-xs md:text-base lg:text-lg lg:text-xl flex">
-                                        <div className="text-white">{ability.name}</div>
-                                        <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-2">
+                                    <div key={ability.id} className="flex">
+                                        <div className="text-white w-fit">{ability.name}</div>
+                                        <div className="flex items-center justify-between w-2/3 mx-2">
                                             {makeBooleanArray(ability.value).map((item, index) => {
                                                 if (item) {
                                                     return (
                                                         <div
                                                             key={index}
-                                                            className="h-3 w-3 lg:h-4 lg:w-4 bg-black rounded-full"
+                                                            className="h-4 w-4 bg-black rounded-full"
                                                         ></div>
                                                     );
                                                 }
                                                 return (
-                                                    <div
-                                                        key={index}
-                                                        className="h-3 w-3 lg:h-4 lg:w-4 bg-white rounded-full"
-                                                    ></div>
+                                                    <div key={index} className="h-4 w-4 bg-white rounded-full"></div>
                                                 );
                                             })}
                                         </div>
