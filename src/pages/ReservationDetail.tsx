@@ -96,7 +96,7 @@ function ReservationDetail() {
                     <div className="bg-[#4a4a4a] border border-[#363636] rounded p-8">
                         <div className="flex mb-3 text-lg">
                             <div className="w-1/3 text-right mr-8">예약지점명</div>
-                            <div>건대점</div>
+                            <div>{reservationDetail.themeName}</div>
                         </div>
                         <div className="flex mb-3 text-lg">
                             <div className="w-1/3 text-right mr-8">예약번호</div>
