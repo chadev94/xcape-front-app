@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { themeList } from "../atom";
 import SliderBanners from "./SliderBanners";
 import CautionLine from "./CautionLine";
+import BlockBanners from "./BlockBanners";
 
 function Information() {
     const currentThemeList = useRecoilValue<ITheme[]>(themeList);
@@ -19,6 +20,7 @@ function Information() {
             <CautionLine />
             <SliderBanners />
             <CautionLine />
+            <BlockBanners />
             <div className="bg-[url('./assets/images/bg_iron.png')]">
                 {xfilerThemeList.length > 0 && (
                     <div className="bg-black bg-opacity-50">

@@ -3,6 +3,7 @@ import { makeBooleanArray } from "../util/util";
 import Icon from "../assets/icons";
 import { IAbility, ITheme } from "../api";
 import { useNavigate } from "react-router-dom";
+
 interface IProps {
     themeList: ITheme[];
     merchantCode: string;
@@ -97,18 +98,13 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                                     </div>
                                     <div
                                         style={{ backgroundColor: theme.colorCode }}
-                                        className="grid grid-cols-1 xs:grid-cols-2 p-1 lg:p-2 m-0"
+                                        className="my-2 grid grid-cols-2 p-1 whitespace-nowrap"
                                     >
                                         {findAbilitiesByThemeId(theme.id).map((ability) => {
                                             return (
-                                                <div
-                                                    key={ability.id}
-                                                    className="text-md xs:text-md lg:text-lg lg:text-xl flex"
-                                                >
-                                                    <div className="text-white text-xs md:text-lg whitespace-nowrap">
-                                                        {ability.name}
-                                                    </div>
-                                                    <div className="flex items-center justify-between w-full mx-2">
+                                                <div key={ability.id} className="text-xs lg:text-base flex">
+                                                    <div className="ml-1">{ability.name}</div>
+                                                    <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-1">
                                                         {makeBooleanArray(ability.value).map((item, index) => {
                                                             if (item) {
                                                                 return (
@@ -121,7 +117,7 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                                                             return (
                                                                 <div
                                                                     key={index}
-                                                                    className="h-3 w-3 bg-white rounded-full"
+                                                                    className="h-3 w-3 border border-black bg-transparent rounded-full"
                                                                 ></div>
                                                             );
                                                         })}

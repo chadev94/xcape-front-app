@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { makeBooleanArray } from "../util/util";
 import Icon from "../assets/icons";
-import { getThemeDetail, ITheme } from "../api";
+import { getThemeDetail, IAbility, ITheme } from "../api";
 import { useNavigate, useParams } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { themeList } from "../atom";
 
 function ThemeDetail() {
     const navigate = useNavigate();
-    const { merchantCode } = useParams<{ merchantCode: string }>();
+    const { merchantCode, themeId } = useParams<{ merchantCode: string; themeId: string }>();
+
+    const currentThemeList = useRecoilValue<ITheme[]>(themeList);
     const [currentTheme, setCurrentTheme] = useState<ITheme>();
-    const { themeId } = useParams<{ themeId: string }>();
+
+    const abilityList: IAbility[] = require("../data/abilityList.json");
+    const abilityListByThemeId = abilityList.filter((ability) => ability.themeId === Number(themeId));
 
     useEffect(() => {
-        getThemeDetail(Number(themeId)).then((res) => {
-            setCurrentTheme(res.result);
-        });
+        const currentTheme = currentThemeList.find((theme) => theme.id === Number(themeId));
+        setCurrentTheme(currentTheme);
     }, [themeId]);
 
     return (
@@ -75,7 +80,7 @@ function ThemeDetail() {
                             className="grid grid-cols-2 p-3 w-full lg:w-4/5 mb-3 drop-shadow-lg"
                             style={{ backgroundColor: currentTheme.colorCode }}
                         >
-                            {currentTheme.abilityList.map((ability) => {
+                            {abilityListByThemeId.map((ability) => {
                                 return (
                                     <div key={ability.id} className="flex">
                                         <div className="text-white w-fit">{ability.name}</div>
@@ -90,7 +95,10 @@ function ThemeDetail() {
                                                     );
                                                 }
                                                 return (
-                                                    <div key={index} className="h-4 w-4 bg-white rounded-full"></div>
+                                                    <div
+                                                        key={index}
+                                                        className="h-4 w-4 border border-black bg-transparent rounded-full"
+                                                    ></div>
                                                 );
                                             })}
                                         </div>
