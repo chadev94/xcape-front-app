@@ -99,11 +99,6 @@ interface IReservationFormData {
     participantCount: number;
 }
 
-interface IReservationAuthenticatePhoneNumber {
-    recipientNo: string;
-    reservationId: string;
-}
-
 export interface IReservationResponseData {
     date: string;
     seq: number;

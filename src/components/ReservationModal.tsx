@@ -41,7 +41,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         reservationFormData.priceList.sort((a, b) => {
             return a.person - b.person;
         });
-        console.log(reservationFormData.priceList[0].person);
 
         changePrice(reservationFormData.priceList[0].person);
     }, [reservationResponseData]);
@@ -207,7 +206,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         <div>NOTICE</div>
                         <div>유의사항</div>
                     </div>
-                    <div className="text-start">
+                    <div className="text-start w-full sm:w-3/4 m-auto">
                         <div className="text-[#86e57f] text-xs mb-2">
                             ⏺ 휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기 바랍니다.
                         </div>
@@ -282,10 +281,10 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     {isLoading && (
                         <>
                             <div className="flex mb-3 items-center">
-                                <div className="w-1/3">인증번호</div>
+                                <div className="w-1/5 text-right mr-2 sm:mr-8">인증번호</div>
                                 <input
                                     type="text"
-                                    className="bg-[#7C7C7C] p-2"
+                                    className="bg-[#7C7C7C] p-2 w-2/5 sm:w-1/3"
                                     onInput={handleInput}
                                     {...register("authenticationNumber", {
                                         required: "인증번호는 필수 입력 항목입니다.",
@@ -298,47 +297,49 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                     maxLength={6}
                                     autoComplete="off"
                                 />
+                                <button
+                                    ref={reservationButton}
+                                    onClick={handleSubmit(onSubmit)}
+                                    className={`py-2 bg-[#92c78c] w-1/3 sm:w-1/5 opacity-50 cursor-not-allowed ${
+                                        reservationIsLoading ? "opacity-50" : ""
+                                    }`}
+                                    disabled={isDisabled || reservationIsLoading}
+                                >
+                                    {reservationIsLoading ? (
+                                        <div className="flex items-center justify-center">
+                                            <svg
+                                                className="animate-spin mr-2 h-5 w-5 text-white"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <circle
+                                                    className="opacity-25"
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                    stroke="currentColor"
+                                                    strokeWidth="4"
+                                                ></circle>
+                                                <path
+                                                    className="opacity-75"
+                                                    fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                                ></path>
+                                            </svg>
+                                            예약하기
+                                        </div>
+                                    ) : (
+                                        <>예약하기</>
+                                    )}
+                                </button>
                             </div>
-                            <div className="text-red-500 text-xs mb-2">* 인증번호 확인 후 예약하기를 눌러주세요.</div>
+                            <div className="text-red-500 text-xs mb-2">
+                                * 카카오톡 인증번호 확인 후 예약하기를 눌러주세요.
+                            </div>
                         </>
                     )}
                 </form>
-                <button
-                    ref={reservationButton}
-                    onClick={handleSubmit(onSubmit)}
-                    className={`p-4 bg-[#92c78c] w-2/5 opacity-50 cursor-not-allowed ${
-                        reservationIsLoading ? "opacity-50" : ""
-                    }`}
-                    disabled={isDisabled || reservationIsLoading}
-                >
-                    {reservationIsLoading ? (
-                        <div className="flex items-center justify-center">
-                            <svg
-                                className="animate-spin mr-2 h-5 w-5 text-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                            >
-                                <circle
-                                    className="opacity-25"
-                                    cx="12"
-                                    cy="12"
-                                    r="10"
-                                    stroke="currentColor"
-                                    strokeWidth="4"
-                                ></circle>
-                                <path
-                                    className="opacity-75"
-                                    fill="currentColor"
-                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                ></path>
-                            </svg>
-                            예약하기
-                        </div>
-                    ) : (
-                        <>예약하기</>
-                    )}
-                </button>
             </div>
         </>
     );

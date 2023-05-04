@@ -12,7 +12,6 @@ function BlockBanners() {
         const currentBlockBannerList = currentBannerList.filter((banner) => {
             return banner.type === BLOCK_TYPE;
         });
-
         currentBlockBannerList.sort((prev, next) => {
             return prev.sequence! - next.sequence!;
         });
@@ -24,8 +23,8 @@ function BlockBanners() {
             {blockBannerList &&
                 blockBannerList.map((banner) => {
                     return (
-                        <div key={banner.id} className="w-full h-[100px]">
-                            <img src={banner.imagePath} alt="bannerImage" className="w-full h-full object-contain" />;
+                        <div key={banner.id} className="w-full">
+                            <img src={banner.imagePath} alt="bannerImage" className="w-full h-full object-contain" />
                         </div>
                     );
                 })}

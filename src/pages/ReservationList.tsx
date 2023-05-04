@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { getReservationListByPhoneNumber, IReservationHistoryTable } from "../api";
 import Loading from "../components/Loading";
 import { convertReservationType } from "../util/util";
-import { OPEN_ROOM } from "../util/constant";
 
 function ReservationList() {
     const navigate = useNavigate();
