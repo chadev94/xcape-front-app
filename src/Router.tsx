@@ -12,13 +12,18 @@ import Information from "./components/Information";
 import ThemeDetail from "./pages/ThemeDetail";
 import UpdateJsonInfo from "./pages/UpdateJsonInfo";
 import ReservationList from "./pages/ReservationList";
+import React from "react";
+import MainPage from "./pages/MainPage";
 
-//router
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         children: [
+            {
+                path: "",
+                element: <MainPage />,
+            },
             {
                 path: "xcape",
                 element: <Xcape />,
