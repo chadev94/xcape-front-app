@@ -8,6 +8,7 @@ import {
 } from "../api";
 import { convertReservationType, formatPrice, onlyNumber, validatePhoneNumber } from "../util/util";
 import { REGISTER } from "../util/constant";
+import AuthenticationTimer from "../components/AuthenticationTimer";
 
 interface IParams {
     reservationId: string;
@@ -91,69 +92,50 @@ function ReservationDetail() {
     return (
         <>
             {reservationDetail && (
-                <div className="text-white text-center">
-                    <div className="text-3xl text-center p-6">예약 상세보기</div>
+                <div className="text-white">
+                    <div className="text-2xl text-center p-4">예약 상세보기</div>
                     <div className="bg-[#4a4a4a] border border-[#363636] rounded p-8">
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">예약지점명</div>
                             <div>{reservationDetail.merchantName}</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">예약번호</div>
                             <div>{reservationDetail.seq}</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">날짜</div>
                             <div>{reservationDetail.date}</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">시간</div>
                             <div>{reservationDetail.time}</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">테마</div>
                             <div>{reservationDetail.themeName}</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">예약자</div>
                             <div>{reservationDetail.reservedBy}</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">인원선택</div>
                             <div>{reservationDetail.participantCount}</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">가격</div>
                             <div>{formatPrice(String(reservationDetail.price))}원</div>
                         </div>
-                        <div className="flex mb-3 text-lg">
+                        <div className="flex mb-3 text-sm lg:text-lg">
                             <div className="w-1/3 text-right mr-8">구분</div>
                             <div>{convertReservationType(reservationDetail.type)}</div>
-                        </div>
-                        <div className="mb-3 text-center">유의사항</div>
-                        <div className="text-start">
-                            <div className="text-[#86e57f] mb-3 text-sm">
-                                ⏺ 휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기바랍니다.
-                            </div>
-                            <div className="text-[#86e57f] mb-3 text-sm">
-                                ⏺ 임산부, 노약자, 유아 어린이(13세미만)나 폐소공포증, 심장질환 등의 질병이 있으신 분들은
-                                예약전 전화문의 바랍니다.
-                            </div>
-                            <div className="text-[#86e57f] mb-3 text-sm">
-                                ⏺ 예약취소는 예약시간 24시간 전까지만 가능합니다.
-                            </div>
-                            <div className="text-[#86e57f] mb-3 text-sm">
-                                ⏺ 원활한 진행을 위해 게임 시작 10분 전까지 도착 부탁드립니다.
-                            </div>
-                            <div className="text-[#86e57f] mb-3 text-sm">
-                                ⏺ 예약취소 및 환불은 게임시작 30분전까지 가능합니다.
-                            </div>
                         </div>
                         {reservationDetail.type === REGISTER ? (
                             <div className="flex mb-3">
                                 <div className="w-1/5 text-right mr-2 sm:mr-8">
-                                    <div className="text-lg">PHONE</div>
-                                    <div className="text-sm">연락처</div>
+                                    <div className="text-sm lg:text-lg">PHONE</div>
+                                    <div className="text-xs lg:text-md">연락처</div>
                                 </div>
                                 <input
                                     ref={phoneNumberRef}
@@ -162,7 +144,7 @@ function ReservationDetail() {
                                     disabled
                                 />
                                 <button
-                                    className={`py-2 font-semibold text-white bg-[#92c78c] w-1/3 sm:w-1/5 text-xs md:text-md  
+                                    className={`py-2 font-semibold text-black bg-[#fff200] w-1/3 sm:w-1/5 text-xs md:text-md  
                         ${isAuthenticateButtonDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} 
                         ${isLoading ? "opacity-50" : ""}
                         `}
@@ -213,9 +195,12 @@ function ReservationDetail() {
                                         maxLength={6}
                                     />
                                 </div>
-                                <div className="text-red-500 text-xs mb-2">
-                                    {" "}
-                                    * 인증번호 확인 후 예약하기를 눌러주세요.
+                                <div className="text-center">
+                                    <AuthenticationTimer />
+                                    <div className="text-red-500 text-xs mb-2">
+                                        {" "}
+                                        * 카카오톡 인증번호 확인 후 예약하기를 눌러주세요.
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -234,6 +219,24 @@ function ReservationDetail() {
                         ) : (
                             <></>
                         )}
+                        <div className="mb-3 text-2xl text-center font-bold">
+                            <div>NOTICE</div>
+                            <div>유의사항</div>
+                        </div>
+                        <div className="text-start w-full sm:w-3/4 m-auto text-[#fff200]">
+                            <div className="text-xs mb-2">
+                                ⏺ 테마 시작 10분 전 도착하셔야 시간 차감 없이 진행이 가능합니다. 지각 시 자동 시간
+                                차감됩니다.
+                            </div>
+                            <div className="text-xs mb-2">⏺ 예약취소는 예약 시간 24시간 전까지만 가능합니다.</div>
+                            <div className="text-xs mb-2">
+                                ⏺ 휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기 바랍니다.
+                            </div>
+                            <div className="text-xs mb-2">
+                                ⏺ 임산부, 노약자, 유아 어린이(13세 미만)나 폐소공포증, 심장질환 등의 질병이 있으신
+                                분들은 예약 전 전화 문의 바랍니다.
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
