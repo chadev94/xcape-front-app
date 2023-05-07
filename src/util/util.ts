@@ -6,22 +6,24 @@ export const formatNumber = (number: number) => {
     return number < 10 ? `0${number}` : number;
 };
 
-export const formatTimeString = (time: number) => {
-    let msecs: string = String(time % 1000);
-
-    if (Number(msecs) < 10) {
-        msecs = `00${msecs}`;
-    } else if (Number(msecs) < 100) {
-        msecs = `0${msecs}`;
-    }
-
+export const formatTimeString = (time: number, showMsecs: boolean) => {
     let seconds = Math.floor(time / 1000);
     let minutes = Math.floor(time / 60000);
     let hours = Math.floor(time / 3600000);
-    seconds = seconds - minutes * 60;
     // minutes = minutes - hours * 60;
+    seconds = seconds - minutes * 60;
+    if (showMsecs) {
+        let msecs: string = String(time % 1000);
+        if (Number(msecs) < 10) {
+            msecs = `00${msecs}`;
+        } else if (Number(msecs) < 100) {
+            msecs = `0${msecs}`;
+        }
 
-    return `${minutes < 10 ? 0 : ""}${minutes} : ${seconds < 10 ? 0 : ""}${seconds} : ${msecs}`;
+        return `${minutes < 10 ? 0 : ""}${minutes} : ${seconds < 10 ? 0 : ""}${seconds} : ${msecs}`;
+    } else {
+        return `${minutes < 10 ? 0 : ""}${minutes} : ${seconds < 10 ? 0 : ""}${seconds}`;
+    }
 };
 
 export const makeBooleanArray = (number: number): boolean[] => {

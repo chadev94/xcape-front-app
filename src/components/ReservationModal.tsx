@@ -5,8 +5,9 @@ import { useSetRecoilState } from "recoil";
 import { fetchReservationAuthenticatePhoneNumber, IReservationResponseData, modifyReservation } from "../api";
 import { reservationDetail } from "../atom";
 import { IFormData } from "../pages/Reservation";
-import { onlyNumber } from "../util/util";
+import { formatTimeString, onlyNumber } from "../util/util";
 import { SUCCESS } from "../util/constant";
+import AuthenticationTimer from "./AuthenticationTimer";
 
 interface IModalProps {
     reservationFormData: IFormData;
@@ -36,6 +37,9 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     const [requestId, setRequestId] = useState<string>();
 
     const reservationButton = useRef<HTMLButtonElement>(null);
+
+    let interval: NodeJS.Timer;
+    const timeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         reservationFormData.priceList.sort((a, b) => {
@@ -75,6 +79,15 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
             reservationId: reservationFormData?.reservationId,
         };
         setIsLoading(true);
+
+        let afterThreeMinutes: Date = new Date(Date.parse(String(new Date())) + 60 * 3 * 1000);
+        interval = setInterval(() => {
+            const time = afterThreeMinutes.getTime() - new Date().getTime();
+            if (timeRef.current) {
+                timeRef.current.textContent = formatTimeString(time, false);
+            }
+        });
+
         e?.target.classList.add("cursor-now-allowed");
         e!.target.disabled = true;
 
@@ -136,15 +149,15 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                 <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-lg">DATE</div>
-                            <div className="text-sm">날짜</div>
+                            <div className="text-sm lg:text-lg">DATE</div>
+                            <div className="text-xs lg:text-md">날짜</div>
                         </div>
                         <input className="bg-inherit" defaultValue={reservationFormData?.curDate} disabled />
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-lg">TIME</div>
-                            <div className="text-sm">시간</div>
+                            <div className="text-sm lg:text-lg">TIME</div>
+                            <div className="text-xs lg:text-md">시간</div>
                         </div>
                         <input
                             className="bg-inherit"
@@ -157,8 +170,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-lg">ROOM</div>
-                            <div className="text-sm">테마</div>
+                            <div className="text-sm lg:text-lg">ROOM</div>
+                            <div className="text-xs lg:text-md">테마</div>
                         </div>
                         <input
                             className="bg-inherit"
@@ -171,8 +184,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3 text-md">
                         <div className="w-1/3">
-                            <div className="text-lg">NAME</div>
-                            <div className="text-sm">예약자</div>
+                            <div className="text-sm lg:text-lg">NAME</div>
+                            <div className="text-xs lg:text-md">예약자</div>
                         </div>
                         <input
                             className="bg-[#7C7C7C] p-2"
@@ -183,8 +196,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-lg">PLAYERS</div>
-                            <div className="text-sm">인원선택</div>
+                            <div className="text-sm lg:text-lg">PLAYERS</div>
+                            <div className="text-xs lg:text-md">인원선택</div>
                         </div>
                         <select
                             className="bg-[#7C7C7C] p-2"
@@ -197,27 +210,10 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-lg">PRICE</div>
-                            <div className="text-sm">가격</div>
+                            <div className="text-sm lg:text-lg">PRICE</div>
+                            <div className="text-xs lg:text-md">가격</div>
                         </div>
                         <input className="bg-inherit p-2" value={price} disabled />
-                    </div>
-                    <div className="mb-3 text-2xl text-center font-bold">
-                        <div>NOTICE</div>
-                        <div>유의사항</div>
-                    </div>
-                    <div className="text-start w-full sm:w-3/4 m-auto">
-                        <div className="text-[#86e57f] text-xs mb-2">
-                            ⏺ 휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기 바랍니다.
-                        </div>
-                        <div className="text-[#86e57f] text-xs mb-2">
-                            ⏺ 임산부, 노약자, 유아 어린이(13세미만)나 페소공포증, 심장질환 등의 질병이 있으신 분들은
-                            예약전 전화문의 바랍니다.
-                        </div>
-                        <div className="text-[#86e57f] text-xs mb-2">
-                            ⏺ 예약취소는 예약시간 24시간 전까지만 가능합니다. 원활한 진행을 위해 게임 시작 10분 전까지
-                            도착 부탁드립니다.
-                        </div>
                     </div>
                     <div className="flex justify-center mb-2">
                         <input id="privacy" type="checkbox" {...register("privacy", { required: true })} />
@@ -227,8 +223,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/5 text-right mr-2 sm:mr-8">
-                            <div className="text-lg">PHONE</div>
-                            <div className="text-sm">연락처</div>
+                            <div className="text-sm lg:text-lg">PHONE</div>
+                            <div className="text-xs lg:text-md">연락처</div>
                         </div>
                         <input
                             className="bg-[#7C7C7C] p-2 w-2/5 sm:w-1/3 text-xs md:text-base"
@@ -244,7 +240,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             placeholder="숫자만 입력 해주세요."
                         />
                         <button
-                            className={`py-2 font-semibold text-white bg-[#92c78c] w-1/3 sm:w-1/5 text-xs md:text-md ${
+                            className={`py-2 font-semibold text-black bg-[#fff200] w-1/3 sm:w-1/5 text-xs md:text-md ${
                                 isLoading ? "opacity-50" : ""
                             }`} //
                             onClick={handleSubmit((data, e) => authenticatePhoneNumber(data, e))}
@@ -300,7 +296,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                 <button
                                     ref={reservationButton}
                                     onClick={handleSubmit(onSubmit)}
-                                    className={`py-2 bg-[#92c78c] w-1/3 sm:w-1/5 opacity-50 cursor-not-allowed ${
+                                    className={`py-2 bg-[#fff200] text-black w-1/3 sm:w-1/5 opacity-50 cursor-not-allowed ${
                                         reservationIsLoading ? "opacity-50" : ""
                                     }`}
                                     disabled={isDisabled || reservationIsLoading}
@@ -334,11 +330,32 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                     )}
                                 </button>
                             </div>
-                            <div className="text-red-500 text-xs mb-2">
-                                * 카카오톡 인증번호 확인 후 예약하기를 눌러주세요.
+                            <div className="text-center">
+                                <AuthenticationTimer />
+                                <div className="text-red-500 text-xs mb-2">
+                                    * 카카오톡 인증번호 확인 후 예약하기를 눌러주세요.
+                                </div>
                             </div>
                         </>
                     )}
+                    <div className="mb-3 text-2xl text-center font-bold">
+                        <div>NOTICE</div>
+                        <div>유의사항</div>
+                    </div>
+                    <div className="text-start w-full sm:w-3/4 m-auto text-[#fff200]">
+                        <div className="text-xs mb-2">
+                            ⏺ 테마 시작 10분 전 도착하셔야 시간 차감 없이 진행이 가능합니다. 지각 시 자동 시간
+                            차감됩니다.
+                        </div>
+                        <div className="text-xs mb-2">⏺ 예약취소는 예약 시간 24시간 전까지만 가능합니다.</div>
+                        <div className="text-xs mb-2">
+                            ⏺ 휴대전화 번호가 정확하지 않을 경우 예약이 취소되니 유의해 주시기 바랍니다.
+                        </div>
+                        <div className="text-xs mb-2">
+                            ⏺ 임산부, 노약자, 유아 어린이(13세 미만)나 폐소공포증, 심장질환 등의 질병이 있으신 분들은
+                            예약 전 전화 문의 바랍니다.
+                        </div>
+                    </div>
                 </form>
             </div>
         </>

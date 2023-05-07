@@ -15,7 +15,9 @@ function Header() {
             if (time <= 0) {
                 afterOneHour = new Date(Date.parse(String(new Date())) + 60 * 60 * 1000);
             }
-            if (timeRef.current) timeRef.current.textContent = formatTimeString(time);
+            if (timeRef.current) {
+                timeRef.current.textContent = formatTimeString(time, true);
+            }
         }, 10);
         return () => {
             clearInterval(interval);
