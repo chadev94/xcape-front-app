@@ -22,6 +22,7 @@ function ReservationDetail() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isCancelButtonDisabled, setIsCancelButtonDisabled] = useState<boolean>(true);
     const [requestId, setRequestId] = useState<string>();
+    const [canCancel, setCanCancel] = useState<boolean>(false);
 
     const { reservationId } = useParams<{ reservationId: string }>();
 
@@ -83,9 +84,17 @@ function ReservationDetail() {
         reservationId &&
             getReservationHistoryDetail(reservationId).then((res) => {
                 setReservationDetail(res.result);
-                if (res.result) {
-                    setIsAuthenticateButtonDisabled(false);
-                }
+
+                const { date, time } = res.result;
+                const reservedDate = new Date(date);
+                reservedDate.setHours(time.split(":")[0]);
+                reservedDate.setMinutes(time.split(":")[1]);
+                // 취소가능시간이 게임시작 10분 전
+                reservedDate.setMinutes(reservedDate.getMinutes() - 10);
+
+                const isRegister = res.result.type === REGISTER;
+                setCanCancel(isRegister && new Date() < reservedDate);
+                setIsAuthenticateButtonDisabled(false);
             });
     }, [reservationId]);
 
@@ -131,55 +140,64 @@ function ReservationDetail() {
                             <div className="w-1/3 text-right mr-8">구분</div>
                             <div>{convertReservationType(reservationDetail.type)}</div>
                         </div>
-                        {reservationDetail.type === REGISTER ? (
-                            <div className="flex mb-3">
-                                <div className="w-1/5 text-right mr-2 sm:mr-8">
-                                    <div className="text-sm lg:text-lg">PHONE</div>
-                                    <div className="text-xs lg:text-md">연락처</div>
+                        {canCancel ? (
+                            <>
+                                <div className="border-t border-b text-center py-2 my-2">
+                                    <div className="text-[#fff200]">예약이 정상적으로 완료되었습니다.</div>
+                                    <div className="text-sm">예약 취소를 원하시면, 아래 인증번호를 입력해주세요.</div>
                                 </div>
-                                <input
-                                    ref={phoneNumberRef}
-                                    className="bg-transparent p-2 w-2/5 sm:w-1/3 md:text-base"
-                                    value={reservationDetail.phoneNumber || ""}
-                                    disabled
-                                />
-                                <button
-                                    className={`py-2 font-semibold text-black bg-[#fff200] w-1/3 sm:w-1/5 text-xs md:text-md  
-                        ${isAuthenticateButtonDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} 
-                        ${isLoading ? "opacity-50" : ""}
-                        `}
-                                    onClick={authenticatePhoneNumber}
-                                    disabled={isAuthenticateButtonDisabled}
-                                >
-                                    {isLoading ? (
-                                        <div className="flex items-center justify-center">
-                                            <svg
-                                                className="animate-spin mr-2 h-5 w-5 text-white"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <circle
-                                                    className="opacity-25"
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    stroke="currentColor"
-                                                    strokeWidth="4"
-                                                ></circle>
-                                                <path
-                                                    className="opacity-75"
-                                                    fill="currentColor"
-                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                                ></path>
-                                            </svg>
-                                            전송 중...
-                                        </div>
-                                    ) : (
-                                        <>인증번호 전송</>
-                                    )}
-                                </button>
-                            </div>
+                                <div className="flex my-2">
+                                    <div className="w-1/5 text-right mr-2 sm:mr-8">
+                                        <div className="text-sm lg:text-lg">PHONE</div>
+                                        <div className="text-xs lg:text-md">연락처</div>
+                                    </div>
+                                    <input
+                                        ref={phoneNumberRef}
+                                        className="bg-transparent p-2 w-2/5 sm:w-1/3 md:text-base"
+                                        value={reservationDetail.phoneNumber || ""}
+                                        disabled
+                                    />
+                                    <button
+                                        className={`p-2 font-semibold text-black bg-[#fff200] w-2/5 text-xs md:text-md 
+                                    ${
+                                        isAuthenticateButtonDisabled
+                                            ? "opacity-50 cursor-not-allowed"
+                                            : "cursor-pointer"
+                                    } 
+                                    ${isLoading ? "opacity-50" : ""}`}
+                                        onClick={authenticatePhoneNumber}
+                                        disabled={isAuthenticateButtonDisabled}
+                                    >
+                                        {isLoading ? (
+                                            <div className="flex items-center justify-center">
+                                                <svg
+                                                    className="animate-spin mr-2 h-5 w-5 text-white"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle
+                                                        className="opacity-25"
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="10"
+                                                        stroke="currentColor"
+                                                        strokeWidth="4"
+                                                    ></circle>
+                                                    <path
+                                                        className="opacity-75"
+                                                        fill="currentColor"
+                                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                                    ></path>
+                                                </svg>
+                                                전송 중...
+                                            </div>
+                                        ) : (
+                                            <>인증번호 전송</>
+                                        )}
+                                    </button>
+                                </div>
+                            </>
                         ) : (
                             <></>
                         )}
@@ -204,7 +222,7 @@ function ReservationDetail() {
                                 </div>
                             </>
                         )}
-                        {reservationDetail?.type === REGISTER ? (
+                        {canCancel ? (
                             <div className="text-center">
                                 <button
                                     ref={cancelButton}
@@ -219,7 +237,7 @@ function ReservationDetail() {
                         ) : (
                             <></>
                         )}
-                        <div className="mb-3 text-2xl text-center font-bold">
+                        <div className="my-2 text-2xl text-center font-bold">
                             <div>NOTICE</div>
                             <div>유의사항</div>
                         </div>

@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 function App() {
     return (
-        <div className="sm:w-3/5 mx-auto">
+        <div className="sm:w-[414px] mx-auto">
             <Nav />
             <Outlet />
         </div>

@@ -31,12 +31,12 @@ function ReservationList() {
                     <table className="table-auto border-collapse border border-slate-500 text-white w-full text-center">
                         <thead>
                             <tr>
-                                <th className="border border-zinc-600 py-2">테마</th>
-                                <th className="border border-zinc-600 py-2">예약날짜</th>
-                                <th className="border border-zinc-600 py-2">예약시간</th>
-                                <th className="border border-zinc-600 py-2">예약자</th>
-                                <th className="border border-zinc-600 py-2">예약인원</th>
-                                <th className="border border-zinc-600 py-2">예약분류</th>
+                                <th className="text-xs border border-zinc-600 py-2">테마</th>
+                                <th className="text-xs border border-zinc-600 py-2">예약날짜</th>
+                                <th className="text-xs border border-zinc-600 py-2">예약시간</th>
+                                <th className="text-xs border border-zinc-600 py-2">예약자</th>
+                                <th className="text-xs border border-zinc-600 py-2">예약인원</th>
+                                <th className="text-xs border border-zinc-600 py-2">예약분류</th>
                             </tr>
                         </thead>
                         <tbody>
