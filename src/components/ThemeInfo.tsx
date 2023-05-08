@@ -17,7 +17,9 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
     return (
         <div className="w-50 mb-5">
             <div>
-                <span className="text-amber-500 text-2xl font-semibold mr-2 whitespace-nowrap">{formatNumber(index + 1)}</span>
+                <span className="text-amber-500 text-2xl font-semibold mr-2 whitespace-nowrap">
+                    {formatNumber(index + 1)}
+                </span>
                 <span style={{ color: color }} className="text-2xl font-semibold text-white">
                     {theme.nameKo}
                     <div className="text-zinc-400 text-sm whitespace-nowrap">{theme.nameEn}</div>
@@ -39,17 +41,12 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
                             <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-1">
                                 {makeBooleanArray(ability.value).map((item, index) => {
                                     if (item) {
-                                        return (
-                                            <div
-                                                key={index}
-                                                className="h-2 w-2 lg:h-3 lg:w-3 bg-black rounded-full"
-                                            ></div>
-                                        );
+                                        return <div key={index} className="h-2 w-2 bg-black rounded-full"></div>;
                                     }
                                     return (
                                         <div
                                             key={index}
-                                            className="h-2 w-2 lg:h-3 lg:w-3 border border-black bg-transparent rounded-full"
+                                            className="h-2 w-2 border border-black bg-transparent rounded-full"
                                         ></div>
                                     );
                                 })}

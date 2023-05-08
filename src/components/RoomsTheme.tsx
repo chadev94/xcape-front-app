@@ -110,14 +110,14 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                                                                 return (
                                                                     <div
                                                                         key={index}
-                                                                        className="h-3 w-3 bg-black rounded-full"
+                                                                        className="h-2 w-2 bg-black rounded-full"
                                                                     ></div>
                                                                 );
                                                             }
                                                             return (
                                                                 <div
                                                                     key={index}
-                                                                    className="h-3 w-3 border border-black bg-transparent rounded-full"
+                                                                    className="h-2 w-2 border border-black bg-transparent rounded-full"
                                                                 ></div>
                                                             );
                                                         })}
