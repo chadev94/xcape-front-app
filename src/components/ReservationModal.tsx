@@ -228,6 +228,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <input
                             className="bg-[#7C7C7C] p-2 w-2/5 sm:w-1/3 text-xs md:text-base"
+                            pattern="\d*"
                             onInput={handleInputPhoneNumber}
                             {...register("phoneNumber", {
                                 required: "전화번호는 필수 입력 항목입니다.",
