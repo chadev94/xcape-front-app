@@ -37,7 +37,7 @@ function ThemeDetail() {
                         ></iframe>
                     </div>
                     {/*<div className="flex flex-col items-center justify-center bg-no-repeat bg-cover p-10 w-full" style={{ backgroundImage: `url(${book})` }}>*/}
-                    <div className="flex flex-col items-center drop-shadow-lg justify-center p-10 w-full bg-[url('./assets/images/bg_iron.png')]">
+                    <div className="flex flex-col items-center drop-shadow-lg justify-center p-4 w-full bg-[url('./assets/images/bg_iron.png')]">
                         <div
                             className="px-10 text-white drop-shadow-lg"
                             style={{ backgroundColor: currentTheme.colorCode }}
@@ -51,7 +51,7 @@ function ThemeDetail() {
                         <div className="w-full mt-8 py-5 text-center text-white whitespace-pre-wrap drop-shadow-md">
                             {currentTheme.description}
                         </div>
-                        <div className="w-full lg:w-4/5 flex justify-between items-center">
+                        <div className="w-full flex justify-between items-center">
                             <div className="flex justify-between items-center drop-shadow-md">
                                 <div className="text-2xl" style={{ color: currentTheme.colorCode }}>
                                     난이도
@@ -62,11 +62,11 @@ function ThemeDetail() {
                                             <Icon.Star
                                                 key={index}
                                                 style={{ color: currentTheme.colorCode }}
-                                                className="h-8 w-8 xs:h-10 xs:w-10"
+                                                className="h-8 w-8"
                                             />
                                         );
                                     }
-                                    return <Icon.Star key={index} className="text-zinc-400 h-8 w-8 xs:h-10 xs:w-10" />;
+                                    return <Icon.Star key={index} className="text-zinc-400 h-8 w-8" />;
                                 })}
                             </div>
                             <div className="text-md lg:text-2xl text-white">
@@ -77,7 +77,7 @@ function ThemeDetail() {
                             </div>
                         </div>
                         <div
-                            className="grid grid-cols-2 p-3 w-full lg:w-4/5 mb-3 drop-shadow-lg"
+                            className="grid grid-cols-2 p-3 w-full mb-3 drop-shadow-lg"
                             style={{ backgroundColor: currentTheme.colorCode }}
                         >
                             {abilityListByThemeId.map((ability) => {
