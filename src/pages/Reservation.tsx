@@ -161,12 +161,12 @@ function Reservation() {
                                     <div key={theme.themeId} className="border border-zinc-500 p-2 mt-3 w-full">
                                         <div className="flex justify-between py-2 text-zinc-100">
                                             <div>
-                                                <div className="text-lg lg:text-2xl font-bold">{theme.themeNameKo}</div>
-                                                <div className="text-xs lg:text-lg">{theme.themeNameEn}</div>
+                                                <div className="text-lg lg:text-lg font-bold">{theme.themeNameKo}</div>
+                                                <div className="text-xs">{theme.themeNameEn}</div>
                                             </div>
-                                            <div className="flex items-end">
+                                            <div>
                                                 <div className="flex items-end">
-                                                    <div className="text-sm lg:text-lg">난이도</div>
+                                                    <div className="text-base">난이도</div>
                                                     {makeBooleanArray(theme.difficulty).map((star, index) => {
                                                         if (star) {
                                                             return (
@@ -187,8 +187,8 @@ function Reservation() {
                                                         );
                                                     })}
                                                 </div>
-                                                <div>
-                                                    인원 {theme.minParticipantCount}-{theme.maxParticipantCount}
+                                                <div className="float-right">
+                                                    인원 {theme.minParticipantCount}-{theme.maxParticipantCount}명
                                                 </div>
                                             </div>
                                         </div>
