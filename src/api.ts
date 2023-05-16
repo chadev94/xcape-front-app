@@ -1,6 +1,5 @@
 //백엔드 주소
 import axios from "axios";
-import reservation from "./pages/Reservation";
 
 const BASE_URL = process.env.REACT_APP_API_HOST;
 const BASE_NODE_SERVER_URL = process.env.REACT_APP_NODE_SERVER_HOST;

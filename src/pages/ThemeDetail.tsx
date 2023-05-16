@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { makeBooleanArray } from "../util/util";
 import Icon from "../assets/icons";
-import { getThemeDetail, IAbility, ITheme } from "../api";
+import { IAbility, ITheme } from "../api";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { themeList } from "../atom";
 
 function ThemeDetail() {
@@ -18,6 +18,8 @@ function ThemeDetail() {
 
     useEffect(() => {
         const currentTheme = currentThemeList.find((theme) => theme.id === Number(themeId));
+        console.log(currentThemeList);
+        console.log(currentTheme);
         setCurrentTheme(currentTheme);
     }, [themeId]);
 
@@ -53,7 +55,7 @@ function ThemeDetail() {
                         </div>
                         <div className="w-full flex justify-between items-center">
                             <div className="flex justify-between items-center drop-shadow-md">
-                                <div className="text-2xl" style={{ color: currentTheme.colorCode }}>
+                                <div className="text-xl" style={{ color: currentTheme.colorCode }}>
                                     난이도
                                 </div>
                                 {makeBooleanArray(currentTheme.difficulty).map((star, index) => {
@@ -69,7 +71,7 @@ function ThemeDetail() {
                                     return <Icon.Star key={index} className="text-zinc-400 h-8 w-8" />;
                                 })}
                             </div>
-                            <div className="text-md lg:text-2xl text-white">
+                            <div className="text-white">
                                 인원{" "}
                                 <span>
                                     {currentTheme.minParticipantCount}-{currentTheme.maxParticipantCount}
@@ -83,21 +85,21 @@ function ThemeDetail() {
                             {abilityListByThemeId.map((ability) => {
                                 return (
                                     <div key={ability.id} className="flex">
-                                        <div className="text-white w-fit">{ability.name}</div>
+                                        <div className="w-fit">{ability.name}</div>
                                         <div className="flex items-center justify-between w-2/3 mx-2">
                                             {makeBooleanArray(ability.value).map((item, index) => {
                                                 if (item) {
                                                     return (
                                                         <div
                                                             key={index}
-                                                            className="h-4 w-4 bg-black rounded-full"
+                                                            className="h-3 w-3 bg-black rounded-full"
                                                         ></div>
                                                     );
                                                 }
                                                 return (
                                                     <div
                                                         key={index}
-                                                        className="h-4 w-4 border border-black bg-transparent rounded-full"
+                                                        className="h-3 w-3 border border-black bg-transparent rounded-full"
                                                     ></div>
                                                 );
                                             })}
@@ -106,8 +108,8 @@ function ThemeDetail() {
                                 );
                             })}
                         </div>
-                        <div className="text-white p-4 text-md lg:text-2xl border border-white mb-3 drop-shadow-lg">
-                            POINT <span className="text-lg lg:text-3xl">|</span> {currentTheme.point}
+                        <div className="text-white p-4 border border-white mb-3 drop-shadow-lg">
+                            POINT <span className="text-lg">|</span> {currentTheme.point}
                         </div>
                         <div
                             onClick={() => {

@@ -1,5 +1,8 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 import { IAbility, IBanner, IMerchant, ITheme } from "./api";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const merchant = atom<IMerchant>({
     key: "merchant",
@@ -20,6 +23,7 @@ export const merchant = atom<IMerchant>({
         usingInfoNotionId: "",
         addressNotionId: "",
     },
+    effects_UNSTABLE: [persistAtom],
 });
 
 export const themeList = atom<ITheme[]>({
@@ -48,6 +52,7 @@ export const themeList = atom<ITheme[]>({
             abilityList: [],
         },
     ],
+    effects_UNSTABLE: [persistAtom],
 });
 
 export const reservationDetail = atom({
@@ -83,6 +88,7 @@ export const theme = atom<ITheme>({
         priceList: [],
         abilityList: [],
     },
+    effects_UNSTABLE: [persistAtom],
 });
 
 export const abilityList = atom<IAbility[]>({
