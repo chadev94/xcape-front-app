@@ -25,7 +25,7 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                     return (
                         <div
                             key={theme.id}
-                            className="border border-zinc-500 rounded-sm p-2 md:p-3 mt-3 xl:w-2/3 m-auto cursor-pointer"
+                            className="border border-zinc-500 rounded-sm p-2 md:p-3 mt-3 cursor-pointer"
                             onClick={() => {
                                 navigate(`/${merchantCode}/theme-detail/${theme.id}`);
                             }}

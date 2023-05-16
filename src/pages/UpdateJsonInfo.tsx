@@ -1,7 +1,9 @@
 import React from "react";
 import { getAbilitiesInfo, getBannersInfo, getMerchantsInfo, getThemesInfo, saveFile } from "../api";
 import { useParams } from "react-router-dom";
+import fs from "fs";
 
+// var fs = require("fs");
 function UpdateJsonInfo() {
     const { contents } = useParams<{ contents: string }>();
 
