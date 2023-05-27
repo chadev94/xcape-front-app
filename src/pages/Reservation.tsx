@@ -134,7 +134,7 @@ function Reservation() {
                     <div className="mt-4">
                         <div className="p-4">
                             <Calendar
-                                className="mx-auto w-full text-sm border rounded"
+                                className="mx-auto w-full border rounded"
                                 onChange={(value, event) =>
                                     value && setDate(moment(new Date(value.toString())).format("YYYY-MM-DD"))
                                 }
@@ -166,7 +166,7 @@ function Reservation() {
                                             </div>
                                             <div>
                                                 <div className="flex items-end">
-                                                    <div className="text-base">난이도</div>
+                                                    <div className="text-lg">난이도</div>
                                                     {makeBooleanArray(theme.difficulty).map((star, index) => {
                                                         if (star) {
                                                             return (
@@ -175,15 +175,12 @@ function Reservation() {
                                                                     style={{
                                                                         color: theme.colorCode,
                                                                     }}
-                                                                    className="h-5 w-5 sm:h-8 sm:w-8"
+                                                                    className="h-8 w-8"
                                                                 />
                                                             );
                                                         }
                                                         return (
-                                                            <Icon.Star
-                                                                key={index}
-                                                                className="text-zinc-600 h-5 w-5 sm:h-8 sm:w-8"
-                                                            />
+                                                            <Icon.Star key={index} className="text-zinc-600 h-8 w-8" />
                                                         );
                                                     })}
                                                 </div>
