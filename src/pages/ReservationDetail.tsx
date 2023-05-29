@@ -30,7 +30,7 @@ function ReservationDetail() {
     const phoneNumberRef = useRef<HTMLInputElement>(null);
     const [isAuthenticateButtonDisabled, setIsAuthenticateButtonDisabled] = useState<boolean>(true);
 
-    const authenticationNumberRef = useRef<HTMLInputElement>(null);
+    const authenticationCodeRef = useRef<HTMLInputElement>(null);
 
     const authenticatePhoneNumber = (e: React.BaseSyntheticEvent | undefined) => {
         setIsLoading(true);
@@ -52,7 +52,7 @@ function ReservationDetail() {
         const phoneNumber = phoneNumberRef.current!.value;
         if (validatePhoneNumber(phoneNumber)) {
             const params = {
-                authenticationNumber: authenticationNumberRef.current!.value,
+                authenticationCode: authenticationCodeRef.current!.value,
                 requestId: requestId,
                 recipientNo: phoneNumber,
             };
@@ -67,7 +67,7 @@ function ReservationDetail() {
         }
     };
 
-    const handleAuthenticationNumberInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleAuthenticationCodeInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
         onlyNumber(e.currentTarget);
         if (e.currentTarget.value.length === 6) {
             cancelButton.current!.classList.remove("cursor-not-allowed");
@@ -104,39 +104,39 @@ function ReservationDetail() {
                 <div className="text-white">
                     <div className="text-2xl text-center p-4">예약 상세보기</div>
                     <div className="bg-[#4a4a4a] border border-[#363636] rounded p-8">
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">예약지점명</div>
                             <div>{reservationDetail.merchantName}</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">예약번호</div>
                             <div>{reservationDetail.seq}</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">날짜</div>
                             <div>{reservationDetail.date}</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">시간</div>
                             <div>{reservationDetail.time}</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">테마</div>
                             <div>{reservationDetail.themeName}</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">예약자</div>
                             <div>{reservationDetail.reservedBy}</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">인원선택</div>
                             <div>{reservationDetail.participantCount}</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">가격</div>
                             <div>{formatPrice(String(reservationDetail.price))}원</div>
                         </div>
-                        <div className="flex mb-3 text-sm lg:text-lg">
+                        <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">구분</div>
                             <div>{convertReservationType(reservationDetail.type)}</div>
                         </div>
@@ -144,11 +144,11 @@ function ReservationDetail() {
                             <>
                                 <div className="border-t border-b text-center py-2 my-2">
                                     <div className="text-[#fff200]">예약이 정상적으로 완료되었습니다.</div>
-                                    <div className="text-sm">예약 취소를 원하시면, 아래 인증번호를 입력해주세요.</div>
+                                    <div className="text-base">예약 취소를 원하시면, 아래 인증번호를 입력해주세요.</div>
                                 </div>
                                 <div className="flex my-2">
                                     <div className="w-1/5 text-right mr-2 sm:mr-8">
-                                        <div className="text-sm lg:text-lg">PHONE</div>
+                                        <div className="text-base lg:text-lg">PHONE</div>
                                         <div className="text-xs lg:text-md">연락처</div>
                                     </div>
                                     <input
@@ -207,9 +207,9 @@ function ReservationDetail() {
                                     <div className="w-1/3 text-right mr-8">인증번호</div>
                                     <input
                                         type="text"
-                                        ref={authenticationNumberRef}
+                                        ref={authenticationCodeRef}
                                         className="bg-[#7C7C7C] p-2"
-                                        onInput={handleAuthenticationNumberInput}
+                                        onInput={handleAuthenticationCodeInput}
                                         maxLength={6}
                                     />
                                 </div>

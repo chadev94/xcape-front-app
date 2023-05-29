@@ -54,7 +54,7 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                                     </div>
                                 </div>
                                 <div className="ml-2 sm:ml-3 w-full flex flex-col justify-around">
-                                    <div className="text-lg xs:text-2xl md:text-3xl text-white whitespace-nowrap flex justify-between items-center">
+                                    <div className="text-xl text-white whitespace-nowrap flex justify-between items-center">
                                         <div className="py-1 sm:py-2">{theme.nameKo}</div>
                                         <div>
                                             <svg
@@ -77,22 +77,18 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                                         <div className="py-1 sm:py-2">
                                             <span
                                                 style={{ backgroundColor: theme.colorCode }}
-                                                className="p-1 text-sm xs:text-lg text-white whitespace-nowrap"
+                                                className="px-2 py-1 text-sm whitespace-nowrap"
                                             >
                                                 {theme.genre}
                                             </span>
                                         </div>
                                         <div className="flex justify-between text-white items-center whitespace-nowrap">
                                             <div>
-                                                <span className="text-sm xs:text-sm md:text-lg text-zinc-300/80">
-                                                    인원{" "}
-                                                </span>
-                                                <span className="text-sm xs:text-sm md:text-lg">
+                                                <span className="text-sm text-zinc-300/80">인원 </span>
+                                                <span className="text-sm">
                                                     {theme.minParticipantCount} - {theme.maxParticipantCount}
                                                 </span>
-                                                <span className="text-sm xs:text-sm md:text-lg text-zinc-300/80">
-                                                    명
-                                                </span>
+                                                <span className="text-sm text-zinc-300/80">명</span>
                                             </div>
                                         </div>
                                     </div>

@@ -22,7 +22,7 @@ interface IForm {
     phoneNumber: string;
     participantCount: number;
     privacy: boolean;
-    authenticationNumber: number;
+    authenticationCode: number;
     requestId: string;
 }
 
@@ -57,7 +57,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
             participantCount: Number(inputData.participantCount),
-            authenticationNumber: inputData.authenticationNumber,
+            authenticationCode: inputData.authenticationCode,
             requestId,
         };
         setDetail(formData);
@@ -149,14 +149,14 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                 <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-sm lg:text-lg">DATE</div>
+                            <div className="text-base lg:text-lg">DATE</div>
                             <div className="text-xs lg:text-md">날짜</div>
                         </div>
                         <input className="bg-inherit" defaultValue={reservationFormData?.curDate} disabled />
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-sm lg:text-lg">TIME</div>
+                            <div className="text-base lg:text-lg">TIME</div>
                             <div className="text-xs lg:text-md">시간</div>
                         </div>
                         <input
@@ -170,7 +170,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-sm lg:text-lg">ROOM</div>
+                            <div className="text-base lg:text-lg">ROOM</div>
                             <div className="text-xs lg:text-md">테마</div>
                         </div>
                         <input
@@ -184,7 +184,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3 text-md">
                         <div className="w-1/3">
-                            <div className="text-sm lg:text-lg">NAME</div>
+                            <div className="text-base lg:text-lg">NAME</div>
                             <div className="text-xs lg:text-md">예약자</div>
                         </div>
                         <input
@@ -196,7 +196,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-sm lg:text-lg">PLAYERS</div>
+                            <div className="text-base lg:text-lg">PLAYERS</div>
                             <div className="text-xs lg:text-md">인원선택</div>
                         </div>
                         <select
@@ -210,7 +210,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
-                            <div className="text-sm lg:text-lg">PRICE</div>
+                            <div className="text-base lg:text-lg">PRICE</div>
                             <div className="text-xs lg:text-md">가격</div>
                         </div>
                         <input className="bg-inherit p-2" value={price} disabled />
@@ -223,7 +223,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/5 text-right mr-2 sm:mr-8">
-                            <div className="text-sm lg:text-lg">PHONE</div>
+                            <div className="text-base lg:text-lg">PHONE</div>
                             <div className="text-xs lg:text-md">연락처</div>
                         </div>
                         <input
@@ -283,7 +283,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                     type="text"
                                     className="bg-[#7C7C7C] p-2 w-2/5 sm:w-1/3"
                                     onInput={handleInput}
-                                    {...register("authenticationNumber", {
+                                    {...register("authenticationCode", {
                                         required: "인증번호는 필수 입력 항목입니다.",
                                         pattern: {
                                             value: /^[0-9]{6}$/,
