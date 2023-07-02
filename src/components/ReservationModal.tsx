@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { fetchReservationAuthenticatePhoneNumber, IReservationResponseData, modifyReservation } from "../api";
-import { reservationDetail } from "../atom";
+import { fetchReservationAuthenticatePhoneNumber, modifyReservation } from "../api";
 import { IFormData } from "../pages/Reservation";
 import { formatTimeString, onlyNumber } from "../util/util";
-import { SUCCESS } from "../util/constant";
+import { GENERAL, OPEN_ROOM, SUCCESS } from "../util/constant";
 import AuthenticationTimer from "./AuthenticationTimer";
 
 interface IModalProps {
@@ -24,47 +22,51 @@ interface IForm {
     privacy: boolean;
     authenticationCode: number;
     requestId: string;
+    isOpenRoom: boolean;
 }
 
 function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProps): React.ReactElement {
     const navigate = useNavigate();
-    const setDetail = useSetRecoilState(reservationDetail) as any;
-    const [reservationResponseData, setReservationResponseData] = useState<IReservationResponseData>();
     const [price, setPrice] = useState("000 원");
+    const [isOpenRoom, setIsOpenRoom] = useState<boolean>(false);
     const [reservationIsLoading, setReservationIsLoading] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [requestId, setRequestId] = useState<string>();
 
+    const participantCountRef = useRef<HTMLSelectElement | null>(null);
     const reservationButton = useRef<HTMLButtonElement>(null);
 
     let interval: NodeJS.Timer;
     const timeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        reservationFormData.priceList.sort((a, b) => {
-            return a.person - b.person;
-        });
+        if (participantCountRef.current) {
+            participantCountRef.current.value = participantCountRef.current?.options[0].value;
+        }
 
-        changePrice(reservationFormData.priceList[0].person);
-    }, [reservationResponseData]);
+        changePrice(Number(participantCountRef.current?.value));
+    }, [isOpenRoom]);
 
     const { register, handleSubmit } = useForm<IForm>({ defaultValues: {} });
+    const { ref, ...rest } = register("participantCount");
 
     const onSubmit: SubmitHandler<IForm> = (inputData: IForm) => {
-        setReservationIsLoading(true);
+        // setReservationIsLoading(true);
         const formData = {
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
             participantCount: Number(inputData.participantCount),
             authenticationCode: inputData.authenticationCode,
+            roomType: inputData.isOpenRoom ? OPEN_ROOM : GENERAL,
+            price: price.slice(0, price.length - 1),
             requestId,
         };
-        setDetail(formData);
+
         modifyReservation(reservationFormData.reservationId, formData).then((res) => {
             if (res.resultCode === SUCCESS) {
                 setReservationIsLoading(false);
-                navigate(`/reservation-detail/${res.result.reservationHistoryId}`);
+                navigate(`/reservation-detail/${res.result.id}`);
                 onOverlayClick();
             } else {
                 setReservationIsLoading(false);
@@ -99,16 +101,31 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     const onOverlayClick = () => onOverlayFunction(false);
 
     const participantDraw = () => {
+        const participantSelect = [];
         const maxParticipant = reservationFormData?.maxParticipantCount;
         const minParticipant = reservationFormData?.minParticipantCount;
-        const participantSelect = [];
-        if (maxParticipant && minParticipant) {
-            for (let num: number = minParticipant; num <= maxParticipant; num++) {
+
+        if (isOpenRoom) {
+            const canParticipantCount = reservationFormData.participantCount
+                ? maxParticipant - reservationFormData.participantCount
+                : maxParticipant;
+
+            for (let num = 1; num <= canParticipantCount; num++) {
                 participantSelect.push(
                     <option key={num} value={num}>
                         {num}
                     </option>
                 );
+            }
+        } else {
+            if (maxParticipant && minParticipant) {
+                for (let num = minParticipant; num <= maxParticipant; num++) {
+                    participantSelect.push(
+                        <option key={num} value={num}>
+                            {num}
+                        </option>
+                    );
+                }
             }
         }
 
@@ -116,10 +133,27 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     };
 
     const changePrice = (value: number) => {
-        const findPrice = reservationFormData?.priceList.find((element) => element.person === value);
+        let price;
 
-        const price = findPrice!.price;
-        setPrice(price.toLocaleString(navigator.language) + "원");
+        if (isOpenRoom) {
+            price = convertOpenRoomPrice(value);
+        } else {
+            const findPrice = reservationFormData.priceList.find((element) => element.person === value);
+            price = findPrice!.price;
+        }
+        setPrice(price + "원");
+    };
+
+    const convertOpenRoomPrice = (participantCount: number) => {
+        if (participantCount === 4) {
+            return 100000;
+        } else if (participantCount === 5) {
+            return 115000;
+        } else if (participantCount === 6) {
+            return 138000;
+        }
+
+        return participantCount * 24000;
     };
 
     const handleInputPhoneNumber = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -194,6 +228,23 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             })}
                         />
                     </div>
+                    {reservationFormData.isCrimeScene ? (
+                        <div className="flex mb-3 text-md">
+                            <div className="w-1/3">
+                                <div className="text-base lg:text-lg">OPEN ROOM</div>
+                                <div className="text-xs lg:text-md">오픈룸</div>
+                            </div>
+                            <input
+                                className="bg-[#7C7C7C] p-2"
+                                type="checkbox"
+                                {...register("isOpenRoom", {
+                                    onChange: (e) => {
+                                        setIsOpenRoom(e.currentTarget.checked);
+                                    },
+                                })}
+                            />
+                        </div>
+                    ) : null}
                     <div className="flex mb-3">
                         <div className="w-1/3">
                             <div className="text-base lg:text-lg">PLAYERS</div>
@@ -201,9 +252,14 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <select
                             className="bg-[#7C7C7C] p-2"
-                            {...register("participantCount", {
-                                onChange: (event) => changePrice(Number(event.target.value)),
-                            })}
+                            {...rest}
+                            ref={(e) => {
+                                ref(e);
+                                participantCountRef.current = e;
+                            }}
+                            onChange={(e) => {
+                                changePrice(Number(e.currentTarget.value));
+                            }}
                         >
                             {participantDraw()}
                         </select>
