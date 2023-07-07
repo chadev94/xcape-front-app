@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "../styles/CustomCalendar.css";
 import moment from "moment";
+import { OPEN_ROOM } from "../util/constant";
+import PossibleReservation from "../components/PossibleReservation";
 
 export interface IFormData {
     themeId: number;
@@ -19,9 +21,12 @@ export interface IFormData {
     curDate: string;
     reservationId: string;
     realTime: string;
+    roomType: string;
+    participantCount: number;
     minParticipantCount: number;
     maxParticipantCount: number;
     priceList: IPrice[];
+    isCrimeScene: boolean;
 }
 
 function Reservation() {
@@ -81,11 +86,14 @@ function Reservation() {
     const onTimeClicked = (
         themeId: number,
         themeNameKo: string,
-        isPossible: Boolean,
+        isReserved: boolean,
+        roomType: string,
         reservationId: string,
         realTime: string,
         minParticipantCount: number,
         maxParticipantCount: number,
+        isCrimeScene: boolean,
+        participantCount: number,
         priceList: IPrice[]
     ) => {
         const curDate = date;
@@ -95,19 +103,51 @@ function Reservation() {
             curDate,
             reservationId,
             realTime,
+            roomType,
+            participantCount,
             minParticipantCount,
             maxParticipantCount,
+            isCrimeScene,
             priceList,
         };
         setReservationFormData(formData);
-        setSelectTime(realTime);
-        if (!isPossible) setOpenModal(true);
+
+        setOpenModal(true);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter") {
             reservationConfirm();
         }
+    };
+
+    const checkPossibleReservation = (
+        isReserved: boolean,
+        roomType: string,
+        participantCount: number,
+        reservationDate: string,
+        reservationTime: string,
+        maxParticipantCount: number
+    ) => {
+        if (!isReserved) {
+            return true;
+        } else if (isReserved && roomType === OPEN_ROOM && isCanReservedTime(reservationDate, reservationTime)) {
+            return participantCount < maxParticipantCount;
+        } else {
+            return false;
+        }
+    };
+
+    const isCanReservedTime = (reservationDate: string, reservationTime: string) => {
+        const hour = reservationTime.split(":")[0];
+        const minute = reservationTime.split(":")[1];
+        const reservationDateTime = new Date(reservationDate);
+        reservationDateTime.setHours(Number(hour));
+        reservationDateTime.setMinutes(Number(minute) + 10);
+
+        const now = new Date();
+
+        return now <= reservationDateTime;
     };
 
     return (
@@ -198,7 +238,37 @@ function Reservation() {
                                         </div>
                                         <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 py-2">
                                             {theme.reservationList.map((reservation) => {
-                                                return reservation.isReserved ? (
+                                                return checkPossibleReservation(
+                                                    reservation.isReserved,
+                                                    reservation.roomType,
+                                                    reservation.participantCount,
+                                                    reservation.date,
+                                                    reservation.time,
+                                                    theme.maxParticipantCount
+                                                ) ? (
+                                                    <div
+                                                        key={reservation.id}
+                                                        style={{ backgroundColor: "#1B1B1B" }}
+                                                        className="text-center w-full p-2 cursor-pointer"
+                                                        onClick={() => {
+                                                            onTimeClicked(
+                                                                theme.themeId,
+                                                                theme.themeNameKo,
+                                                                reservation.isReserved,
+                                                                reservation.roomType,
+                                                                reservation.id,
+                                                                reservation.time.slice(0, 5),
+                                                                theme.minParticipantCount,
+                                                                theme.maxParticipantCount,
+                                                                theme.isCrimeScene,
+                                                                reservation.participantCount,
+                                                                theme.priceList
+                                                            );
+                                                        }}
+                                                    >
+                                                        <PossibleReservation theme={theme} reservation={reservation} />
+                                                    </div>
+                                                ) : (
                                                     <div
                                                         key={reservation.id}
                                                         style={{ backgroundColor: "#1B1B1B" }}
@@ -208,29 +278,6 @@ function Reservation() {
                                                             {reservation.time.substring(0, 5)}
                                                         </div>
                                                         <div className="text-lg">예약불가</div>
-                                                    </div>
-                                                ) : (
-                                                    <div
-                                                        key={reservation.id}
-                                                        style={{ backgroundColor: "#1B1B1B" }}
-                                                        className="text-center w-full p-2 text-[#00EA6F] cursor-pointer"
-                                                        onClick={() =>
-                                                            onTimeClicked(
-                                                                theme.themeId,
-                                                                theme.themeNameKo,
-                                                                reservation.isReserved,
-                                                                reservation.id,
-                                                                reservation.time.slice(0, 5),
-                                                                theme.minParticipantCount,
-                                                                theme.maxParticipantCount,
-                                                                theme.priceList
-                                                            )
-                                                        }
-                                                    >
-                                                        <div className="text-2xl font-bold">
-                                                            {reservation.time.substring(0, 5)}
-                                                        </div>
-                                                        <div className="text-lg">예약가능</div>
                                                     </div>
                                                 );
                                             })}
@@ -259,11 +306,13 @@ function Reservation() {
                                 />
                             </div>
                         </div>
-                        <div
-                            className="bg-[#92c78c] font-bold text-center w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4"
-                            onClick={reservationConfirm}
-                        >
-                            예약확인
+                        <div className="text-center">
+                            <button
+                                className="bg-[#92c78c] font-bold w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4"
+                                onClick={reservationConfirm}
+                            >
+                                예약확인
+                            </button>
                         </div>
                     </div>
                 ) : null}

@@ -39,6 +39,7 @@ export interface IReservationTheme {
     reservationList: ITimeTable[];
     colorCode: "";
     priceList: IPrice[];
+    isCrimeScene: boolean;
 }
 
 export interface IPrice {
@@ -50,11 +51,13 @@ export interface IPrice {
     useYn: boolean;
 }
 
-interface ITimeTable {
+export interface ITimeTable {
     id: string;
     time: string;
     date: string;
     isReserved: boolean;
+    roomType: string;
+    participantCount: number;
     themeId: number;
     merchantId: number;
 }
