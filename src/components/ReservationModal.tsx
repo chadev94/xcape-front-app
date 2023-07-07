@@ -432,9 +432,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             예약 전 전화 문의 바랍니다.
                         </div>
                     </div>
-                    <button type={"button"} onClick={handleSubmit(onSubmit)}>
-                        asdasd
-                    </button>
                 </form>
             </div>
         </>
