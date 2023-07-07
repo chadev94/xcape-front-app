@@ -35,10 +35,21 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     const [requestId, setRequestId] = useState<string>();
 
     const participantCountRef = useRef<HTMLSelectElement | null>(null);
+    const isOpenRoomRef = useRef<HTMLInputElement | null>(null);
     const reservationButton = useRef<HTMLButtonElement>(null);
 
     let interval: NodeJS.Timer;
     const timeRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (reservationFormData.roomType === OPEN_ROOM) {
+            setIsOpenRoom(true);
+            if (isOpenRoomRef.current) {
+                isOpenRoomRef.current.checked = true;
+                isOpenRoomRef.current.onclick = (e) => e.preventDefault();
+            }
+        }
+    }, []);
 
     useEffect(() => {
         if (participantCountRef.current) {
@@ -49,10 +60,11 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
     }, [isOpenRoom]);
 
     const { register, handleSubmit } = useForm<IForm>({ defaultValues: {} });
-    const { ref, ...rest } = register("participantCount");
+    const { ref: participantCountRegisterRef, ...participantRegister } = register("participantCount");
+    const { ref: isOpenRoomRegisterRef, ...isOpenRoomRegister } = register("isOpenRoom");
 
     const onSubmit: SubmitHandler<IForm> = (inputData: IForm) => {
-        // setReservationIsLoading(true);
+        setReservationIsLoading(true);
         const formData = {
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
@@ -237,11 +249,18 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <input
                                 className="bg-[#7C7C7C] p-2"
                                 type="checkbox"
-                                {...register("isOpenRoom", {
-                                    onChange: (e) => {
+                                ref={(e) => {
+                                    isOpenRoomRegisterRef(e);
+                                    isOpenRoomRef.current = e;
+                                }}
+                                {...isOpenRoomRegister}
+                                onChange={(e) => {
+                                    if (reservationFormData.roomType === OPEN_ROOM) {
+                                        e.preventDefault();
+                                    } else {
                                         setIsOpenRoom(e.currentTarget.checked);
-                                    },
-                                })}
+                                    }
+                                }}
                             />
                         </div>
                     ) : null}
@@ -252,9 +271,9 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <select
                             className="bg-[#7C7C7C] p-2"
-                            {...rest}
+                            {...participantRegister}
                             ref={(e) => {
-                                ref(e);
+                                participantCountRegisterRef(e);
                                 participantCountRef.current = e;
                             }}
                             onChange={(e) => {
@@ -269,7 +288,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <div className="text-base lg:text-lg">PRICE</div>
                             <div className="text-xs lg:text-md">가격</div>
                         </div>
-                        <input className="bg-inherit p-2" value={price} disabled />
+                        <div className="p-2">{price}</div>
                     </div>
                     <div className="flex justify-center mb-2">
                         <input id="privacy" type="checkbox" {...register("privacy", { required: true })} />
@@ -413,6 +432,9 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             예약 전 전화 문의 바랍니다.
                         </div>
                     </div>
+                    <button type={"button"} onClick={handleSubmit(onSubmit)}>
+                        asdasd
+                    </button>
                 </form>
             </div>
         </>

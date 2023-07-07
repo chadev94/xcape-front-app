@@ -125,15 +125,29 @@ function Reservation() {
         isReserved: boolean,
         roomType: string,
         participantCount: number,
+        reservationDate: string,
+        reservationTime: string,
         maxParticipantCount: number
     ) => {
         if (!isReserved) {
             return true;
-        } else if (isReserved && roomType === OPEN_ROOM) {
+        } else if (isReserved && roomType === OPEN_ROOM && isCanReservedTime(reservationDate, reservationTime)) {
             return participantCount < maxParticipantCount;
         } else {
             return false;
         }
+    };
+
+    const isCanReservedTime = (reservationDate: string, reservationTime: string) => {
+        const hour = reservationTime.split(":")[0];
+        const minute = reservationTime.split(":")[1];
+        const reservationDateTime = new Date(reservationDate);
+        reservationDateTime.setHours(Number(hour));
+        reservationDateTime.setMinutes(Number(minute) + 10);
+
+        const now = new Date();
+
+        return now <= reservationDateTime;
     };
 
     return (
@@ -228,6 +242,8 @@ function Reservation() {
                                                     reservation.isReserved,
                                                     reservation.roomType,
                                                     reservation.participantCount,
+                                                    reservation.date,
+                                                    reservation.time,
                                                     theme.maxParticipantCount
                                                 ) ? (
                                                     <div
@@ -290,11 +306,13 @@ function Reservation() {
                                 />
                             </div>
                         </div>
-                        <div
-                            className="bg-[#92c78c] font-bold text-center w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4"
-                            onClick={reservationConfirm}
-                        >
-                            예약확인
+                        <div className="text-center">
+                            <button
+                                className="bg-[#92c78c] font-bold w-1/2 cursor-pointer mx-auto mb-6 px-10 py-4"
+                                onClick={reservationConfirm}
+                            >
+                                예약확인
+                            </button>
                         </div>
                     </div>
                 ) : null}
