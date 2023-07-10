@@ -68,9 +68,9 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
         const formData = {
             phoneNumber: inputData.phoneNumber,
             reservedBy: inputData.reservedBy,
-            participantCount: Number(inputData.participantCount),
+            participantCount: Number(participantCountRef.current!.value),
             authenticationCode: inputData.authenticationCode,
-            roomType: inputData.isOpenRoom ? OPEN_ROOM : GENERAL,
+            roomType: isOpenRoom ? OPEN_ROOM : GENERAL,
             price: price.slice(0, price.length - 1),
             requestId,
         };

@@ -55,6 +55,7 @@ function ReservationDetail() {
                 authenticationCode: authenticationCodeRef.current!.value,
                 requestId: requestId,
                 recipientNo: phoneNumber,
+                roomType: reservationDetail!.roomType,
             };
             deleteReservation(reservationId!, params).then((res) => {
                 if (res.resultCode === "SUCCESS") {
