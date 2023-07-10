@@ -116,6 +116,7 @@ export interface IReservationResponseData {
     themeName: string;
     time: string;
     type: string;
+    roomType: string;
 }
 
 export interface IBanner {
