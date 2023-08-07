@@ -21,7 +21,9 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
     return (
         <>
             {themeList &&
-                themeList.map((theme) => {
+                themeList.sort((prev, next) => {
+                    return next.id! - prev.id!;
+                }).map((theme) => {
                     return (
                         <div
                             key={theme.id}
