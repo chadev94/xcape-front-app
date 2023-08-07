@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { fetchReservationAuthenticatePhoneNumber, modifyReservation } from "../api";
 import { IFormData } from "../pages/Reservation";
-import { formatTimeString, onlyNumber } from "../util/util";
+import {formatPrice, formatTimeString, onlyNumber} from "../util/util";
 import { GENERAL, OPEN_ROOM, SUCCESS } from "../util/constant";
 import AuthenticationTimer from "./AuthenticationTimer";
 
@@ -153,7 +153,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
             const findPrice = reservationFormData.priceList.find((element) => element.person === value);
             price = findPrice!.price;
         }
-        setPrice(price + "원");
+        setPrice(formatPrice(String(price)) + "원");
     };
 
     const convertOpenRoomPrice = (participantCount: number) => {
@@ -191,8 +191,33 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                 className="bg-black fixed top-0 w-full h-full transition-all delay-100 duration-700 ease-in opacity-50"
                 onClick={onOverlayClick}
             />
-            <div className="bg-[#4a4a4a] rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 w-11/12 lg:w-1/2 h-4/5 lg:h-fit overflow-auto text-white text-center">
-                <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+            <div className="bg-[#4a4a4a] rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 lg:w-1/2 h-4/5 lg:h-fit overflow-auto text-white text-center">
+                <header
+                    className="sticky bg-[#18181b] site-header flex h-12 w-full items-center justify-between legacyFixed top-0 left-0 z-40 px-5 py-3 duration-[250ms] border-solid border-b-[1px] bg-primary-white border-[rgba(0,0,0,0)]">
+                    <div className="grid grid-cols-[min-content_1fr] gap-4 fc-direction-rtl invisible">
+                        <button type="button" className="h-6 hover:cursor-pointer hover:bg-[#363636]">
+                            <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 12H5M19 18H5" stroke="#2E2C2C" strokeWidth="1.5"
+                                      strokeLinecap="round" strokeLinejoin="round"></path>
+                                <path fillRule="evenodd" clipRule="evenodd"
+                                      d="M14.006 5.25H5a.75.75 0 000 1.5h9.315a4.98 4.98 0 01-.309-1.5z"
+                                      fill="#2E2C2C"></path>
+                                <path fillRule="evenodd" clipRule="evenodd"
+                                      d="M19 8.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" fill="#F4733A"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <h1 className="font-bold text-lg truncate text-center mx-7 min-w-0 flex-1 typography-16">예약하기</h1>
+                    <div className="grid grid-cols-[min-content_1fr]">
+                        <button className="flex items-center p-0" type="button" onClick={onOverlayClick}>
+                            <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 5l14 14M19 5L5 19" stroke="white" strokeWidth="1.5"
+                                      strokeLinecap="round" strokeLinejoin="round"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </header>
+                <form className="pt-6" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     <div className="flex mb-3">
                         <div className="w-1/3">
                             <div className="text-base lg:text-lg">DATE</div>
@@ -233,8 +258,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <div className="text-base lg:text-lg">NAME</div>
                             <div className="text-xs lg:text-md">예약자</div>
                         </div>
-                        <input
-                            className="bg-[#7C7C7C] p-2"
+                        <input className="bg-[#7C7C7C] p-2 w-1/2"
                             {...register("reservedBy", {
                                 required: "이름은 필수 입력 항목입니다.",
                             })}
@@ -247,7 +271,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                 <div className="text-xs lg:text-md">오픈룸</div>
                             </div>
                             <input
-                                className="bg-[#7C7C7C] p-2"
+                                className="bg-[#7C7C7C] p-2 w-1/2"
                                 type="checkbox"
                                 ref={(e) => {
                                     isOpenRoomRegisterRef(e);
@@ -270,7 +294,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <div className="text-xs lg:text-md">인원선택</div>
                         </div>
                         <select
-                            className="bg-[#7C7C7C] p-2"
+                            className="bg-[#7C7C7C] p-2 w-1/2"
                             {...participantRegister}
                             ref={(e) => {
                                 participantCountRegisterRef(e);
@@ -418,7 +442,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         <div>NOTICE</div>
                         <div>유의사항</div>
                     </div>
-                    <div className="text-start w-full sm:w-3/4 m-auto text-[#fff200]">
+                    <div className="text-start w-full sm:w-3/4 m-auto text-[#fff200] pl-5 pr-5">
                         <div className="text-xs mb-2">
                             ⏺ 테마 시작 10분 전 도착하셔야 시간 차감 없이 진행이 가능합니다. 지각 시 자동 시간
                             차감됩니다.
