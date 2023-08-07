@@ -319,7 +319,7 @@ function Reservation() {
                     </div>
                 ) : null}
                 {reservationFormData && (
-                    <AnimatePresence>
+                    <AnimatePresence >
                         {openModal && (
                             <ReservationModal
                                 reservationFormData={reservationFormData}
