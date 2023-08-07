@@ -34,7 +34,9 @@ function Information() {
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-2 px-2">
-                            {xfilerThemeList.map((theme, index) => {
+                            {xfilerThemeList.sort((prev, next) => {
+                              return next.id! - prev.id!;
+                            }).map((theme, index) => {
                                 return <ThemeInfo key={theme.id} theme={theme} index={index} color="#ff7119" />;
                             })}
                         </div>
@@ -53,7 +55,9 @@ function Information() {
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-2 px-2">
-                            {crimeSceneThemeList.map((theme, index) => {
+                            {crimeSceneThemeList.sort((prev, next) => {
+                              return next.id! - prev.id!;
+                            }).map((theme, index) => {
                                 return <ThemeInfo key={theme.id} theme={theme} index={index} color="#fff200" />;
                             })}
                         </div>
