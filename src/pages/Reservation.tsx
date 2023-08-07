@@ -196,7 +196,9 @@ function Reservation() {
                         {loading ? (
                             <Loading />
                         ) : (
-                            data.map((theme) => {
+                            data.sort((prev, next) => {
+                                return next.themeId! - prev.themeId!;
+                            }).map((theme) => {
                                 return (
                                     <div key={theme.themeId} className="border border-zinc-500 p-2 mt-3 w-full">
                                         <div className="flex justify-between py-2 text-zinc-100">

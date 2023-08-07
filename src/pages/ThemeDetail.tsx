@@ -28,16 +28,18 @@ function ThemeDetail() {
             {currentTheme && (
                 <>
                     <img src={currentTheme.bgImagePath} alt="bgImagePath" className="w-full" />
-                    <div>
-                        <iframe
-                            className="w-full aspect-video"
-                            src={currentTheme.youtubeLink}
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                        ></iframe>
-                    </div>
+                    {currentTheme.youtubeLink != '' ? (
+                        <div>
+                            <iframe
+                                className="w-full aspect-video"
+                                src={currentTheme.youtubeLink}
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    ) : null}
                     {/*<div className="flex flex-col items-center justify-center bg-no-repeat bg-cover p-10 w-full" style={{ backgroundImage: `url(${book})` }}>*/}
                     <div className="flex flex-col items-center drop-shadow-lg justify-center p-4 w-full bg-[url('./assets/images/bg_iron.png')]">
                         <div

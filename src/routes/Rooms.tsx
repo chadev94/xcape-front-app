@@ -16,6 +16,7 @@ function Rooms() {
 
     return (
         <div className="bg-[url('./assets/images/bg_iron.png')]">
+            <CautionLine />
             {xfilerThemeList.length > 0 && (
                 <div className="bg-black bg-opacity-50">
                     <div className="text-center pt-4">
@@ -30,9 +31,9 @@ function Rooms() {
                     </div>
                 </div>
             )}
-            <CautionLine />
             {crimeSceneThemeList.length > 0 && (
                 <>
+                    <CautionLine />
                     <div className="text-center pt-4">
                         <img src={crimeSceneImage} alt="crimeSceneImage" width={80} className="m-auto" />
                     </div>
@@ -45,6 +46,7 @@ function Rooms() {
                     </>
                 </>
             )}
+            <CautionLine />
         </div>
     );
 }
