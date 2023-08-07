@@ -28,7 +28,7 @@ function ThemeDetail() {
             {currentTheme && (
                 <>
                     <img src={currentTheme.bgImagePath} alt="bgImagePath" className="w-full" />
-                    {currentTheme.youtubeLink != '' ? (
+                    {currentTheme.youtubeLink != "" ? (
                         <div>
                             <iframe
                                 className="w-full aspect-video"
@@ -87,8 +87,8 @@ function ThemeDetail() {
                             {abilityListByThemeId.map((ability) => {
                                 return (
                                     <div key={ability.id} className="flex">
-                                        <div className="w-fit">{ability.name}</div>
-                                        <div className="flex items-center justify-between w-2/3 mx-2">
+                                        <div className="text-xs items-center">{ability.name}</div>
+                                        <div className="flex items-center justify-between w-3/5 mx-2">
                                             {makeBooleanArray(ability.value).map((item, index) => {
                                                 if (item) {
                                                     return (
