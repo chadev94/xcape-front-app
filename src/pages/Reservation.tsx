@@ -68,10 +68,9 @@ function Reservation() {
                 setLoading(false);
             });
         }
-    }, [currentMerchant, date]);
+    }, [date]);
 
     const [reservationFormData, setReservationFormData] = useState<IFormData>();
-    const [selectTime, setSelectTime] = useState<String>("");
     const [openModal, setOpenModal] = useState<boolean>(false);
 
     const reservationConfirm = () => {
@@ -196,97 +195,107 @@ function Reservation() {
                         {loading ? (
                             <Loading />
                         ) : (
-                            data.sort((prev, next) => {
-                                return next.themeId! - prev.themeId!;
-                            }).map((theme) => {
-                                return (
-                                    <div key={theme.themeId} className="border border-zinc-500 p-2 mt-3 w-full">
-                                        <div className="flex justify-between py-2 text-zinc-100">
-                                            <div>
-                                                <div className="text-lg lg:text-lg font-bold">{theme.themeNameKo}</div>
-                                                <div className="text-xs">{theme.themeNameEn}</div>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-end">
-                                                    <div className="text-lg">난이도</div>
-                                                    {makeBooleanArray(theme.difficulty).map((star, index) => {
-                                                        if (star) {
+                            data
+                                .sort((prev, next) => {
+                                    return next.themeId! - prev.themeId!;
+                                })
+                                .map((theme) => {
+                                    return (
+                                        <div key={theme.themeId} className="border border-zinc-500 p-2 mt-3 w-full">
+                                            <div className="flex justify-between py-2 text-zinc-100">
+                                                <div>
+                                                    <div className="text-lg lg:text-lg font-bold">
+                                                        {theme.themeNameKo}
+                                                    </div>
+                                                    <div className="text-xs">{theme.themeNameEn}</div>
+                                                </div>
+                                                <div>
+                                                    <div className="flex items-end">
+                                                        <div className="text-lg">난이도</div>
+                                                        {makeBooleanArray(theme.difficulty).map((star, index) => {
+                                                            if (star) {
+                                                                return (
+                                                                    <Icon.Star
+                                                                        key={index}
+                                                                        style={{
+                                                                            color: theme.colorCode,
+                                                                        }}
+                                                                        className="h-8 w-8"
+                                                                    />
+                                                                );
+                                                            }
                                                             return (
                                                                 <Icon.Star
                                                                     key={index}
-                                                                    style={{
-                                                                        color: theme.colorCode,
-                                                                    }}
-                                                                    className="h-8 w-8"
+                                                                    className="text-zinc-600 h-8 w-8"
                                                                 />
                                                             );
-                                                        }
-                                                        return (
-                                                            <Icon.Star key={index} className="text-zinc-600 h-8 w-8" />
-                                                        );
-                                                    })}
-                                                </div>
-                                                <div className="float-right">
-                                                    인원 {theme.minParticipantCount}-{theme.maxParticipantCount}명
+                                                        })}
+                                                    </div>
+                                                    <div className="float-right">
+                                                        인원 {theme.minParticipantCount}-{theme.maxParticipantCount}명
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="w-full h-[300px]">
-                                            <img
-                                                className="w-full h-full object-contain"
-                                                src={theme.mainImagePath}
-                                                alt="mainImagePath"
-                                            />
-                                        </div>
-                                        <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 py-2">
-                                            {theme.reservationList.map((reservation) => {
-                                                return checkPossibleReservation(
-                                                    reservation.isReserved,
-                                                    reservation.roomType,
-                                                    reservation.participantCount,
-                                                    reservation.date,
-                                                    reservation.time,
-                                                    theme.maxParticipantCount
-                                                ) ? (
-                                                    <div
-                                                        key={reservation.id}
-                                                        style={{ backgroundColor: "#1B1B1B" }}
-                                                        className="text-center w-full p-2 cursor-pointer"
-                                                        onClick={() => {
-                                                            onTimeClicked(
-                                                                theme.themeId,
-                                                                theme.themeNameKo,
-                                                                reservation.isReserved,
-                                                                reservation.roomType,
-                                                                reservation.id,
-                                                                reservation.time.slice(0, 5),
-                                                                theme.minParticipantCount,
-                                                                theme.maxParticipantCount,
-                                                                theme.isCrimeScene,
-                                                                reservation.participantCount,
-                                                                theme.priceList
-                                                            );
-                                                        }}
-                                                    >
-                                                        <PossibleReservation theme={theme} reservation={reservation} />
-                                                    </div>
-                                                ) : (
-                                                    <div
-                                                        key={reservation.id}
-                                                        style={{ backgroundColor: "#1B1B1B" }}
-                                                        className="text-center w-full p-2 text-zinc-700"
-                                                    >
-                                                        <div className="text-2xl font-bold">
-                                                            {reservation.time.substring(0, 5)}
+                                            <div className="w-full h-[300px]">
+                                                <img
+                                                    className="w-full h-full object-contain"
+                                                    src={theme.mainImagePath}
+                                                    alt="mainImagePath"
+                                                />
+                                            </div>
+                                            <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 py-2">
+                                                {theme.reservationList.map((reservation) => {
+                                                    return checkPossibleReservation(
+                                                        reservation.isReserved,
+                                                        reservation.roomType,
+                                                        reservation.participantCount,
+                                                        reservation.date,
+                                                        reservation.time,
+                                                        theme.maxParticipantCount
+                                                    ) ? (
+                                                        <div
+                                                            key={reservation.id}
+                                                            style={{ backgroundColor: "#1B1B1B" }}
+                                                            className="text-center w-full p-2 cursor-pointer"
+                                                            onClick={() => {
+                                                                onTimeClicked(
+                                                                    theme.themeId,
+                                                                    theme.themeNameKo,
+                                                                    reservation.isReserved,
+                                                                    reservation.roomType,
+                                                                    reservation.id,
+                                                                    reservation.time.slice(0, 5),
+                                                                    theme.minParticipantCount,
+                                                                    theme.maxParticipantCount,
+                                                                    theme.isCrimeScene,
+                                                                    reservation.participantCount,
+                                                                    theme.priceList
+                                                                );
+                                                            }}
+                                                        >
+                                                            <PossibleReservation
+                                                                theme={theme}
+                                                                reservation={reservation}
+                                                            />
                                                         </div>
-                                                        <div className="text-lg">예약불가</div>
-                                                    </div>
-                                                );
-                                            })}
+                                                    ) : (
+                                                        <div
+                                                            key={reservation.id}
+                                                            style={{ backgroundColor: "#1B1B1B" }}
+                                                            className="text-center w-full p-2 text-zinc-700"
+                                                        >
+                                                            <div className="text-2xl font-bold">
+                                                                {reservation.time.substring(0, 5)}
+                                                            </div>
+                                                            <div className="text-lg">예약불가</div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })
+                                    );
+                                })
                         )}
                     </div>
                 ) : activeTabIndex === 1 ? (
@@ -319,7 +328,7 @@ function Reservation() {
                     </div>
                 ) : null}
                 {reservationFormData && (
-                    <AnimatePresence >
+                    <AnimatePresence>
                         {openModal && (
                             <ReservationModal
                                 reservationFormData={reservationFormData}
