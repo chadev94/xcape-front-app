@@ -6,7 +6,6 @@ import { IFormData } from "../pages/Reservation";
 import { formatPrice, formatTimeString, onlyNumber } from "../util/util";
 import { GENERAL, OPEN_ROOM, SUCCESS } from "../util/constant";
 import AuthenticationTimer from "./AuthenticationTimer";
-import Warning from "./Warning";
 
 interface IModalProps {
     reservationFormData: IFormData;
@@ -245,7 +244,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </button>
                     </div>
                 </header>
-                <Warning content={"전화번호 형식이 맞지 않습니다."} />
                 <form className="pt-6" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     <div className="flex mb-3">
                         <div className="w-1/3">
