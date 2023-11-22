@@ -39,9 +39,9 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
             <div style={{ backgroundColor: color }} className="my-2 grid grid-cols-2 p-1 whitespace-nowrap">
                 {findAbilitiesByThemeId(theme.id).map((ability) => {
                     return (
-                        <div key={ability.id} className="text-xs lg:text-base flex">
-                            <div className="info-text-bold">{ability.name}</div>
-                            <div className="ml-px flex items-center justify-between gap-x-px">
+                        <div key={ability.id} className="text-xs lg:text-base flex px-1">
+                            <div className="info-text-bold grow-0">{ability.name}</div>
+                            <div className="ml-px flex items-center justify-between gap-x-px grow">
                                 {makeBooleanArray(ability.value).map((item, index) => {
                                     if (item) {
                                         return <div key={index} className="h-2 w-2 bg-black rounded-full"></div>;

@@ -14,7 +14,9 @@ function Nav() {
     const setCurrentBannerList = useSetRecoilState<IBanner[]>(bannerList);
 
     const highlightActiveLink = (isActive: boolean) => {
-        return isActive ? "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-500 text-zinc-100" : "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-800 text-zinc-400";
+        return isActive
+            ? "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-500 text-zinc-100 info-text-bold"
+            : "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-800 text-zinc-400 info-text-bold";
     };
 
     const findMerchantByCode = (code: string): IMerchant => {
@@ -55,9 +57,7 @@ function Nav() {
                     );
                 })}
             <Link to={"http://xcapehd.co.kr/"} key={"hd"}>
-                <button className={highlightActiveLink(false)}>
-                    홍대점
-                </button>
+                <button className={highlightActiveLink(false)}>홍대점</button>
             </Link>
         </div>
     );
