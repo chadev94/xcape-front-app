@@ -24,7 +24,7 @@ function ThemeDetail() {
     }, [themeId]);
 
     return (
-        <div>
+        <div className="info-text">
             {currentTheme && (
                 <>
                     <img src={currentTheme.bgImagePath} alt="bgImagePath" className="w-full" />
@@ -43,21 +43,24 @@ function ThemeDetail() {
                     {/*<div className="flex flex-col items-center justify-center bg-no-repeat bg-cover p-10 w-full" style={{ backgroundImage: `url(${book})` }}>*/}
                     <div className="flex flex-col items-center drop-shadow-lg justify-center p-4 w-full bg-[url('./assets/images/bg_iron.png')]">
                         <div
-                            className="px-10 text-white drop-shadow-lg"
+                            className="px-10 text-white drop-shadow-lg info-text-regular"
                             style={{ backgroundColor: currentTheme.colorCode }}
                         >
                             {currentTheme.genre}
                         </div>
-                        <div className="text-5xl mt-5 drop-shadow-lg" style={{ color: currentTheme.colorCode }}>
+                        <div
+                            className="text-5xl mt-5 drop-shadow-lg info-text-bold"
+                            style={{ color: currentTheme.colorCode }}
+                        >
                             {currentTheme.nameKo}
                         </div>
-                        <div className="text-xl text-zinc-300 drop-shadow-lg">{currentTheme.nameEn}</div>
-                        <div className="w-full mt-8 py-5 text-center text-white whitespace-pre-wrap drop-shadow-md">
+                        <div className="text-xl text-zinc-300 drop-shadow-lg info-text-bold">{currentTheme.nameEn}</div>
+                        <div className="w-full mt-8 py-5 text-center text-white whitespace-pre-wrap drop-shadow-md info-text-regular">
                             {currentTheme.description}
                         </div>
                         <div className="w-full flex justify-between items-center">
                             <div className="flex justify-between items-center drop-shadow-md">
-                                <div className="text-xl" style={{ color: currentTheme.colorCode }}>
+                                <div className="text-xl info-text-bold" style={{ color: currentTheme.colorCode }}>
                                     난이도
                                 </div>
                                 {makeBooleanArray(currentTheme.difficulty).map((star, index) => {
@@ -73,9 +76,9 @@ function ThemeDetail() {
                                     return <Icon.Star key={index} className="text-zinc-400 h-8 w-8" />;
                                 })}
                             </div>
-                            <div className="text-white">
+                            <div className="text-white info-text-regular">
                                 인원{" "}
-                                <span>
+                                <span className="info-text-regular">
                                     {currentTheme.minParticipantCount}-{currentTheme.maxParticipantCount}
                                 </span>
                             </div>
@@ -87,7 +90,7 @@ function ThemeDetail() {
                             {abilityListByThemeId.map((ability) => {
                                 return (
                                     <div key={ability.id} className="flex">
-                                        <div className="text-xs items-center">{ability.name}</div>
+                                        <div className="text-sm items-center info-text-bold">{ability.name}</div>
                                         <div className="flex items-center justify-between w-3/5 mx-2">
                                             {makeBooleanArray(ability.value).map((item, index) => {
                                                 if (item) {
@@ -110,7 +113,7 @@ function ThemeDetail() {
                                 );
                             })}
                         </div>
-                        <div className="text-white p-4 border border-white mb-3 drop-shadow-lg">
+                        <div className="text-white p-4 border border-white mb-3 drop-shadow-lg info-text-regular">
                             POINT <span className="text-lg">|</span> {currentTheme.point}
                         </div>
                         <div
@@ -121,7 +124,7 @@ function ThemeDetail() {
                         >
                             <button
                                 type="button"
-                                className="w-full px-10 py-5 border border-zinc-600 rounded-md text-xl text-white font-xl hover:text-zinc-200 hover:border-zinc-400"
+                                className="w-full px-10 py-5 border border-zinc-600 rounded-md text-xl text-white font-xl hover:text-zinc-200 hover:border-zinc-400 info-text-bold"
                                 style={{ backgroundColor: currentTheme.colorCode }}
                             >
                                 실시간 예약하기
