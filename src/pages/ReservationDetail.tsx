@@ -9,6 +9,8 @@ import {
 import { convertReservationType, formatPrice, onlyNumber, validatePhoneNumber } from "../util/util";
 import { REGISTER } from "../util/constant";
 import AuthenticationTimer from "../components/AuthenticationTimer";
+import moment from "moment";
+import 'moment/locale/ko';
 
 interface IParams {
     reservationId: string;
@@ -115,7 +117,7 @@ function ReservationDetail() {
                         </div>
                         <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">날짜</div>
-                            <div>{reservationDetail.date}</div>
+                            <div>{moment(reservationDetail.date).format("YYYY년 MMM Do dddd")}</div>
                         </div>
                         <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">시간</div>
@@ -131,7 +133,7 @@ function ReservationDetail() {
                         </div>
                         <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">인원선택</div>
-                            <div>{reservationDetail.participantCount}</div>
+                            <div>{reservationDetail.participantCount} 명</div>
                         </div>
                         <div className="flex mb-3 text-base lg:text-lg">
                             <div className="w-1/3 text-right mr-8">가격</div>

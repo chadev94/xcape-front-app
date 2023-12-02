@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Contact from "./pages/Contact";
-import Event from "./components/Event";
+import Info from "./components/Info";
 import Reservation from "./pages/Reservation";
 import Review from "./pages/Review";
 import Xcape from "./pages/Xcape";
@@ -74,8 +74,8 @@ const router = createBrowserRouter([
                 element: <Review />,
             },
             {
-                path: "event",
-                element: <Event />,
+                path: "info",
+                element: <Info />,
             },
             {
                 path: "contact",

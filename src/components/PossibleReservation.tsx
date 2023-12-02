@@ -24,7 +24,7 @@ function PossibleReservation({ theme, reservation }: IProps) {
             ) : (
                 <div className="text-[#00EA6F]">
                     <div className="text-2xl font-bold">{reservation.time.substring(0, 5)}</div>
-                    <div className="text-lg">예약가능</div>
+                    <div className="text-md tracking-tight">예약가능</div>
                 </div>
             )}
         </>

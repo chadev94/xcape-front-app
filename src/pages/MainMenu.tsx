@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const mainMenuList = ["XCAPE", "ROOMS", "RESERVATION", "REVIEW", "EVENT", "CONTACT"];
+const mainMenuList = ["XCAPE", "ROOMS", "RESERVATION", "REVIEW", "INFO", "CONTACT"];
 
 function MainMenu() {
     return (

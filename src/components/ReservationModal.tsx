@@ -6,6 +6,8 @@ import { IFormData } from "../pages/Reservation";
 import { formatPrice, formatTimeString, onlyNumber } from "../util/util";
 import { GENERAL, OPEN_ROOM, SUCCESS } from "../util/constant";
 import AuthenticationTimer from "./AuthenticationTimer";
+import moment from "moment/moment";
+import 'moment/locale/ko';
 
 interface IModalProps {
     reservationFormData: IFormData;
@@ -250,7 +252,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <div className="text-base lg:text-lg">DATE</div>
                             <div className="text-xs lg:text-md">날짜</div>
                         </div>
-                        <input className="bg-inherit" defaultValue={reservationFormData?.curDate} disabled />
+                        <input className="bg-inherit hidden" defaultValue={reservationFormData?.curDate} disabled />
+                        <span className="mt-auto mb-auto">{moment(reservationFormData?.curDate).format("YYYY년 MMM Do dddd")}</span>
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
