@@ -206,14 +206,13 @@ function Reservation() {
                                             <div key={theme.themeId} className="border border-zinc-500 p-4 mt-3 w-full">
                                                 <div className="flex justify-between py-2 text-zinc-100">
                                                     <div>
-                                                        <div className="text-lg lg:text-lg font-bold tracking-tight">
+                                                        <div className="text-lg lg:text-lg font-bold tracking-tight w-max">
                                                             {theme.themeNameKo}
                                                         </div>
-                                                        <div className="text-xs tracking-tight">{theme.themeNameEn}</div>
+                                                        <div className="text-xs tracking-tight w-max">{theme.themeNameEn}</div>
                                                     </div>
                                                     <div>
                                                         <div className="flex items-end">
-                                                            <div className="text-lg tracking-tight">난이도</div>
                                                             {makeBooleanArray(theme.difficulty).map((star, index) => {
                                                                 if (star) {
                                                                     return (

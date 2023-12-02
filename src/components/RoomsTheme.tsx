@@ -59,7 +59,7 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                                     </div>
                                     <div className="ml-2 sm:ml-3 w-full flex flex-col justify-around">
                                         <div className="text-xl text-white whitespace-nowrap flex justify-between items-center">
-                                            <div className="py-1 sm:py-2">{theme.nameKo}</div>
+                                            <div className="py-1 sm:py-2 w-max">{theme.nameKo}</div>
                                             <div>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"

@@ -261,13 +261,14 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <div className="text-xs lg:text-md">시간</div>
                         </div>
                         <input
-                            className="bg-inherit"
+                            className="bg-inherit hidden"
                             defaultValue={reservationFormData?.realTime}
                             {...register("time", {
                                 required: "테마는 필수 입력 항목입니다.",
                                 disabled: true,
                             })}
                         />
+                        <span className="mt-auto mb-auto">{reservationFormData?.realTime}</span>
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/3">
@@ -275,13 +276,14 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             <div className="text-xs lg:text-md">테마</div>
                         </div>
                         <input
-                            className="bg-inherit"
+                            className="bg-inherit hidden"
                             defaultValue={reservationFormData?.themeNameKo}
                             {...register("themeName", {
                                 required: "테마는 필수 입력 항목입니다.",
                                 disabled: true,
                             })}
                         />
+                        <span className="mt-auto mb-auto">{reservationFormData?.themeNameKo}</span>
                     </div>
                     <div className="flex mb-3 text-md">
                         <div className="w-1/3">
@@ -345,8 +347,8 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <div className="p-2">{price}</div>
                     </div>
-                    <div className="flex justify-center mb-2">
-                        <input id="privacy" type="checkbox" {...register("privacy", { required: true })} />
+                    <div className="flex justify-center m-5 p-2 border rounded-md">
+                        <input className="w-4 h-4 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" id="privacy" type="checkbox" {...register("privacy", { required: true })} />
                         <label className="ml-1" htmlFor={"privacy"}>
                             개인정보 취급 방침에 동의함
                         </label>
@@ -469,7 +471,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                             </div>
                         </>
                     )}
-                    <div className="mb-3 text-2xl text-center font-bold">
+                    <div className="mb-3 pt-4 text-xl text-center font-bold border-t">
                         <div>NOTICE</div>
                         <div>유의사항</div>
                     </div>
