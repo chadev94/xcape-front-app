@@ -32,7 +32,7 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
             </div>
             <div
                 style={{ backgroundColor: color }}
-                className="text-black text-lg font-bold text-center py-1 info-text-bold"
+                className="text-black text-lg font-bold text-center py-1"
             >
                 {theme.genre}
             </div>
@@ -40,7 +40,7 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
                 {findAbilitiesByThemeId(theme.id).map((ability) => {
                     return (
                         <div key={ability.id} className="text-xs lg:text-base flex px-1">
-                            <div className="info-text-bold grow-0">{ability.name}</div>
+                            <div className="ml-1 grow-0">{ability.name}</div>
                             <div className="ml-px flex items-center justify-between gap-x-px grow">
                                 {makeBooleanArray(ability.value).map((item, index) => {
                                     if (item) {

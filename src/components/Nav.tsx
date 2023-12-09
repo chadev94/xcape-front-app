@@ -15,8 +15,8 @@ function Nav() {
 
     const highlightActiveLink = (isActive: boolean) => {
         return isActive
-            ? "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-500 text-zinc-100 info-text-bold"
-            : "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-800 text-zinc-400 info-text-bold";
+            ? "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-500 text-zinc-100"
+            : "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-800 text-zinc-400";
     };
 
     const findMerchantByCode = (code: string): IMerchant => {

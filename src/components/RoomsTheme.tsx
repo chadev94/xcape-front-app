@@ -103,7 +103,7 @@ function RoomsTheme({ themeList, merchantCode }: IProps) {
                                             {findAbilitiesByThemeId(theme.id).map((ability) => {
                                                 return (
                                                     <div key={ability.id} className="text-xs lg:text-base flex">
-                                                        <div className="info-text-bold">{ability.name}</div>
+                                                        <div className="ml-1">{ability.name}</div>
                                                         <div className="flex items-center justify-between w-2/3 sm:w-1/2 ml-1">
                                                             {makeBooleanArray(ability.value).map((item, index) => {
                                                                 if (item) {
