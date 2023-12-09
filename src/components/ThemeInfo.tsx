@@ -1,6 +1,7 @@
 import { formatNumber, makeBooleanArray } from "../util/util";
 import { Link } from "react-router-dom";
 import { IAbility, ITheme } from "../api";
+import React from "react";
 
 type ThemeProps = {
     theme: ITheme;
@@ -21,7 +22,13 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
                     {formatNumber(index + 1)}
                 </span>
                 <span style={{ color: color }} className="text-lg font-semibold text-white">
-                    {theme.nameKo}
+                    {theme.nameKo}&nbsp;
+                  <span
+                      style={{ backgroundColor: theme.colorCode }}
+                      className="px-2 py-1 text-sm whitespace-nowrap text-black text-lg"
+                  >
+                    {theme.runningTime}분
+                  </span>
                     <div className="text-zinc-400 text-sm whitespace-nowrap">{theme.nameEn}</div>
                 </span>
             </div>

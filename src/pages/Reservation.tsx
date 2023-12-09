@@ -207,7 +207,13 @@ function Reservation() {
                                                 <div className="flex justify-between py-2 text-zinc-100">
                                                     <div>
                                                         <div className="text-lg lg:text-lg font-bold tracking-tight w-max">
-                                                            {theme.themeNameKo}
+                                                            {theme.themeNameKo} &nbsp;
+                                                            <span
+                                                                style={{ backgroundColor: theme.colorCode }}
+                                                                className="px-2 py-1 text-sm whitespace-nowrap text-black text-lg"
+                                                            >
+                                                                {theme.runningTime}분
+                                                            </span>
                                                         </div>
                                                         <div className="text-xs tracking-tight w-max">{theme.themeNameEn}</div>
                                                     </div>

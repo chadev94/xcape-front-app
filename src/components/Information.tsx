@@ -37,7 +37,7 @@ function Information() {
                             {xfilerThemeList.sort((prev, next) => {
                               return next.id! - prev.id!;
                             }).map((theme, index) => {
-                                return <ThemeInfo key={theme.id} theme={theme} index={index} color="#ff7119" />;
+                                return <ThemeInfo key={theme.id} theme={theme} index={index} color={theme.colorCode} />;
                             })}
                         </div>
                     </div>

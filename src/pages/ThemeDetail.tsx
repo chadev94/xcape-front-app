@@ -77,7 +77,13 @@ function ThemeDetail() {
                                 })}
                             </div>
                             <div className="text-white">
-                                인원{" "}
+                                <span
+                                    style={{ backgroundColor: currentTheme.colorCode }}
+                                    className="px-2 py-1 text-sm whitespace-nowrap text-black text-lg"
+                                >
+                                    {currentTheme.runningTime}분
+                                </span>
+                                &nbsp;&nbsp;인원{" "}
                                 <span>
                                     {currentTheme.minParticipantCount}-{currentTheme.maxParticipantCount}
                                 </span>

@@ -32,6 +32,7 @@ export interface IReservationTheme {
     themeId: number;
     themeNameKo: string;
     themeNameEn: string;
+    runningTime: string;
     mainImagePath: string;
     minParticipantCount: number;
     maxParticipantCount: number;
@@ -67,6 +68,7 @@ export interface ITheme {
     merchantId: number;
     nameKo: string;
     nameEn: string;
+    runningTime: string;
     mainImagePath: string;
     bgImagePath: string;
     timetable: string;
