@@ -347,11 +347,23 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <div className="p-2">{price}</div>
                     </div>
-                    <div className="flex justify-center m-5 p-2 border rounded-md">
-                        <input className="w-4 h-4 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" id="privacy" type="checkbox" {...register("privacy", { required: true })} />
-                        <label className="ml-1" htmlFor={"privacy"}>
-                            개인정보 취급 방침에 동의함
-                        </label>
+                    <div className="block justify-center m-5 p-2 px-7 border rounded-md">
+                        <div>
+                            <input className="w-4 h-4 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" id="privacy" type="checkbox" {...register("privacy", { required: true })} />
+                            <label className="ml-1" htmlFor={"privacy"}>
+                                아래 내용에 모두 동의합니다.<span className="text-[#fff200] font-bold">(필수)</span>
+                            </label>
+                        </div>
+                        <div className="text-start my-3">
+                            <span className="block text-start text-xs text-[#fff200] font-semibold">* 필수 동의 사항입니다.</span>
+                        </div>
+                        <div className="block text-start">
+                            <span className="block mb-3 text-start text-xs">엑스케이프 <span className="font-semibold underline"><a href="https://bimmm.notion.site/bimmm/933f863af2c645b4bbdfdb19be043b08" target="_blank">이용약관</a></span> 동의 내용</span>
+                            <span className="block my-1 text-start text-xs">· 예약 후 24시간 전까지 취소 불가능하며, 게임룸 입장 후 환불이 불가하니 신중한 예약 부탁드립니다.</span>
+                            <span className="block my-1 text-start text-xs">· 예약이 완료되면 전체 팀원이 약관에 동의한 것으로 확정됩니다.</span>
+                            <span className="block my-1 text-start text-xs">· 게임 참여 후에는 약관내 지침 규정 정책을 따릅니다.</span>
+                            <span className="block my-1 text-start text-xs">· 개인정보는 안전하게 보호됩니다.</span>
+                        </div>
                     </div>
                     <div className="flex mb-3">
                         <div className="w-1/5 text-right mr-2 sm:mr-8">
