@@ -359,7 +359,6 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                         </div>
                         <div className="block text-start">
                             <span className="block mb-3 text-start text-xs">엑스케이프 <span className="font-semibold underline"><a href="https://bimmm.notion.site/bimmm/933f863af2c645b4bbdfdb19be043b08" target="_blank">이용약관</a></span> 동의 내용</span>
-                            <span className="block my-1 text-start text-xs">· 예약 후 24시간 전까지 취소 불가능하며, 게임룸 입장 후 환불이 불가하니 신중한 예약 부탁드립니다.</span>
                             <span className="block my-1 text-start text-xs">· 예약이 완료되면 전체 팀원이 약관에 동의한 것으로 확정됩니다.</span>
                             <span className="block my-1 text-start text-xs">· 게임 참여 후에는 약관내 지침 규정 정책을 따릅니다.</span>
                             <span className="block my-1 text-start text-xs">· 개인정보는 안전하게 보호됩니다.</span>
