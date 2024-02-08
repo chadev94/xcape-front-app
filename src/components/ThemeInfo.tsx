@@ -17,11 +17,11 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
     };
     return (
         <div className="w-50 mb-5">
-            <div>
+            <div className="whitespace-nowrap">
                 <span className="text-amber-500 text-2xl font-semibold mr-2 whitespace-nowrap">
                     {formatNumber(index + 1)}
                 </span>
-                <span style={{ color: color }} className="text-lg font-semibold text-white">
+                <span style={{ color: color }} className="text-lg font-semibold text-white whitespace-nowrap">
                     {theme.nameKo}&nbsp;
                   <span
                       style={{ backgroundColor: theme.colorCode }}
