@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-	font-family: SpoqaHanSansR, serif;
+	font-family: GothicA1-R, serif;
 }
 
 body {
@@ -17,23 +17,23 @@ body {
 }
 
 @font-face {
-	font-family: 'SpoqaHanSansB';
-	src: url('./fonts/Spoqa Han Sans Bold.ttf') format('woff2');
+	font-family: 'GothicA1-B';
+	src: url('./fonts/GothicA1-Bold.ttf') format('woff2');
 	font-weight: 700;
 	font-style: normal;
 }
 
 @font-face {
-	font-family: 'SpoqaHanSansR';
-	src: url('./fonts/Spoqa Han Sans Regular.ttf') format('woff2');
+	font-family: 'GothicA1-R';
+	src: url('./fonts/GothicA1-Regular.ttf') format('woff2');
 	font-weight: normal;
 	/*font-style: normal;*/
 }
 
 .info-text-bold {
-	font-family: SpoqaHanSansB, serif;
+	font-family: GothicA1-B, serif;
 }
 
 .info-text-regular {
-	font-family: SpoqaHanSansR, serif;
+	font-family: GothicA1-R, serif;
 }

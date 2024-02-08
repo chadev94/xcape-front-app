@@ -49,7 +49,7 @@ function ThemeDetail() {
                             {currentTheme.genre}
                         </div>
                         <div
-                            className="text-5xl mt-5 drop-shadow-lg info-text-regular"
+                            className="text-3xl mt-5 drop-shadow-lg info-text-regular"
                             style={{ color: currentTheme.colorCode }}
                         >
                             {currentTheme.nameKo}
