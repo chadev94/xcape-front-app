@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-	font-family: 'Noto Sans KR', sans-serif;
+	font-family: SpoqaHanSansR, serif;
 }
 
 body {
@@ -17,23 +17,23 @@ body {
 }
 
 @font-face {
-	font-family: 'HakgyoansimBareonbatangB';
-	src: url('./fonts/HakgyoansimBareonbatangB.ttf') format('woff2');
+	font-family: 'SpoqaHanSansB';
+	src: url('./fonts/Spoqa Han Sans Bold.ttf') format('woff2');
 	font-weight: 700;
 	font-style: normal;
 }
 
 @font-face {
-	font-family: 'HakgyoansimBareonbatangR';
-	src: url('./fonts/HakgyoansimBareonbatangR.ttf') format('woff2');
+	font-family: 'SpoqaHanSansR';
+	src: url('./fonts/Spoqa Han Sans Regular.ttf') format('woff2');
 	font-weight: normal;
 	/*font-style: normal;*/
 }
 
 .info-text-bold {
-	font-family: HakgyoansimBareonbatangB, serif;
+	font-family: SpoqaHanSansB, serif;
 }
 
 .info-text-regular {
-	font-family: HakgyoansimBareonbatangR, serif;
+	font-family: SpoqaHanSansR, serif;
 }

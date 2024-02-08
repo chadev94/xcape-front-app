@@ -49,12 +49,12 @@ function ThemeDetail() {
                             {currentTheme.genre}
                         </div>
                         <div
-                            className="text-5xl mt-5 drop-shadow-lg"
+                            className="text-5xl mt-5 drop-shadow-lg info-text-regular"
                             style={{ color: currentTheme.colorCode }}
                         >
                             {currentTheme.nameKo}
                         </div>
-                        <div className="text-xl text-zinc-300 drop-shadow-lg info-text-bold">{currentTheme.nameEn}</div>
+                        <div className="text-xl text-zinc-300 drop-shadow-lg info-text-regular">{currentTheme.nameEn}</div>
                         <div className="w-full mt-8 py-5 text-center text-white whitespace-pre-wrap drop-shadow-md info-text-regular">
                             {currentTheme.description}
                         </div>
