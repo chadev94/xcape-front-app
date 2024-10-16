@@ -40,7 +40,7 @@ function App() {
     }, []);
 
     return (
-        <div className="sm:w-[414px] mx-auto">
+        <div className="sm:w-[500px] mx-auto">
             <Nav />
             <Outlet />
         </div>

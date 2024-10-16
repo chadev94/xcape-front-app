@@ -47,7 +47,7 @@ function ThemeInfo({ theme, index, color }: ThemeProps) {
                     return (
                         <div key={ability.id} className="text-xs lg:text-base flex px-1">
                             <div className="ml-1 grow-0">{ability.name}</div>
-                            <div className="ml-px flex items-center justify-between gap-x-px grow">
+                            <div className="ml-px flex items-center justify-around gap-x-px grow">
                                 {makeAbilityBooleanArray(ability.value).map((item, index) => {
                                     if (item) {
                                         return <div key={index} className="h-2 w-2 bg-black rounded-full"></div>;
