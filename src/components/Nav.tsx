@@ -15,9 +15,7 @@ function Nav() {
     const setCurrentBannerList = useSetRecoilState<IBanner[]>(bannerList);
 
     const highlightActiveLink = (isActive: boolean) => {
-        return isActive
-            ? "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-500 text-zinc-100"
-            : "p-1 sm:p-2 text-lg border border-zinc-500 rounded-sm ml-2 bg-zinc-800 text-zinc-400";
+        return isActive ? "text-lg text-white border-b-2" : "text-lg text-[#ededef]/50";
     };
 
     const findMerchantByCode = (code: string): IMerchant => {
@@ -51,18 +49,23 @@ function Nav() {
     }, [merchantCode]);
 
     return (
-        <div className="inline-block text-center whitespace-nowrap py-6 border-b border-zinc-500 w-full overflow-x-auto">
+        <div className="text-center whitespace-nowrap px-2 py-6 w-full overflow-x-auto flex justify-between gap-4">
             {merchantListJson &&
                 merchantListJson
                     .filter((merchant) => merchant.useYn)
                     .sort((a, b) => a.order - b.order)
                     .map((merchant, index) => {
                         return (
-                            <Link to={"/" + merchant.code} key={merchant.id}>
-                                <button className={highlightActiveLink(merchantCode! === merchant.code)} key={index}>
-                                    {merchant.name}
-                                </button>
-                            </Link>
+                            <div>
+                                <Link to={"/" + merchant.code} key={merchant.id}>
+                                    <button
+                                        className={highlightActiveLink(merchantCode! === merchant.code)}
+                                        key={index}
+                                    >
+                                        {merchant.name}
+                                    </button>
+                                </Link>
+                            </div>
                         );
                     })}
         </div>

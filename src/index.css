@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 * {
-	font-family: GothicA1-R, serif;
+	font-family: Pretendard-Regular, serif;
 }
 
 body {
-	background-color: rgb(24 24 27);
+	background-color: rgb(0, 0, 0);
 }
 
 @keyframes moveX {
@@ -17,18 +17,25 @@ body {
 }
 
 @font-face {
-	font-family: 'GothicA1-B';
-	src: url('./fonts/GothicA1-Bold.ttf') format('woff2');
-	font-weight: 700;
+	font-family: 'Pretendard-Regular';
+	src: url('./fonts/pretendard/PretendardVariable.ttf') format('woff');
+	font-weight: 400;
 	font-style: normal;
 }
 
-@font-face {
-	font-family: 'GothicA1-R';
-	src: url('./fonts/GothicA1-Regular.ttf') format('woff2');
-	font-weight: normal;
-	/*font-style: normal;*/
-}
+/*@font-face {*/
+/*	font-family: 'GothicA1-B';*/
+/*	src: url('./fonts/GothicA1-Bold.ttf') format('woff2');*/
+/*	font-weight: 700;*/
+/*	font-style: normal;*/
+/*}*/
+
+/*@font-face {*/
+/*	font-family: 'GothicA1-R';*/
+/*	src: url('./fonts/GothicA1-Regular.ttf') format('woff2');*/
+/*	font-weight: normal;*/
+/*	!*font-style: normal;*!*/
+/*}*/
 
 .info-text-bold {
 	font-family: GothicA1-B, serif;
