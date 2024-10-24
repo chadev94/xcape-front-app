@@ -309,7 +309,7 @@ function ReservationModal({ reservationFormData, onOverlayFunction }: IModalProp
                                 <div className="text-xs lg:text-md">오픈룸</div>
                             </div>
                             <input
-                                className="bg-[#7C7C7C] p-2 w-1/2"
+                                className="bg-[#7C7C7C] p-2 w-6"
                                 type="checkbox"
                                 ref={(e) => {
                                     isOpenRoomRegisterRef(e);
