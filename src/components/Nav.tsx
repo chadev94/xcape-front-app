@@ -23,7 +23,9 @@ function Nav() {
     };
 
     const findThemesByMerchantId = (merchantId: number): ITheme[] => {
-        return themeListJson.filter((theme: ITheme) => theme.merchantId === merchantId && theme.useYn);
+        return themeListJson.filter(
+            (theme: ITheme) => theme.merchantId === merchantId && theme.useYn && theme.nameKo !== "test"
+        );
     };
 
     const findBannersByMerchantId = (merchantId: number): IBanner[] => {
