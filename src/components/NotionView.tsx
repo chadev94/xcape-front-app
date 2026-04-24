@@ -1,5 +1,7 @@
-import "react-notion/src/styles.css";
-import { NotionRenderer } from "react-notion";
+import "react-notion-x/src/styles.css";
+import "../styles/notion-override.css";
+import { NotionRenderer } from "react-notion-x";
+import {NotionAPI} from "notion-client";
 import React, { useState, useEffect } from "react";
 import Loading from "./Loading";
 
@@ -8,29 +10,41 @@ type NotionPageProps = {
 };
 
 function NotionView({ pageId }: NotionPageProps) {
-    const [response, setResponse] = useState({});
+    const [recordMap, setRecordMap] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
 
     const divStyle = {
         WebkitTextFillColor: "white",
     };
 
     useEffect(() => {
-        const NOTION_PAGE_ID = pageId;
+        if (!pageId) return;
         setLoading(true);
-        fetch(`https://notion-api.splitbee.io/v1/page/${NOTION_PAGE_ID}`)
-            .then((res) => res.json())
-            .then((resJson) => {
-                setResponse(resJson);
+        setError(false);
+        fetch(`${process.env.REACT_APP_NODE_SERVER_HOST}/notion-page/${pageId}`)
+            .then((res) => {
+                if (!res.ok) throw new Error("Failed to fetch");
+                return res.json();
+            })
+            .then((data) => {
+                setRecordMap(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error("Notion fetch error:", err);
+                setError(true);
                 setLoading(false);
             });
     }, [pageId]);
 
-    return loading ? (
-        <Loading />
-    ) : (
+    if (loading) return <Loading />;
+    if (error) return <div style={{ color: "white", padding: "20px" }}>페이지를 불러오지 못했습니다.</div>;
+    if (!recordMap) return null;
+
+    return (
         <div style={divStyle}>
-            <NotionRenderer blockMap={response} fullPage={true} hideHeader={true} />
+            <NotionRenderer recordMap={recordMap} fullPage={true} darkMode={true} />
         </div>
     );
 }
