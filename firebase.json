@@ -1,10 +1,19 @@
 {
+  "functions": {
+    "source": "functions"
+  },
   "hosting": {
     "public": "build",
-    "rewrites": [ {
-      "source": "**",
-      "destination": "/index.html"
-    }],
+    "rewrites": [
+      {
+        "source": "/notion-page/**",
+        "function": "notionProxy"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
